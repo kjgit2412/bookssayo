@@ -34,7 +34,10 @@ public class CommonInterceptor implements HandlerInterceptor {
 
         // 1. 로그인 실패시 세션에 남아 있는 데이터 삭제
         if (URI.indexOf("/member/login") == -1) { // 로그인이 아닌 경로로 접속한 경우 불필요 데이터 삭제
-
+            session.removeAttribute("userId");
+            session.removeAttribute("requiredUserId");
+            session.removeAttribute("requiredUserPw");
+            session.removeAttribute("globalError");
         }
 
         // 2. 현재 접속한 장비 체크 하여 템플릿 분리 설정

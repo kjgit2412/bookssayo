@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{front/layouts/main}">
+<main layout:fragment="content">
+    <h1 th:text="${pageTitle}"></h1>
+    <form name="frmSave" id="frmSave" method="POST" th:action="@{/member/join}" autocomplete="off">
+        <th:block th:replace="~{front/member/_form::form}"></th:block>
+        <div class="btns">
+            <button type="reset" th:text="#{btn.reset}"></button>
+            <button type="submit" th:text="#{btn.join}"></button>
+        </div>
+    </form>
+</main>
+</html>

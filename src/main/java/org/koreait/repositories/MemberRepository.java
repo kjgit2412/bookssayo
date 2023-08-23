@@ -1,6 +1,7 @@
 package org.koreait.repositories;
 
 import org.koreait.entities.Member;
+import org.koreait.entities.QMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
@@ -8,6 +9,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, QuerydslP
     Member findByUserId(String userId);
 
     default boolean exists(String userId) {
-        return false;
+        QMember member = QMember.member;
+        return exists(member.userId.eq(userId));
     }
 }

@@ -34,9 +34,9 @@ public class MemberUtil {
 
     public MemberInfo getMember() {
 
-        MemberInfo detailMember = (MemberInfo)session.getAttribute("memberInfo");
+        MemberInfo memberInfo = (MemberInfo)session.getAttribute("memberInfo");
 
-        return detailMember;
+        return memberInfo;
     }
 
     public Member getEntity() {

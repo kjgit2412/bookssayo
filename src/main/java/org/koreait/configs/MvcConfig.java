@@ -19,6 +19,9 @@ public class MvcConfig implements WebMvcConfigurer {
     @Value("${file.upload.path}")
     private String fileUploadPath;
 
+    @Value("${file.upload.url}")
+    private String fileUploadUrl;
+
     @Autowired
     private CommonInterceptor commonInterceptor; // 공통 인터셉터
 

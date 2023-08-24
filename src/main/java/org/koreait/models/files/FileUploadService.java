@@ -1,6 +1,7 @@
 package org.koreait.models.files;
 
 import lombok.RequiredArgsConstructor;
+import net.coobird.thumbnailator.Thumbnails;
 import org.koreait.entities.FileInfo;
 import org.koreait.repositories.FileInfoRepository;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,18 @@ public class FileUploadService {
 
             /** 파일 업로드 처리 S */
             try {
-                file.transferTo(new File(item.getFilePath()));
+                File _file = new File(item.getFilePath());
+                file.transferTo(_file);
 
+                if (fileType.indexOf("image") != -1) { // 이미지 형식 파일
+
+                    Thumbnails.of(_file)
+                            .size(150, 150)
+                            .toFile(_thumb);
+
+                }
+
+                uploadedFiles.add(item);
 
             } catch (IOException e) {
                e.printStackTrace();

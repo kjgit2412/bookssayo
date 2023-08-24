@@ -122,12 +122,24 @@ public class FileInfoService {
     }
 
     private String getUploadThumbPath( ){
+
         return uploadPath + "thumbs/";
     }
 
     private String getUploadThumbUrl() {
+
         return uploadUrl + "thumbs/";
     }
+
+    private String getThumbUrl(long id, String extension, int width, int height) {
+        long folder = id % 10L;
+        String fileName = extension == null || extension.isBlank() ? "" + id : id + "." + extension;
+
+        String url = String.format(getUploadThumbUrl() + folder + "/%d_%d_%s", width, height, fileName);
+
+        return url;
+    }
+
 
     @Data @Builder
     static class Options {

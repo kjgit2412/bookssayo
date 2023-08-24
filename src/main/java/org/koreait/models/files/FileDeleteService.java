@@ -50,6 +50,5 @@ public class FileDeleteService {
 
         repository.delete(item);
         repository.flush();
-
     }
 }

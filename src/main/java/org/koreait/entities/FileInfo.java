@@ -1,0 +1,35 @@
+package org.koreait.entities;
+
+import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
+@Entity
+@Data
+@Builder
+@AllArgsConstructor @NoArgsConstructor
+public class FileInfo extends BaseMemberEntity {
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Column(length=45, nullable = false)
+    private String gid = UUID.randomUUID().toString();
+    @Column(length=45)
+    private String location;
+
+    @Column(length=100, nullable = false)
+    private String fileName;
+
+    @Column(length=45)
+    private String extension;
+
+    @Column(length=65)
+    private String fileType;
+
+    private boolean done; // 작업 완료 여부
+}

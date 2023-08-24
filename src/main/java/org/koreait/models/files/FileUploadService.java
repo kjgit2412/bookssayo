@@ -20,6 +20,10 @@ public class FileUploadService {
     private final FileInfoRepository repository;
     private final FileInfoService infoService;
 
+    // 썸네일 생성 사이즈
+    private int width = 150;
+    private int height = 150;
+
     public List<FileInfo> upload(MultipartFile[] files, String gid, String location) {
         gid = gid == null || gid.isBlank() ? UUID.randomUUID().toString() : gid;
 
@@ -48,13 +52,20 @@ public class FileUploadService {
                 File _file = new File(item.getFilePath());
                 file.transferTo(_file);
 
+                /** 썸네일 생성 처리 S */
                 if (fileType.indexOf("image") != -1) { // 이미지 형식 파일
+                    String thumbPath = infoService.getThumbPath(item.getId(), item.getExtension(), width, height);
+                    String thumbUrl = infoService.getThumbUrl(item.getId(), item.getExtension(), width, height);
 
+                    item.setThumbsPath(new String[] { thumbPath });
+                    item.setThumbsUrl(new String[] { thumbUrl });
+
+                    File _thumb = new File(thumbPath);
                     Thumbnails.of(_file)
-                            .size(150, 150)
+                            .size(width, height)
                             .toFile(_thumb);
-
                 }
+                /** 썸네일 생성 처리 E */
 
                 uploadedFiles.add(item);
 

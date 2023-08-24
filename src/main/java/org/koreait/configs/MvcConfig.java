@@ -28,7 +28,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /** 파일 업로드 정적 경로 설정 */
-        registry.addResourceHandler("/uploads/**")
+        registry.addResourceHandler(fileUploadUrl + "**")
                 .addResourceLocations("file:///" + fileUploadPath);
     }
 

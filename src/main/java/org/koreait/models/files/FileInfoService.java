@@ -44,7 +44,37 @@ public class FileInfoService {
 
     public List<FileInfo> getList(Options opts) {
 
-        return null;
+        List<FileInfo> items = repository.getFiles(opts.getGid(), opts.getLocation(), opts.getMode().name());
+
+        items.stream().forEach(this::addFileInfo);
+
+        return items;
+    }
+
+    public List<FileInfo> getListAll(String gid, String location) {
+        Options opts = Options.builder()
+                            .gid(gid)
+                            .location(location)
+                            .mode(SearchMode.ALL)
+                            .build();
+        return getList(opts);
+    }
+
+    public List<FileInfo> getListAll(String gid) {
+        return getListAll(gid, null);
+    }
+
+    public List<FileInfo> getListDone(String gid, String location) {
+        Options opts = Options.builder()
+                .gid(gid)
+                .location(location)
+                .mode(SearchMode.DONE)
+                .build();
+        return getList(opts);
+    }
+
+    public List<FileInfo> getListDone(String gid) {
+        return getListDone(gid, null);
     }
 
     /**

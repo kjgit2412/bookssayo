@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -44,8 +43,8 @@ public class FileInfo extends BaseMemberEntity {
     private String fileUrl; // 서버 접속 URL
 
     @Transient
-    private List<String> thumbsPath; // 썸네일 이미지 경로
+    private String[] thumbsPath; // 썸네일 이미지 경로
 
     @Transient
-    private List<String> thumbsUrl; // 썸네일 이미지 접속 URL
+    private String[] thumbsUrl; // 썸네일 이미지 접속 URL
 }

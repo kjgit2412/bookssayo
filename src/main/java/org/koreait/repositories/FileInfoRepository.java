@@ -38,4 +38,47 @@ public interface FileInfoRepository extends JpaRepository<FileInfo, Long>, Query
         return items;
     }
 
+    /**
+     * 완료, 미완료 파일 모두 조회
+     *
+     * @param gid
+     * @param location
+     * @return
+     */
+    default List<FileInfo> getFiles(String gid, String location) {
+        return getFiles(gid, location, "all");
+    }
+
+    default List<FileInfo> getFiles(String gid) {
+        return getFiles(gid, null);
+    }
+
+    /**
+     * 업로드 완료된 파일
+     *
+     * @param gid
+     * @param location
+     * @return
+     */
+    default List<FileInfo> getFilesDone(String gid, String location) {
+        return getFiles(gid, location, "done");
+    }
+
+    default List<FileInfo> getFilesDone(String gid) {
+        return getFilesDone(gid, null);
+    }
+
+    /**
+     * 작업 완료 처리
+     *
+     * @param gid
+     */
+    default void processDone(String gid) {
+        List<FileInfo> items = getFiles(gid);
+        items.stream().forEach(item -> {
+            item.setDone(true);
+        });
+
+        flush();
+    }
 }

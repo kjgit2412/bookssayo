@@ -19,13 +19,16 @@ public class MvcConfig implements WebMvcConfigurer {
     @Value("${file.upload.path}")
     private String fileUploadPath;
 
+    @Value("${file.upload.url}")
+    private String fileUploadUrl;
+
     @Autowired
     private CommonInterceptor commonInterceptor; // 공통 인터셉터
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /** 파일 업로드 정적 경로 설정 */
-        registry.addResourceHandler("/uploads/**")
+        registry.addResourceHandler(fileUploadUrl + "**")
                 .addResourceLocations("file:///" + fileUploadPath);
     }
 

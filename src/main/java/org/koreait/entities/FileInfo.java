@@ -13,6 +13,10 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor @NoArgsConstructor
+@Table(indexes={
+        @Index(name="idx_fileinfo_gid", columnList = "gid"),
+        @Index(name="idx_fileinfo_gid_location", columnList = "gid,location")
+})
 public class FileInfo extends BaseMemberEntity {
     @Id
     @GeneratedValue
@@ -32,4 +36,10 @@ public class FileInfo extends BaseMemberEntity {
     private String fileType;
 
     private boolean done; // 작업 완료 여부
+
+    @Transient
+    private String filePath; // 실 서버 업로드 경로
+
+    @Transient
+    private String fileUrl; // 서버 접속 URL
 }

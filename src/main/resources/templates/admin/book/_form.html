@@ -6,16 +6,25 @@
             <dt>도서 이미지(상세)</dt>
             <dd>
                 <div class="uploaded_images" id="book_main_images"></div>
-                <button type="button" class="sbtn upload_files" data-location="book_main" data-image-only="true">이미지 추가</button>
+                <button type="button" class="sbtn upload_files" data-location="main" data-image-only="true">이미지 추가</button>
             </dd>
         </dl>
         <dl>
             <dt>도서 이미지(목록)</dt>
             <dd>
                 <div class="uploaded_images" id="book_list_images"></div>
-                <button type="button" class="sbtn upload_files" data-location="book_list" data-image-only="true">이미지 추가</button>
+                <button type="button" class="sbtn upload_files" data-location="list" data-image-only="true">이미지 추가</button>
             </dd>
          </dl>
+        <dl>
+            <dt>상세설명</dt>
+            <dd>
+                <textarea name="description" id="description" th:field="*{description}"></textarea>
+                <button type="button" class="sbtn upload_files" data-location="editor" data-image-only="true">이미지 추가</button>
+                <div class="uploaded_images" id="book_editor_images"></div>
+            </dd>
+        </dl>
         <script th:replace="~{common/_file_tpl::tpl_image1}"></script>
+        <script th:replace="~{common/_file_tpl::tpl_editor}"></script>
     </th:block>
 </html>

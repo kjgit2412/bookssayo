@@ -3,7 +3,6 @@ package org.koreait.restcontrollers.files;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.rests.JSONData;
 import org.koreait.entities.FileInfo;
-import org.koreait.models.files.FileDeleteService;
 import org.koreait.models.files.FileDownloadService;
 import org.koreait.models.files.FileUploadService;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@RestController
+@RestController("restFileController")
 @RequestMapping("/file")
 @RequiredArgsConstructor
 public class FileController {
 
     private final FileUploadService uploadService;
     private final FileDownloadService downloadService;
-    private final FileDeleteService deleteService;
+    //private final FileDeleteService deleteService;
 
     /**
      * 파일 업로드 처리
@@ -47,6 +46,7 @@ public class FileController {
         downloadService.download(id);
     }
 
+    /**
     @RequestMapping("/delete/{id}")
     public ResponseEntity<JSONData<Long>> delete(Long id) {
         deleteService.delete(id);
@@ -57,4 +57,5 @@ public class FileController {
 
         return ResponseEntity.ok(data);
     }
+    */
 }

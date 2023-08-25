@@ -1,7 +1,9 @@
 package org.koreait.controllers.admin;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.koreait.commons.CommonProcess;
+import org.koreait.models.books.BookSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -12,9 +14,11 @@ import java.util.List;
 
 @Controller("adminBookController")
 @RequestMapping("/admin/book")
+@RequiredArgsConstructor
 public class BookController implements CommonProcess {
 
     private String tplCommon = "admin/book/";
+    private final BookSaveService saveService;
 
     /**
      * 상품 목록(도서 목록)
@@ -44,9 +48,11 @@ public class BookController implements CommonProcess {
         commonProcess(model, "save");
 
         String mode = bookForm.getMode();
-        if (errors.hasErrors()) {
-            return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "add";
-        }
+        //if (errors.hasErrors()) {
+        //    return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "add";
+        //}
+        System.out.println("테스트 : " + bookForm);
+        saveService.save(bookForm);
 
         return "redirect:/admin/book";
     }

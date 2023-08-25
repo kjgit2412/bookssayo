@@ -59,6 +59,7 @@ window.addEventListener("DOMContentLoaded", function() {
     if (fileEl) {
         for (const el of uploadFiles) {
             el.addEventListener("click", function() {
+                fileEl.value = "";
                 fileEl.click();
                 const dataset = this.dataset;
                 fileEl.location = dataset.location;

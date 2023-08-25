@@ -15,6 +15,12 @@
             </a>
         </li>
         <li>
+            <a th:href="@{/admin/book}" th:classappend="${menuCode} == 'book' ? 'on'">
+                <i class="xi-view-list"></i>
+                상품관리
+            </a>
+        </li>
+        <li>
             <a th:href="@{/admin/order}" th:classappend="${menuCode} == 'order' ? 'on'">
                 <i class="xi-view-list"></i>
                 주문 관리

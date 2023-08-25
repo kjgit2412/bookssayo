@@ -36,10 +36,12 @@ commonLib.fileManager = {
           if (location.trim()) formData.append("location", location.trim());
 
           ajaxLoad("POST", "/file/upload", formData, 'json')
-            .then((data) => {
-                console.log(data);
+            .then((res) => {
+                if (typeof fileUploadCallback == 'function') {
+                    fileUploadCallback(res.data);
+                }
             })
-            .error((err) => {
+            .catch((err) => {
                 console.error(err);
             });
 

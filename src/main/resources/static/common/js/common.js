@@ -8,14 +8,17 @@ var commonLib = commonLib || {};
 * @param responseType : json - 응답 결과를 json 변환, 아닌 경우는 문자열로 반환
 */
 commonLib.ajaxLoad = function(method, url, params, responseType) {
-    method = !method || !method.trim()? "GET" : method.toUppercase();
-
+    method = !method || !method.trim()? "GET" : method.toUpperCase();
+    const token = document.querySelector("meta[name='_csrf']").content;
+    const header = document.querySelector("meta[name='_csrf_header']").content;
 
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open(method, url);
+        xhr.setRequestHeader(header, token);
+
         xhr.send(params);
-        responseType = responseType?responseType.toLowercase():undefined;
+        responseType = responseType?responseType.toLowerCase():undefined;
         if (responseType == 'json') {
             xhr.responseType=responseType;
         }

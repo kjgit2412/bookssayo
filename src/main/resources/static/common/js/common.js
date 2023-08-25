@@ -7,7 +7,7 @@ var commonLib = commonLib || {};
 * @param url : 요청 URL
 * @param responseType : json - 응답 결과를 json 변환, 아닌 경우는 문자열로 반환
 */
-commonLib.ajaxLoad(method, url, params, responseType) {
+commonLib.ajaxLoad = function(method, url, params, responseType) {
     method = !method || !method.trim()? "GET" : method.toUppercase();
 
 

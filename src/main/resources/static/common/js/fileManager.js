@@ -5,6 +5,8 @@ commonLib.fileManager = {
     *
     */
     upload(files, location, imageOnly) {
+       const { ajaxLoad } = commonLib;
+
        try {
            if (!files || files.length == 0) {
                 throw new Error("업로드할 파일을 선택하세요.");
@@ -33,6 +35,13 @@ commonLib.fileManager = {
           formData.append("imageOnly", imageOnly?true:false);
           if (location.trim()) formData.append("location", location.trim());
 
+          ajaxLoad("POST", "/file/upload", formData, 'json')
+            .then((data) => {
+                console.log(data);
+            })
+            .error((err) => {
+                console.error(err);
+            });
 
 
        } catch (err) {

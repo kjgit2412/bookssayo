@@ -30,7 +30,7 @@ public class Book extends BaseMemberEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(length=25, nullable = false)
-    private BookStatus status;
+    private BookStatus status = BookStatus.READY;
 
     @Lob
     private String description;

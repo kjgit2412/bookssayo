@@ -10,13 +10,13 @@
             <tr>
                 <th>판매상태</th>
                 <td>
-                    <input type="radio" name="status" value="READY" id="status_ready">
+                    <input type="radio" name="status" value="READY" id="status_ready" th:field="*{status}">
                     <label for="status_ready">상품준비중</label>
-                    <input type="radio" name="status" value="SALE" id="status_sale">
+                    <input type="radio" name="status" value="SALE" id="status_sale" th:field="*{status}">
                     <label for="status_sale">판매중</label>
-                    <input type="radio" name="status" value="OUT_OF_STOCK" id="status_out_of_stock">
+                    <input type="radio" name="status" value="OUT_OF_STOCK" id="status_out_of_stock" th:field="*{status}">
                     <label for="status_out_of_stock">품절</label>
-                    <input type="radio" name="status" value="stop" id="status_stop">
+                    <input type="radio" name="status" value="stop" id="status_stop" th:field="*{status}">
                     <label for="status_stop">판매중지</label>
                 </td>
             </tr>
@@ -51,14 +51,28 @@
             <tr>
                 <th>도서 이미지(상세)</th>
                 <td>
-                    <div class="uploaded_images" id="book_main_images"></div>
+                    <div class="uploaded_images" id="book_main_images">
+                        <div th:if="*{mainImages != null}" th:each="file : *{mainImages}" th:object="${file}" class="file_images" th:id="*{'file_' + id}">
+                            <a th:href="@{/file/delete/{id}(id=*{id})}" onclick="return confirm('정말 삭제하시겠습니까?');" target="ifrmProcess" class="remove">
+                                <i class="xi-close-min"></i>
+                            </a>
+                            <div class="bg view_image" th:data-id="*{id}" th:style="*{'background:url(' + thumbsUrl[0] + ') no-repeat center center; background-size:cover;'}"></div>
+                        </div>
+                    </div>
                     <button type="button" class="sbtn upload_files" data-location="main" data-image-only="true">이미지 추가</button>
                 </td>
             </tr>
             <tr>
                 <th>도서 이미지(목록)</th>
                 <td>
-                    <div class="uploaded_images" id="book_list_images"></div>
+                    <div class="uploaded_images" id="book_list_images">
+                        <div th:if="*{listImages != null}" th:each="file : *{listImages}" th:object="${file}" class="file_images" th:id="*{'file_' + id}">
+                            <a th:href="@{/file/delete/{id}(id=*{id})}" onclick="return confirm('정말 삭제하시겠습니까?');" target="ifrmProcess" class="remove">
+                                <i class="xi-close-min"></i>
+                            </a>
+                            <div class="bg view_image" th:data-id="*{id}" th:style="*{'background:url(' + thumbsUrl[0] + ') no-repeat center center; background-size:cover;'}"></div>
+                        </div>
+                    </div>
                     <button type="button" class="sbtn upload_files" data-location="list" data-image-only="true">이미지 추가</button>
                 </td>
              </tr>
@@ -69,7 +83,15 @@
                     <textarea name="description" id="description" th:field="*{description}"></textarea>
                     <div class="errors" th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
                     <button type="button" class="sbtn upload_files mt10" data-location="editor" data-image-only="true">이미지 추가</button>
-                    <div class="uploaded_images" id="book_editor_images"></div>
+                    <div class="uploaded_images" id="book_editor_images">
+                        <span th:if="*{listImages != null}" th:each="file : *{listImages}" th:object="${file}" class="file_items" th:id="*{'file_' + id}">
+                            <a th:href="@{/file/download/{id}(id=*{id})}" th:text="*{fileName}"></a>
+                            <i class="xi-arrow-top insert_editor" th:data-url="*{fileUrl}"></i>
+                            <a th:href="@{/file/delete/{id}(id=*{id})}" onclick="return confirm('정말 삭제하시겠습니까?');" target="ifrmProcess" class="remove">
+                                <i class="xi-close-min"></i>
+                            </a>
+                        </span>
+                    </div>
                 </td>
             </tr>
         </table>

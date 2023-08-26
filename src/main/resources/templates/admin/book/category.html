@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+<section layout:fragment="content">
+    <h1 th:text="${pageTitle}"></h1>
+    <form id="frmSave" name="frmSave" method="POST" th:action="@{/admin/book/category}" target="ifrmProcess" autocomplete="off">
+        <table class="table-cols">
+            <tr>
+                <th>분류코드</th>
+                <td width="300">
+                    <input type="text" name="cateCd">
+                </td>
+                <th>분류명</th>
+                <td width="300">
+                    <input type="text" name="cateNm">
+                </td>
+                <th>사용여부</th>
+                <td>
+                    <input type="radio" name="use" value="true" id="use_true">
+                    <label for="use_true">사용</label>
+                    <input type="radio" name="use" value="false" id="use_false" checked>
+                    <label for="use_false">미사용</label>
+                </td>
+            </tr>
+        </table>
+        <div class="submit_btn">
+            <button type="submit">등록하기</button>
+        </div>
+    </form>
+</section>
+</html>

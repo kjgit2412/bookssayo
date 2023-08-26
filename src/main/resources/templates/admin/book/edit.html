@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
-    <h1>도서정보 수정</h1>
+    <h1 th:text="${pageTitle}"></h1>
         <form name="frmSave" id="frmSave" method="POST" th:action="@{/admin/book/save}" autocomplete="off" th:object="${bookForm}">
             <input type="hidden" name="mode" value="edit">
             <input type="hidden" name="bookNo" th:field="*{bookNo}">

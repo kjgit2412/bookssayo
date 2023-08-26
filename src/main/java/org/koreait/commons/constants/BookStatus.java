@@ -1,6 +1,8 @@
 package org.koreait.commons.constants;
 
 public enum BookStatus {
-    SALE,
-    OUT_OF_STOCK
+    READY, // 상품준비중
+    SALE, // 판매중
+    OUT_OF_STOCK, // 품절
+    STOP // 판매중지
 }

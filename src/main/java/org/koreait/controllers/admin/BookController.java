@@ -1,8 +1,13 @@
 package org.koreait.controllers.admin;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.CommonProcess;
+import org.koreait.commons.Menu;
+import org.koreait.commons.MenuDetail;
+import org.koreait.entities.Book;
+import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +24,9 @@ public class BookController implements CommonProcess {
 
     private String tplCommon = "admin/book/";
     private final BookSaveService saveService;
+    private final BookInfoService infoService;
+
+    private final HttpServletRequest request;
 
     /**
      * 상품 목록(도서 목록)
@@ -40,6 +48,9 @@ public class BookController implements CommonProcess {
     @GetMapping("/edit/{bookNo}")
     public String edit(@PathVariable Long bookNo, Model model) {
         commonProcess(model, "edit");
+        BookForm bookForm = infoService.getBookForm(bookNo);
+        model.addAttribute("bookForm", bookForm);
+
         return tplCommon + "edit";
     }
 
@@ -81,5 +92,13 @@ public class BookController implements CommonProcess {
         model.addAttribute("menuCode", "book");
         model.addAttribute("addCommonScript", addCommonScript);
         model.addAttribute("addScript", addScript);
+
+        // 서브 메뉴 처리
+        String subMenuCode = Menu.getSubMenuCode(request);
+        model.addAttribute("subMenuCode", subMenuCode);
+
+        // 서브 메뉴 조회
+        List<MenuDetail> submenus = Menu.gets("book");
+        model.addAttribute("submenus", submenus);
     }
 }

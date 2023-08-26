@@ -11,10 +11,10 @@ commonLib.ajaxLoad = function(method, url, params, responseType) {
     method = !method || !method.trim()? "GET" : method.toUpperCase();
     const token = document.querySelector("meta[name='_csrf']").content;
     const header = document.querySelector("meta[name='_csrf_header']").content;
-
+    const ctxPath = document.querySelector("meta[name='_ctx_path']").content;
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open(method, url);
+        xhr.open(method, ctxPath + url);
         xhr.setRequestHeader(header, token);
 
         xhr.send(params);

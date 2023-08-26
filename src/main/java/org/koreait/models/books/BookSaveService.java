@@ -1,6 +1,7 @@
 package org.koreait.models.books;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.constants.BookStatus;
 import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Book;
 import org.koreait.repositories.BookRepository;
@@ -21,9 +22,19 @@ public class BookSaveService {
         if (bookNo != null) {
             book = bookRepository.findById(bookNo).orElseThrow(BookNotFoundException::new);
         } else {
-            book = new ModelMapper().map(form, Book.class);
+            book = new Book();
+            book.setGid(gid); // 그룹 ID는 처음 추가할때만 저장, 그 이후는 변경 불가
         }
 
+        book.setCategory(form.getCategory());
+        book.setBookNm(form.getBookNm());
+        book.setPrice(form.getPrice());
+        book.setStock(form.getStock());
+        book.setDescription(form.getDescription());
+        book.setStatus(BookStatus.valueOf(form.getStatus()));
+        System.out.println(book);
+        bookRepository.saveAndFlush(book);
+        form.setBookNo(book.getBookNo());
 
         /** 파일 업로드 완료 처리 */
         fileInfoRepository.processDone(gid);

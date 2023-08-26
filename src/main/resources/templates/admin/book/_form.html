@@ -2,28 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="form" th:object="${bookForm}">
         <input type="file" id="file" class="dn" multiple>
-        <dl>
-            <dt>도서 이미지(상세)</dt>
-            <dd>
-                <div class="uploaded_images" id="book_main_images"></div>
-                <button type="button" class="sbtn upload_files" data-location="main" data-image-only="true">이미지 추가</button>
-            </dd>
-        </dl>
-        <dl>
-            <dt>도서 이미지(목록)</dt>
-            <dd>
-                <div class="uploaded_images" id="book_list_images"></div>
-                <button type="button" class="sbtn upload_files" data-location="list" data-image-only="true">이미지 추가</button>
-            </dd>
-         </dl>
-        <dl>
-            <dt>상세설명</dt>
-            <dd>
-                <textarea name="description" id="description" th:field="*{description}"></textarea>
-                <button type="button" class="sbtn upload_files" data-location="editor" data-image-only="true">이미지 추가</button>
-                <div class="uploaded_images" id="book_editor_images"></div>
-            </dd>
-        </dl>
+        <table class="table-cols">
+            <tr>
+                <th>도서분류</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>판매상태</th>
+                <td>
+                    <input type="radio" name="status" value="READY" id="status_ready">
+                    <label for="status_ready">상품준비중</label>
+                    <input type="radio" name="status" value="SALE" id="status_sale">
+                    <label for="status_sale">판매중</label>
+                    <input type="radio" name="status" value="OUT_OF_STOCK" id="status_out_of_stock">
+                    <label for="status_out_of_stock">품절</label>
+                    <input type="radio" name="status" value="stop" id="status_stop">
+                    <label for="status_stop">판매중지</label>
+                </td>
+            </tr>
+            <tr>
+                <th>도서명</th>
+                <td>
+                    <input type="text" name="bookNm" th:field="*{bookNm}">
+                    <div class="errors" th:each="err : ${#fields.errors('bookNm')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>판매가격</th>
+                <td>
+                    <input type="number" name="price" th:field="*{price}">
+                    <div class="errors" th:each="err : ${#fields.errors('price')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>재고</th>
+                <td>
+                    <input type="number" name="stock" th:field="*{stock}">
+                    <div class="errors" th:each="err : ${#fields.errors('stock')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>상품진열 가중치</th>
+                <td>
+                    <input type="number" name="listOrder" th:field="*{listOrder}">
+                    <div class="errors" th:each="err : ${#fields.errors('listOrder')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>도서 이미지(상세)</th>
+                <td>
+                    <div class="uploaded_images" id="book_main_images"></div>
+                    <button type="button" class="sbtn upload_files" data-location="main" data-image-only="true">이미지 추가</button>
+                </td>
+            </tr>
+            <tr>
+                <th>도서 이미지(목록)</th>
+                <td>
+                    <div class="uploaded_images" id="book_list_images"></div>
+                    <button type="button" class="sbtn upload_files" data-location="list" data-image-only="true">이미지 추가</button>
+                </td>
+             </tr>
+
+            <tr>
+                <th>상세설명</th>
+                <td>
+                    <textarea name="description" id="description" th:field="*{description}"></textarea>
+                    <div class="errors" th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
+                    <button type="button" class="sbtn upload_files mt10" data-location="editor" data-image-only="true">이미지 추가</button>
+                    <div class="uploaded_images" id="book_editor_images"></div>
+                </td>
+            </tr>
+        </table>
         <script th:replace="~{common/_file_tpl::tpl_image1}"></script>
         <script th:replace="~{common/_file_tpl::tpl_editor}"></script>
     </th:block>

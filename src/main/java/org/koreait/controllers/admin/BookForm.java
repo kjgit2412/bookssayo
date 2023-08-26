@@ -10,6 +10,8 @@ public class BookForm {
 
     private String mode;
 
+    private Long bookNo;
+
     private String category;
 
     @NotBlank

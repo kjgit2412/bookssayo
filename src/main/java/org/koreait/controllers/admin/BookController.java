@@ -48,10 +48,10 @@ public class BookController implements CommonProcess {
         commonProcess(model, "save");
 
         String mode = bookForm.getMode();
-        //if (errors.hasErrors()) {
-        //    return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "add";
-        //}
-        System.out.println("테스트 : " + bookForm);
+        if (errors.hasErrors()) {
+            return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "add";
+        }
+
         saveService.save(bookForm);
 
         return "redirect:/admin/book";

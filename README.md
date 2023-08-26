@@ -16,12 +16,18 @@
 ***
 
 ## Step3
-* 파일 업로드 구현 by GY.
+* 파일 업로드 구현 by YG.
 * 로고 구현 by MC.
 * Buyer Entity 추가
 
 ![로고1](https://github.com/kjgit2412/bookssayo/assets/140779367/5e0a900f-a78a-4a63-a743-b62418a77e15)
 
 ![로고2.](https://github.com/kjgit2412/bookssayo/assets/140779367/a16be9f1-ba5f-438c-8d37-c2bf194ca672)
+
+***
+
+## Step4
+* 도서등록관리자 구현 & 카테고리작업 진행 중 by YG.
+* 주문리스트 구현 중 by KJ.
 
 ***

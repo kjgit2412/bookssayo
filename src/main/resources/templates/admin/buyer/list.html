@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+
+<main layout:fragment="content">
+    <title th:text="#{admin.buyerlist.title}"></title>
+    <h1>주문 리스트</h1>
+    <div>
+        <table border="2">
+            <thead>
+            <tr>
+                <th th:text="#{buyer.buyerNo}"></th>
+                <th th:text="#{buyer.buyerNm}"></th>
+                <th th:text="#{buyer.bookNm}"></th>
+                <th th:text="#{buyer.buyerCnt}"></th>
+                <th th:text="#{buyer.category}"></th>
+                <th th:text="#{buyer.price}"></th>
+                <th>주문일</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="item : ${items}" th:object="${item}">
+                <td>
+                    <a th:href="@{/buyer/view/{id}(id=*{id})}" th:text="*{buyerNo}"></a>
+                </td>
+                <td th:text="*{buyerNm}"></td>
+                <td th:text="*{bookNm}"></td>
+                <th th:text="*{buyerCnt}"></th>
+                <th th:text="*{category}"></th>
+                <th th:text="*{poster}"></th>
+                <th th:text="#*{price}"></th>
+                <td th:text="*{#temporals.format(regDt, 'yyyy.MM.dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</html>

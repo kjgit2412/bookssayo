@@ -5,7 +5,12 @@
         <table class="table-cols">
             <tr>
                 <th>도서분류</th>
-                <td></td>
+                <td>
+                    <th:block th:each="category, status : ${categories}">
+                        <input type="radio" name="cateCd" th:value="${category.cateCd}" th:field="*{cateCd}" th:id="${'cateCd_' + status.index}">
+                        <label th:for="${'cateCd_' + status.index}" th:text="${category.cateNm}"></label>
+                    </th:block>
+                </td>
             </tr>
             <tr>
                 <th>판매상태</th>

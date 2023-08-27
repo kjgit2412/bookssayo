@@ -7,6 +7,7 @@ import org.koreait.commons.*;
 import org.koreait.entities.Category;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
+import org.koreait.models.categories.CategoryDeleteService;
 import org.koreait.models.categories.CategoryInfoService;
 import org.koreait.models.categories.CategorySaveService;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
 
     private final CategoryInfoService categoryInfoService;
     private final CategorySaveService categorySaveService;
+    private final CategoryDeleteService categoryDeleteService;
 
     private final HttpServletRequest request;
 
@@ -91,8 +93,6 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
         commonProcess(model, "category");
         List<Category> items = categoryInfoService.getListAll();
         model.addAttribute("items", items);
-        items.stream().forEach(System.out::println);
-
 
         return tplCommon + "category";
     }
@@ -112,9 +112,10 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
                 categorySaveService.save(form);
 
             } else if (mode.equals("edit")) { // 수정
+                categorySaveService.saveList(form);
 
             } else if (mode.equals("delete")) { // 삭제
-
+                categoryDeleteService.deleteList(form);
             }
         } catch (CommonException e) {
             e.printStackTrace();
@@ -148,6 +149,7 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
             addCommonScript.add("ckeditor/ckeditor");
             addCommonScript.add("fileManager");
             addScript.add("book/form");
+            model.addAttribute("categories", categoryInfoService.getListAll());
         }
 
         model.addAttribute("menuCode", "book");

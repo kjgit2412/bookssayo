@@ -1,7 +1,6 @@
 package org.koreait.repositories;
 
 import com.querydsl.core.BooleanBuilder;
-import jakarta.persistence.EntityManager;
 import org.koreait.entities.Category;
 import org.koreait.entities.QCategory;
 import org.springframework.data.domain.Sort;
@@ -39,5 +38,13 @@ public interface CategoryRepository extends JpaRepository<Category, String>, Que
      */
     default List<Category> getList() {
         return getList("use");
+    }
+
+    /**
+     * 분류코드 중복 여부
+     *
+     */
+    default boolean exists(String cateCd) {
+        return exists(QCategory.category.cateCd.eq(cateCd));
     }
 }

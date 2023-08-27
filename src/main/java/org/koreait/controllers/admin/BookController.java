@@ -3,9 +3,7 @@ package org.koreait.controllers.admin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.Menu;
-import org.koreait.commons.MenuDetail;
+import org.koreait.commons.*;
 import org.koreait.entities.Category;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
@@ -22,7 +20,7 @@ import java.util.List;
 @Controller("adminBookController")
 @RequestMapping("/admin/book")
 @RequiredArgsConstructor
-public class BookController implements CommonProcess {
+public class BookController implements CommonProcess, ScriptExceptionProcess {
 
     private String tplCommon = "admin/book/";
     private final BookSaveService saveService;
@@ -93,7 +91,7 @@ public class BookController implements CommonProcess {
         commonProcess(model, "category");
         List<Category> items = categoryInfoService.getListAll();
         model.addAttribute("items", items);
-
+        items.stream().forEach(System.out::println);
 
 
         return tplCommon + "category";
@@ -109,18 +107,24 @@ public class BookController implements CommonProcess {
 
         String mode = form.getMode();
         mode = mode == null || mode.isBlank() ? "add" : mode;
-        if (mode.equals("add")) { // 등록
-            categorySaveService.save(form);
+        try {
+            if (mode.equals("add")) { // 등록
+                categorySaveService.save(form);
 
-        } else if (mode.equals("edit")) { // 수정
-            
-        } else if (mode.equals("delete")) { // 삭제
-            
+            } else if (mode.equals("edit")) { // 수정
+
+            } else if (mode.equals("delete")) { // 삭제
+
+            }
+        } catch (CommonException e) {
+            e.printStackTrace();
+            throw new AlertException(e.getMessage()); // 자바스크립트 alert 형태로 에러 출력
         }
-
+        
         String script = "parent.location.reload();";
         model.addAttribute("script", script);
         return "common/_execute_script";
+
     }
 
     @Override

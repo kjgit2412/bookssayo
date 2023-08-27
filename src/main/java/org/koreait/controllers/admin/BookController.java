@@ -6,9 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.commons.CommonProcess;
 import org.koreait.commons.Menu;
 import org.koreait.commons.MenuDetail;
-import org.koreait.entities.Book;
+import org.koreait.entities.Category;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
+import org.koreait.models.categories.CategoryInfoService;
+import org.koreait.models.categories.CategorySaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,6 +27,9 @@ public class BookController implements CommonProcess {
     private String tplCommon = "admin/book/";
     private final BookSaveService saveService;
     private final BookInfoService infoService;
+
+    private final CategoryInfoService categoryInfoService;
+    private final CategorySaveService categorySaveService;
 
     private final HttpServletRequest request;
 
@@ -86,6 +91,10 @@ public class BookController implements CommonProcess {
     @GetMapping("/category")
     public String category(Model model) {
         commonProcess(model, "category");
+        List<Category> items = categoryInfoService.getListAll();
+        model.addAttribute("items", items);
+
+
 
         return tplCommon + "category";
     }
@@ -95,9 +104,22 @@ public class BookController implements CommonProcess {
      *
      */
     @PostMapping("/category")
-    public String categorySave(Model model) {
+    public String categorySave(CategoryForm form, Model model) {
         commonProcess(model, "category");
 
+        String mode = form.getMode();
+        mode = mode == null || mode.isBlank() ? "add" : mode;
+        if (mode.equals("add")) { // 등록
+            categorySaveService.save(form);
+
+        } else if (mode.equals("edit")) { // 수정
+            
+        } else if (mode.equals("delete")) { // 삭제
+            
+        }
+
+        String script = "parent.location.reload();";
+        model.addAttribute("script", script);
         return "common/_execute_script";
     }
 

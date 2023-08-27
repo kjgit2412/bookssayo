@@ -1,6 +1,5 @@
 package org.koreait.controllers.admin;
 
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.koreait.commons.constants.BookStatus;
@@ -16,7 +15,7 @@ public class BookForm {
 
     private Long bookNo;
 
-    private String category;
+    private String cateCd;
 
     @NotBlank
     private String gid = UUID.randomUUID().toString();

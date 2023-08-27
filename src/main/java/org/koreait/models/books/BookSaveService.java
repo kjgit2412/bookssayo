@@ -4,15 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.commons.constants.BookStatus;
 import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Book;
+import org.koreait.models.categories.CategoryInfoService;
 import org.koreait.repositories.BookRepository;
 import org.koreait.repositories.FileInfoRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class BookSaveService {
     private final BookRepository bookRepository;
+    private final CategoryInfoService categoryInfoService;
     private final FileInfoRepository fileInfoRepository;
 
     public void save(BookForm form) {
@@ -26,7 +27,7 @@ public class BookSaveService {
             book.setGid(gid); // 그룹 ID는 처음 추가할때만 저장, 그 이후는 변경 불가
         }
 
-        book.setCategory(form.getCategory());
+        book.setCategory(categoryInfoService.get(form.getCateCd()));
         book.setBookNm(form.getBookNm());
         book.setPrice(form.getPrice());
         book.setStock(form.getStock());

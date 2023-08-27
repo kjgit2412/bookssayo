@@ -5,6 +5,7 @@
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
     <form id="frmSave" name="frmSave" method="POST" th:action="@{/admin/book/category}" target="ifrmProcess" autocomplete="off">
+        <input type="hidden" name="mode" value="add">
         <table class="table-cols">
             <tr>
                 <th>분류코드</th>

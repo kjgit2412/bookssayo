@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.data.domain.Sort.Order.asc;
 import static org.springframework.data.domain.Sort.Order.desc;
 
-public interface CategoryRepository extends JpaRepository<Category, Long>, QuerydslPredicateExecutor<Category> {
+public interface CategoryRepository extends JpaRepository<Category, String>, QuerydslPredicateExecutor<Category> {
 
     default List<Category> getList(String mode) {
         QCategory category = QCategory.category;

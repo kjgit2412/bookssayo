@@ -18,19 +18,17 @@ public interface BuyerListRepository extends JpaRepository<Buyer, Long>, Queryds
         QBuyer buyer = QBuyer.buyer;
 
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(buyer.gid.eq(gid));
-
-        if (mode.equals("done")) builder.and(buyer.orderDone.eq(true)); // 주문완료
-        else if (mode.equals("undone")) builder.and(buyer.orderDone.eq(false)); // 장바구니 상태인 주문
-
-        List<Buyer> items = (List<Buyer>)findAll(builder, Sort.by(asc("createdAt")));
+        if (gid != null && !gid.isBlank()) builder.and(buyer.gid.eq(gid));
+        if (mode != null && !mode.isBlank()) {
+            if (mode.equals("done")) builder.and(buyer.orderDone.eq(true)); // 주문완료
+            else if (mode.equals("undone")) builder.and(buyer.orderDone.eq(false)); // 장바구니 상태인 주문
+        }
+    //    List<Buyer> items = (List<Buyer>)findAll(builder, Sort.by(asc("createdAt")));
+        List<Buyer> items = (List<Buyer>)findAll(builder, Sort.by(asc("buyerNm")));
 
         return items;
     }
 
-    default List<Buyer> getBuyerDone(String gid) {
-        return getBuyers(gid, "done");
-    }
 
 }
 

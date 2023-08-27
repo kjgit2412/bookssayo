@@ -1,10 +1,7 @@
 package org.koreait.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.koreait.commons.constants.BookStatus;
 
 import java.util.List;
@@ -12,13 +9,16 @@ import java.util.List;
 @Entity
 @Data
 @Builder
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book extends BaseMemberEntity {
     @Id @GeneratedValue
     private Long bookNo;
 
-    @Column(length=60)
-    private String category;
+    @ToString.Exclude
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="cateCd")
+    private Category category;
 
     @Column(length=45, nullable = false)
     private String gid;

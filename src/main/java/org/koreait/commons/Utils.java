@@ -5,12 +5,18 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ResourceBundle;
+
 /**
  * 공통 유틸리티
  */
 @Component
 @RequiredArgsConstructor
 public class Utils {
+    private static ResourceBundle bundle;
+    private static ResourceBundle bundleValidation;
+    private static ResourceBundle bundleError;
+
 
     private final HttpServletRequest request;
     private final HttpSession session;
@@ -41,4 +47,30 @@ public class Utils {
         return prefix + tpl;
     }
 
+    /**
+     * 메세지 조회
+     *
+     * @param code : 메세지 코드
+     * @param type : validation, error, common
+     * @return
+     */
+    public String getMessage(String code, String type) {
+        ResourceBundle _bundle = null;
+        if (type.equals("validation")) { // 검증
+            if (bundleValidation == null) bundleValidation = ResourceBundle.getBundle("messages.validations");
+            _bundle = bundleValidation;
+        } else if (type.equals("error")) { // 에러
+            if (bundleError == null) bundleError = ResourceBundle.getBundle("messages.errors");
+            _bundle = bundleError;
+        } else { // 공통
+            if (bundle == null) bundle = ResourceBundle.getBundle("messages.commons");
+            _bundle = bundle;
+        }
+
+        try {
+            return _bundle.getString(code);
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

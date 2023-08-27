@@ -3,12 +3,12 @@ package org.koreait.controllers.admin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.Menu;
-import org.koreait.commons.MenuDetail;
-import org.koreait.entities.Book;
+import org.koreait.commons.*;
+import org.koreait.entities.Category;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
+import org.koreait.models.categories.CategoryInfoService;
+import org.koreait.models.categories.CategorySaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,16 +20,19 @@ import java.util.List;
 @Controller("adminBookController")
 @RequestMapping("/admin/book")
 @RequiredArgsConstructor
-public class BookController implements CommonProcess {
+public class BookController implements CommonProcess, ScriptExceptionProcess {
 
     private String tplCommon = "admin/book/";
     private final BookSaveService saveService;
     private final BookInfoService infoService;
 
+    private final CategoryInfoService categoryInfoService;
+    private final CategorySaveService categorySaveService;
+
     private final HttpServletRequest request;
 
     /**
-     * 상품 목록(도서 목록)
+     * 도서 목록
      *
      * @return
      */
@@ -39,12 +42,20 @@ public class BookController implements CommonProcess {
         return tplCommon + "index";
     }
 
+    /**
+     * 도서 등록
+     * 
+     */
     @GetMapping("/add")
     public String add(@ModelAttribute BookForm bookForm, Model model) {
         commonProcess(model, "add");
         return tplCommon + "add";
     }
 
+    /**
+     * 도서 수정
+     *
+     */
     @GetMapping("/edit/{bookNo}")
     public String edit(@PathVariable Long bookNo, Model model) {
         commonProcess(model, "edit");
@@ -54,6 +65,10 @@ public class BookController implements CommonProcess {
         return tplCommon + "edit";
     }
 
+    /**
+     * 도서 등록/수정 처리
+     *
+     */
     @PostMapping("/save")
     public String bookSave(@Valid BookForm bookForm, Errors errors, Model model) {
         commonProcess(model, "save");
@@ -68,6 +83,50 @@ public class BookController implements CommonProcess {
         return "redirect:/admin/book";
     }
 
+    /**
+     * 도서분류 목록
+     */
+    @GetMapping("/category")
+    public String category(Model model) {
+        commonProcess(model, "category");
+        List<Category> items = categoryInfoService.getListAll();
+        model.addAttribute("items", items);
+        items.stream().forEach(System.out::println);
+
+
+        return tplCommon + "category";
+    }
+
+    /**
+     * 도서분류 추가, 수정, 삭제 처리
+     *
+     */
+    @PostMapping("/category")
+    public String categorySave(CategoryForm form, Model model) {
+        commonProcess(model, "category");
+
+        String mode = form.getMode();
+        mode = mode == null || mode.isBlank() ? "add" : mode;
+        try {
+            if (mode.equals("add")) { // 등록
+                categorySaveService.save(form);
+
+            } else if (mode.equals("edit")) { // 수정
+
+            } else if (mode.equals("delete")) { // 삭제
+
+            }
+        } catch (CommonException e) {
+            e.printStackTrace();
+            throw new AlertException(e.getMessage()); // 자바스크립트 alert 형태로 에러 출력
+        }
+        
+        String script = "parent.location.reload();";
+        model.addAttribute("script", script);
+        return "common/_execute_script";
+
+    }
+
     @Override
     public void commonProcess(Model model, String mode) {
 
@@ -77,6 +136,8 @@ public class BookController implements CommonProcess {
             pageTitle = "도서 등록";
         } else if (mode.equals("edit")) {
             pageTitle = "도서 수정";
+        } else if (mode.equals("category")) {
+            pageTitle = "도서 분류";
         }
 
         CommonProcess.super.commonProcess(model, pageTitle);

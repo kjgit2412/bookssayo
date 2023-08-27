@@ -2,6 +2,8 @@ package org.koreait.controllers.admin;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CategoryForm {
 
@@ -13,5 +15,5 @@ public class CategoryForm {
 
     private boolean use;
 
-
+    private List<Integer> chkNo;
 }

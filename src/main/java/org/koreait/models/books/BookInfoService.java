@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.commons.ListData;
 import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Book;
+import org.koreait.entities.Category;
 import org.koreait.entities.FileInfo;
 import org.koreait.entities.QBook;
 import org.koreait.models.files.FileInfoService;
@@ -53,9 +54,10 @@ public class BookInfoService {
      */
     public BookForm getBookForm(Long bookNo) {
         Book book = get(bookNo);
+        Category category = book.getCategory();
         BookForm form = new ModelMapper().map(book, BookForm.class);
         form.setStatus(book.getStatus().name());
-
+        form.setCateCd(category == null ? null : category.getCateCd());
         return form;
     }
 

@@ -14,7 +14,7 @@ commonLib.ajaxLoad = function(method, url, params, responseType) {
     const ctxPath = document.querySelector("meta[name='_ctx_path']").content;
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open(method, ctxPath + url);
+        xhr.open(method, url);
         xhr.setRequestHeader(header, token);
 
         xhr.send(params);

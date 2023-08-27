@@ -12,4 +12,10 @@ public interface RequiredValidator {
             throw new BadRequestException(message);
         }
     }
+
+    default void nullCheck(Object obj, String message) {
+        if (obj == null) {
+            throw new BadRequestException(message);
+        }
+    }
 }

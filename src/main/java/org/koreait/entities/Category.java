@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
+@Table(indexes=@Index(name="idx_category_order", columnList = "listOrder DESC, createdAt"))
 public class Category extends BaseMemberEntity {
     @Id
     @Column(length=30)

@@ -53,11 +53,11 @@ aside li > a:hover:after,
 aside li > a.on:after { content: ''; display: block; position: absolute; width: 8px; height: 100%; right: 0; top: 0; background: #00d0d7; }
 
 /** 기본 버튼 스타일 */
-.sbtn { display: inline-block; border: 1px solid #596b99; color: #596b99; min-width: 90px; padding: 0 20px; height: 28px; line-height: 26px; text-align: center; border-radius: 5px; background: #fff; }
+.sbtn { cursor: pointer; display: inline-block; border: 1px solid #596b99; color: #596b99; min-width: 90px; padding: 0 20px; height: 28px; line-height: 26px; text-align: center; border-radius: 5px; background: #fff; }
 .sbtn.blue { color: #fff; background:#596b99; }
 
 .btns { display: flex; width: 400px; margin: 0 auto; }
-.btns > button { width: 0; flex-grow: 1; height: 50px; font-size: 18px; border: 1px solid #000; background: #fff; }
+.btns > button { width: 0; flex-grow: 1; height: 50px; font-size: 18px; border: 1px solid #000; background: #fff; cursor: pointer; }
 .btns > button:last-of-type { background: #000; color: #fff; }
 
 .search_btn, .submit_btn { text-align: center; margin: 20px 0 35px; }

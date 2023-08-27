@@ -9,6 +9,8 @@ import org.koreait.repositories.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategorySaveService implements RequiredValidator {
@@ -29,5 +31,24 @@ public class CategorySaveService implements RequiredValidator {
 
         repository.saveAndFlush(category);
     }
+
+    /** 목록 저장 처리 */
+    public void saveList(CategoryForm form) {
+
+        List<Integer> chks = form.getChkNo();
+        nullCheck(chks, utils.getMessage("NotSelected.edit", "validation"));
+
+        for (Integer chk : chks) {
+            String cateCd = utils.getParam("cateCd_" + chk);
+            Category item = repository.findById(cateCd).orElse(null);
+            if (item == null) continue;
+
+            item.setCateNm(utils.getParam("cateNm_" + chk));
+            item.setUse(Boolean.parseBoolean(utils.getParam("use_" + chk)));
+            item.setListOrder(Long.parseLong(utils.getParam("listOrder_" + chk)));
+        }
+        repository.flush();
+    }
+
 
 }

@@ -73,4 +73,22 @@ public class Utils {
             return "";
         }
     }
+
+    /**
+     * 단일 요청 데이터 조회
+     *
+     */
+    public String getParam(String name) {
+        return request.getParameter(name);
+    }
+
+    /**
+     * 복수개 요청 데이터 조회
+     *
+     */
+    public String[] getParams(String name) {
+        return request.getParameterValues(name);
+    }
+
+
 }

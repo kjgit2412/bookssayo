@@ -4,5 +4,36 @@
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
+    <div id="book_list">
+        <table border="1" class="table-cols">
+            <thead>
+            <tr>
+                <th th:text="#{book.no}"></th>
+                <th th:text="#{book.img}"></th>
+                <th th:text="#{book.category}"></th>
+                <th th:text="#{book.name}"></th>
+                <th th:text="#{book.author}"></th>
+                <th th:text="#{book.price}"></th>
+                <th th:text="#{book.date}"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="book : ${books}" th:object="${book}">
+                <td>
+                    <a th:href="@{/book/view/{id}(id=*{bookNo})}" th:text="*{bookNo}"></a>
+                </td>
+                <td>
+                    <!-- 여기에 대표 이미지를 표시하는 코드 추가 -->
+                </td>
+                <td th:text="*{category.name}"></td>
+                <td th:text="*{bookNm}"></td>
+                <td th:text="*{author}"></td>
+                <th th:text="*{price}"></th>
+                <td th:text="*{#temporals.format(regDt, 'yyyy.MM.dd')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 </html>

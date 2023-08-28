@@ -17,9 +17,11 @@ public class Utils {
     private static ResourceBundle bundleValidation;
     private static ResourceBundle bundleError;
 
+    private static Utils instance;
 
     private final HttpServletRequest request;
     private final HttpSession session;
+
 
     /**
      * 모바일 장비 접속 여부
@@ -54,7 +56,7 @@ public class Utils {
      * @param type : validation, error, common
      * @return
      */
-    public String getMessage(String code, String type) {
+    public static String getMessage(String code, String type) {
         ResourceBundle _bundle = null;
         if (type.equals("validation")) { // 검증
             if (bundleValidation == null) bundleValidation = ResourceBundle.getBundle("messages.validations");

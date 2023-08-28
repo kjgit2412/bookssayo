@@ -115,6 +115,7 @@ public class BookInfoService {
         /** 검색 처리 E */
 
         /** 정렬 처리 S */
+        // listOrder_DESC,createdAt_ASC
         List<OrderSpecifier> orderSpecifier = new ArrayList<>();
         String sort = search.getSort();
         if (sort != null && !sort.isBlank()) {

@@ -106,3 +106,5 @@ nav.submenus a { line-height: 60px; padding: 0 40px; font-size: 18px; }
 .file_items > a:hover { text-decoration: underline; }
 .file_items .insert_editor { cursor: pointer;  }
 
+/** 조회 데이터 없음 */
+.no_data { height: 200px; text-align: center; font-weight: bold; font-size: 16px; }

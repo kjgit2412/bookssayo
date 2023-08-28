@@ -3,12 +3,20 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layouts/main}">
 
-<main layout:fragment="content">
-    <title th:text="#{admin.buyerlist.title}"></title>
-    <h1>주문 리스트</h1>
+<section layout:fragment="content">
+
+    <h1>주문 목록</h1>
+    <!--
+        <ul>
+            <li th:each="item : ${list}" th:object="${item}">
+                <a th:href="@{/buyer/view/{id}(id=*{buyerNo})}" th:text="*{buyerNo}"></a>
+            </li>
+        </ul>
+    -->
+
+
     <div>
-        <table border="2">
-            <thead>
+        <table border="1">
             <tr>
                 <th th:text="#{buyer.buyerNo}"></th>
                 <th th:text="#{buyer.buyerNm}"></th>
@@ -18,23 +26,22 @@
                 <th th:text="#{buyer.price}"></th>
                 <th>주문일</th>
             </tr>
-            </thead>
 
             <tbody>
             <tr th:each="item : ${items}" th:object="${item}">
                 <td>
-                    <a th:href="@{/buyer/view/{id}(id=*{id})}" th:text="*{buyerNo}"></a>
+                    <a th:href="@{/buyer/view/{id}(id=*{buyerNo})}" th:text="*{buyerNo}"></a>
                 </td>
                 <td th:text="*{buyerNm}"></td>
                 <td th:text="*{bookNm}"></td>
-                <th th:text="*{buyerCnt}"></th>
-                <th th:text="*{category}"></th>
-                <th th:text="*{poster}"></th>
-                <th th:text="#*{price}"></th>
-                <td th:text="*{#temporals.format(regDt, 'yyyy.MM.dd HH:mm')}"></td>
+                <td th:text="*{buyerCnt}"></td>
+                <td th:text="*{category}"></td>
+                <td th:text="*{price}"></td>
+                <td th:text="*{#temporals.format(createdAt, 'yyyy.MM.dd HH:mm')}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-</main>
+
+</section>
 </html>

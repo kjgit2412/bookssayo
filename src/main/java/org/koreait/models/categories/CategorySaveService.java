@@ -1,6 +1,7 @@
 package org.koreait.models.categories;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.BadRequestException;
 import org.koreait.commons.Utils;
 import org.koreait.commons.validators.RequiredValidator;
 import org.koreait.controllers.admin.CategoryForm;
@@ -24,7 +25,7 @@ public class CategorySaveService implements RequiredValidator {
 
         /* 분류 코드 중복 여부 체크 */
         if (repository.exists(form.getCateCd())) {
-            utils.getMessage("Duplicate.cateCd", "validation");
+            throw new BadRequestException(utils.getMessage("Duplicate.cateCd", "validation"));
         }
 
         Category category = new ModelMapper().map(form, Category.class);

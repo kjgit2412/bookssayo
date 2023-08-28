@@ -6,8 +6,10 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.ListData;
+import org.koreait.commons.Pagination;
 import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Book;
 import org.koreait.entities.Category;
@@ -32,6 +34,7 @@ public class BookInfoService {
     private final EntityManager em;
     private final BookRepository bookRepository;
     private final FileInfoService fileInfoService;
+    private final HttpServletRequest request;
 
     /**
      * 도서 개별 조회
@@ -115,6 +118,7 @@ public class BookInfoService {
         /** 검색 처리 E */
 
         /** 정렬 처리 S */
+        // listOrder_DESC,createdAt_ASC
         List<OrderSpecifier> orderSpecifier = new ArrayList<>();
         String sort = search.getSort();
         if (sort != null && !sort.isBlank()) {
@@ -144,6 +148,9 @@ public class BookInfoService {
         data.setContent(items);
 
         /* Todo : 페이징 처리 로직 추가 */
+        int total = (int)bookRepository.count(andBuilder);
+        Pagination pagination = new Pagination(page, total, 2, limit, request);
+        data.setPagination(pagination);
 
         return data;
     }

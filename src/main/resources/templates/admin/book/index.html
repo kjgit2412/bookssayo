@@ -4,6 +4,10 @@
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
+    <form method="get">
+
+    </form>
+
 
     <h2>도서 목록</h2>
     <form name="frmList" method="post" th:action="@{/admin/book}" target="ifrmProcess" autocomplete="off">

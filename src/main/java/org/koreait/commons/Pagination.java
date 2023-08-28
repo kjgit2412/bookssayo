@@ -3,7 +3,9 @@ package org.koreait.commons;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -21,6 +23,8 @@ public class Pagination {
     private int lastRangePage; // 구간별 종료 페이지
     private int prevFirstPage; // 이전 구간 첫번째 페이지 
     private int nextFirstPage; // 다음 구간 첫번째 페이지
+
+    private String baseUrl; // 기본 페이지 URL;
 
     private HttpServletRequest request;
 
@@ -74,6 +78,13 @@ public class Pagination {
             this.nextFirstPage = (rangeCnt + 1) * ranges + 1;
         }
 
+        String qs = "";
+        if (request != null && request.getQueryString() != null) {
+            qs = Arrays.stream(request.getQueryString().split("&")).filter(s->!s.contains("page=")).collect(Collectors.joining("&"));
+        }
+
+        this.baseUrl = qs.isBlank() ? "?page=":"?" + qs + "&page=";
+
         this.page = page;
         this.total = total;
         this.ranges = ranges;
@@ -89,11 +100,10 @@ public class Pagination {
     }
 
     public List<String[]> getPages() {
-       // String qs = request.getQueryString();
-        //System.out.println(qs);
 
-        return IntStream.rangeClosed(firstRangePage, lastRangePage)
-                .mapToObj(p -> new String[] { String.valueOf(p), ""})
+
+       return IntStream.rangeClosed(firstRangePage, lastRangePage)
+                .mapToObj(p -> new String[] { String.valueOf(p), baseUrl + p})
                 .toList();
     }
 }

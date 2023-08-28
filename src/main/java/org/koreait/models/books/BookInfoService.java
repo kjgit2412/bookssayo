@@ -149,7 +149,7 @@ public class BookInfoService {
 
         /* Todo : 페이징 처리 로직 추가 */
         int total = (int)bookRepository.count(andBuilder);
-        Pagination pagination = new Pagination(page, total, 2, limit, request);
+        Pagination pagination = new Pagination(page, total, 10, limit, request);
         data.setPagination(pagination);
 
         return data;

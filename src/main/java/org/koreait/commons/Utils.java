@@ -93,4 +93,7 @@ public class Utils {
     }
 
 
+    public static int getNumber(int num, int defaultValue) {
+        return num <= 0 ? defaultValue : num;
+    }
 }

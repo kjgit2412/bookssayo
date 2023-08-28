@@ -45,8 +45,10 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
     public String index(@ModelAttribute BookSearch search, Model model) {
         commonProcess(model, "list");
         search.setLimit(3);
-        ListData<Book> items = infoService.getList(search);
-        model.addAttribute("items", items.getContent());
+        ListData<Book> data = infoService.getList(search);
+
+        model.addAttribute("items", data.getContent());
+        model.addAttribute("pagination", data.getPagination());
 
         return tplCommon + "index";
     }

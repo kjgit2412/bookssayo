@@ -59,5 +59,6 @@
             <button type="button" class="form_action sbtn blue" data-mode="edit" data-target-name="frmList">선택 도서 수정</button>
         </div>
     </form>
+    <th:block th:if="${pagination != null}" th:replace="~{common/_pagination::pagination}"></th:block>
 </section>
 </html>

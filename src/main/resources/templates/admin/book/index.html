@@ -4,8 +4,47 @@
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
-    <form method="get">
-
+    <form method="get" th:action="@{/admin/book}" th:object="${bookSearch}">
+        <table class="table-cols">
+            <tr>
+                <th>도서분류</th>
+                <td colspan="3">
+                    <span th:each="category, status : ${categories}">
+                        <input type="checkbox" name="cateCds" th:value="${category.cateCd}" th:field="*{cateCds}" th:id="${'cateCds_' + status.index}">
+                        <label th:for="${'cateCds_' + status.index}" th:text="${category.cateNm}"></label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>판매상태</th>
+                <td colspan="3">
+                    <span th:each="s, status : ${statusList}">
+                        <input type="checkbox" name="statuses" th:value="${s[0]}" th:field="*{statuses}" th:id="${'statuses_' + status.index}">
+                        <label th:for="${'statuses_' + status.index}" th:text="${s[1]}"></label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>도서번호</th>
+                <td>
+                    <input type="text" name="bookNo" th:field="*{bookNo}">
+                </td>
+                <th>키워드검색</th>
+                <td>
+                    <div class="input_grp">
+                        <select name="sopt" th:field="*{sopt}">
+                            <option value="all">통합검색</option>
+                            <option value="bookNm">도서명</option>
+                            <option value="bookNo">도서번호</option>
+                        </select>
+                        <input type="text" name="skey" th:field="*{skey}" placeholder="검색어 입력">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="search_btn">
+            <button type="submit">검색하기</button>
+        </div>
     </form>
 
 
@@ -19,6 +58,7 @@
                         <input type="checkbox" class="checkall" id="checkall" data-target-name="chkNo">
                         <label for="checkall" class="standalone"></label>
                     </th>
+                    <th width="100">도서번호</th>
                     <th width="150">분류</th>
                     <th width="150">판매상태</th>
                     <th>도서명</th>
@@ -34,6 +74,7 @@
                         <input type="checkbox" name="chkNo" th:value="${status.index}" th:id="${'chkNo_' + status.index}">
                         <label th:for="${'chkNo_' + status.index}" class="standalone"></label>
                     </td>
+                    <td align="center" th:text="*{#numbers.formatInteger(bookNo, 8)}"></td>
                     <td th:text="*{category.cateNm}"></td>
                     <td>
                         <select th:name="${'status_' + status.index}">
@@ -41,8 +82,8 @@
                         </select>
                     </td>
                     <td th:text="*{bookNm}"></td>
-                    <td th:if="*{price >= 1000}" th:text="*{#numbers.formatInteger(price, 3, 'COMMA') + '원'}"></td>
-                    <td th:unless="*{price >= 1000}" th:text="*{price + '원'}"></td>
+                    <td align="center" th:if="*{price >= 1000}" th:text="*{#numbers.formatInteger(price, 3, 'COMMA') + '원'}"></td>
+                    <td align="center"  th:unless="*{price >= 1000}" th:text="*{price + '원'}"></td>
                     <td>
                         <input type="number" th:name="${'stock_' + status.index}" th:value="*{stock}">
                     </td>

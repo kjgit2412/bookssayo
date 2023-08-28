@@ -4,9 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
+import org.koreait.commons.constants.BookStatus;
+import org.koreait.entities.Book;
 import org.koreait.entities.Category;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.categories.CategoryDeleteService;
 import org.koreait.models.categories.CategoryInfoService;
 import org.koreait.models.categories.CategorySaveService;
@@ -39,11 +42,31 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
      * @return
      */
     @GetMapping
-    public String index(Model model) {
+    public String index(@ModelAttribute BookSearch search, Model model) {
         commonProcess(model, "list");
+        search.setLimit(3);
+        ListData<Book> data = infoService.getList(search);
+
+        model.addAttribute("items", data.getContent());
+        model.addAttribute("pagination", data.getPagination());
+
         return tplCommon + "index";
     }
 
+    /**
+     * 도서 목록 수정, 삭제
+     *
+     */
+    @PostMapping
+    public String indexPs(Model model) {
+        commonProcess(model, "list");
+
+
+        String script = "parent.location.reload();";
+        model.addAttribute("script", script);
+        return "common/_execute_script";
+    }
+    
     /**
      * 도서 등록
      * 
@@ -150,6 +173,8 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
             addCommonScript.add("fileManager");
             addScript.add("book/form");
             model.addAttribute("categories", categoryInfoService.getListAll());
+        } else if (mode.equals("list")) {
+            model.addAttribute("statusList", BookStatus.getList());
         }
 
         model.addAttribute("menuCode", "book");

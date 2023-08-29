@@ -172,7 +172,9 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
             addScript.add("book/form");
             model.addAttribute("categories", categoryInfoService.getListAll());
         } else if (mode.equals("list")) {
+            model.addAttribute("categories", categoryInfoService.getListAll());
             model.addAttribute("statusList", BookStatus.getList());
+
         }
 
         model.addAttribute("menuCode", "book");

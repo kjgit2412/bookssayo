@@ -36,7 +36,7 @@ public class BuyerListService {
     public BuyerForm getBuyerForm(Long buyerNo) {
         Buyer buyer = get(buyerNo);
         BuyerForm form = new ModelMapper().map(buyer, BuyerForm.class);
-      //  form.setStatus(book.getStatus().name());
+        form.setStatus(buyer.getStatus().name());
 
         return form;
     }

@@ -36,7 +36,7 @@ input[type='radio']+label.standalone { padding: 0; width: 28px; margin: 0; }
 
 
 /** 기본 레이아웃 스타일 */
-header { height: 80px; background: #fff; align-items: center; justify-content: space-between;}
+header { background: #fff; align-items: center; justify-content: space-between;}
 header .header_top{ display: flex;}
 header .right { text-align: right; padding: 10px; display: flex; align-items: center; }
 header .left a img.left_logo { width: 400px; }
@@ -69,7 +69,7 @@ header .drop_column a { display: block; color: #333; text-align: left; text-deco
 header .drop_column a:hover { background-color: #ddd;}
 
 /* 공통 푸터 스타일 */
-.footer_box{ background-color: #464646; width: 100%; height: auto; padding: 20px 0; display: flex }
+.footer_box{ background-color: #464646; width: 100%; height: auto; padding: 20px 0; display: flex; justify-content:center; }
 .footer_logo{ width: 300px; }
 .footer_box .footer_terms{ display: flex; justify-content: center;}
 .footer_terms a{ cursor: pointer; }

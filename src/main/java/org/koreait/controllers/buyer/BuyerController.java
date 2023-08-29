@@ -54,8 +54,10 @@ public class BuyerController implements CommonProcess, ScriptExceptionProcess {
     @GetMapping("/view/{buyerNo}")
     public String view(@PathVariable Long buyerNo, Model model) {
         commonProcess(model, "view");
-        BuyerForm buyerForm = listService.getBuyerForm(buyerNo);
-        model.addAttribute("buyerForm", buyerForm);
+        Buyer buyer = listService.get(buyerNo);
+        model.addAttribute("buyer", buyer);
+  //      BuyerForm buyerForm = listService.getBuyerForm(buyerNo);
+   //     model.addAttribute("buyerForm", buyerForm);
 
         return tplCommon + "view";
     }

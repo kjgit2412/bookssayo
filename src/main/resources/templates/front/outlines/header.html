@@ -1,6 +1,89 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="common">
-
+    <section class="header_top">
+        <section class="left">
+            <a href="http://localhost:3000/front/main">
+                <img th:src="@{/common/images/logo1.png}" alt="logo" class="left_logo">
+            </a>
+        </section>
+        <section class="search">
+            <div class="search_box">
+                <input type="text" class="search_text" placeholder="도서명을 입력하세요">
+                <button class="main_search_btn" type="button">
+                    <img th:src="@{/common/images/find.webp}" alt="검색" width="20" height="20">
+                </button>
+            </div>
+        </section>
+        <section class="right">
+                <th:block sec:authorize="isAuthenticated()"> <!--로그인 된 경우-->
+                    <a th:href="@{/member/myinfo}" class="sbtn">회원정보수정</a>
+                    <a th:href="@{/member/logout}" class="sbtn blue">로그아웃</a>
+                    <a th:href="@{/main/index}" class="sbtn blue">마이페이지</a>
+                </th:block>
+                <th:block sec:authorize="isAnonymous()"> <!--로그인 하지 않은 경우-->
+                    <a th:href="@{/member/signup}" class="sbtn">회원가입</a>
+                    <a th:href="@{/member/login}" class="sbtn blue">로그인</a>
+                </th:block>
+        </section>
+    </section>
+    <!--헤더 하단 메뉴 바-->
+    <section class="header_menu_box">
+        <div class="header_menu_content">
+            <div class="menu_content">
+                <button class="dropbtn">
+                    <img th:src="@{/common/images/list.png}" alt="목록">
+                </button>
+                <a th:href="@{/main/list}" class="header_content">전체도서</a>
+                <a th:href="@{/main/list}" class="header_content">국내도서</a>
+                <a th:href="@{/main/list}" class="header_content">해외도서</a>
+                <a th:href="@{/main/event}" class="header_content">이벤트</a>
+            </div>
+            <div class="menu_right">
+                <button class="dropbtn">
+                    <img th:src="@{/common/images/cart.png}" alt="장바구니">
+                </button>
+                <button class="dropbtn">
+                    <img th:src="@{/common/images/alarm.png}" alt="알림">
+                </button>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="header_drop_menu">
+            <div class="drop_column">
+                <a href="#">국내도서</a>
+                <a href="#">소설</a>
+                <a href="#">시/에세이</a>
+                <a href="#">인문</a>
+                <a href="#">경영/경제</a>
+                <a href="#">자기계발</a>
+                <a href="#">정치/사회</a>
+                <a href="#">역사/문화</a>
+                <a href="#">외국어</a>
+            </div>
+            <div class="drop_column">
+                <a href="#">해외도서</a>
+                <a href="#">문학</a>
+                <a href="#">인문</a>
+                <a href="#">고전</a>
+                <a href="#">경제/경영</a>
+                <a href="#">ELT/수험서</a>
+            </div>
+            <div class="drop_column">
+                <a href="#">고객센터</a>
+                <a href="#">자주 묻는 질문</a>
+                <a href="#">1:1 문의</a>
+                <a href="#">공지사항</a>
+            </div>
+        </div>
+    </section>
+    <!--common.js 가 제대로 로딩되지 않는 것 같아 임시로 스크립트 넣어둠-->
+    <script>
+        document.querySelector('.dropbtn').addEventListener('click', function() {
+            var dropdownContent = document.querySelector('.header_drop_menu');
+            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        });
+    </script>
 </header>
 </html>

@@ -17,8 +17,8 @@ public class Menu {
             menus.add(new MenuDetail("add", "도서 등록", "/admin/book/add"));
             menus.add(new MenuDetail("category", "도서 분류", "/admin/book/category"));
         } else if (code.equals("buyer")) { // 주문관리 하위 메뉴
-            menus.add(new MenuDetail("list", "주문 목록", "/admin/buyer/list"));
-            menus.add(new MenuDetail("view", "주문 보기", "/admin/buyer/list"));
+            menus.add(new MenuDetail("list", "주문 목록", "/admin/buyer"));
+            menus.add(new MenuDetail("view", "주문 보기", "/admin/buyer/view"));
         }
 
 

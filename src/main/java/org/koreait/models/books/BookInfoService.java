@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.ListData;
 import org.koreait.commons.Pagination;
+import org.koreait.commons.constants.BookStatus;
 import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Book;
 import org.koreait.entities.Category;
@@ -82,14 +83,32 @@ public class BookInfoService {
         BooleanBuilder andBuilder = new BooleanBuilder();
 
         String cateCd = search.getCateCd();
+        List<String> cateCds = search.getCateCds();
+        BookStatus status = search.getStatus();
+        List<BookStatus> statuses = search.getStatuses();
         Long bookNo = search.getBookNo();
         String sopt = search.getSopt();
         String skey = search.getSkey();
 
-        /** 도서 분류 검색 처리 */
+        /** 도서 분류 검색 처리 S */
         if (cateCd != null && !cateCd.isBlank()) {
             andBuilder.and(book.category.cateCd.eq(cateCd));
         }
+
+        if (cateCds != null && cateCds.size() > 0) {
+            andBuilder.and(book.category.cateCd.in(cateCds));
+        }
+        /** 도서 분류 검색 처리 E */
+
+        /** 판매 상태 검색 처리 S */
+        if (status != null) {
+            andBuilder.and(book.status.eq(status));
+        }
+
+        if (statuses != null && statuses.size() > 0) {
+            andBuilder.and(book.status.in(statuses));
+        }
+        /** 판매 상태 검색 처리 E */
 
         /** 도서 번호 */
         if (bookNo != null) {
@@ -149,7 +168,7 @@ public class BookInfoService {
 
         /* Todo : 페이징 처리 로직 추가 */
         int total = (int)bookRepository.count(andBuilder);
-        Pagination pagination = new Pagination(page, total, 2, limit, request);
+        Pagination pagination = new Pagination(page, total, 10, limit, request);
         data.setPagination(pagination);
 
         return data;

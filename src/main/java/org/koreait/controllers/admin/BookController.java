@@ -44,9 +44,7 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
     @GetMapping
     public String index(@ModelAttribute BookSearch search, Model model) {
         commonProcess(model, "list");
-        search.setLimit(3);
         ListData<Book> data = infoService.getList(search);
-
         model.addAttribute("items", data.getContent());
         model.addAttribute("pagination", data.getPagination());
 
@@ -174,7 +172,9 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
             addScript.add("book/form");
             model.addAttribute("categories", categoryInfoService.getListAll());
         } else if (mode.equals("list")) {
+            model.addAttribute("categories", categoryInfoService.getListAll());
             model.addAttribute("statusList", BookStatus.getList());
+
         }
 
         model.addAttribute("menuCode", "book");

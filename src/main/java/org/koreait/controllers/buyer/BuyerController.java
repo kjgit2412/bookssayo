@@ -2,11 +2,9 @@ package org.koreait.controllers.buyer;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.Menu;
-import org.koreait.commons.MenuDetail;
-import org.koreait.commons.ScriptExceptionProcess;
+import org.koreait.commons.*;
 import org.koreait.controllers.admin.BookForm;
+import org.koreait.entities.Book;
 import org.koreait.entities.Buyer;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
@@ -14,6 +12,7 @@ import org.koreait.models.buyer.BuyerListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,24 +30,24 @@ public class BuyerController implements CommonProcess, ScriptExceptionProcess {
 
     private final HttpServletRequest request;
 
-    // 주문 목록 조회
-    @GetMapping("/list")
-    public String list(Model model) {
-
-        commonProcess(model, "list");
-
-        List<Buyer> buyersDone = listService.getBuyerDone();
-        model.addAttribute("items", buyersDone);
-
-        return tplCommon + "list";
-    }
 
     // 주문 목록 조회
     @GetMapping
     public String index(Model model) {
         commonProcess(model, "list");
-        System.out.println("buyer index");
-        return tplCommon + "index";
+
+        List<Buyer> buyersDone = listService.getBuyerDone();
+        model.addAttribute("items", buyersDone);
+
+/*
+            commonProcess(model, "list");
+            search.setLimit(3);
+            ListData<Book> data = infoService.getList(search);
+
+            model.addAttribute("items", data.getContent());
+            model.addAttribute("pagination", data.getPagination());
+*/
+            return tplCommon + "list";
     }
 
     // 주문 목록 상세조회

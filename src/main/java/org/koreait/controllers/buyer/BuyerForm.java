@@ -2,6 +2,8 @@ package org.koreait.controllers.buyer;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
+import org.koreait.commons.constants.BookStatus;
+import org.koreait.commons.constants.BuyerStatus;
 
 import java.util.UUID;
 
@@ -14,21 +16,17 @@ public class BuyerForm {
     private String buyerNm;         // 주문자명
     private Long buyerCnt;          // 주문한 상품의 수량
 
-
     @NotBlank
     private String gid = UUID.randomUUID().toString();
 
-    @NotBlank
-    private String bookNm;
-    private String category;
+    private int sumPrice;
+    private String status = BuyerStatus.ORDER.name();
 
-    private int price;
+
     private int stock;
 
-    private String status;
-
     private long listOrder;
+    private String waybillNo; // 운송장번호
 
-    private String poster;          // 주문한 상품 저자
 
 }

@@ -32,6 +32,15 @@ input[type='radio']+label { min-height: 24px; line-height: 1; padding: 3px 0 3px
 input[type='radio']:checked+label { background:url("../images/radio-on.png") no-repeat left center; }
 input[type='radio']+label.standalone { padding: 0; width: 28px; margin: 0; }
 
+
+span > input[type='checkbox']~label { min-height: 32px; line-height: 1; padding: 3px 0 3px 33px; background:url("../images/chk-off.png") no-repeat left center; margin-right: 13px; cursor: pointer; }
+span > input[type='checkbox']:checked~label { background:url("../images/chk-on.png") no-repeat left center; }
+span > input[type='checkbox']~label.standalone { padding: 0; width: 28px; display: inline-block; margin: 0; }
+
+span > input[type='radio']~label { min-height: 24px; line-height: 1; padding: 3px 0 3px 25px; background:url("../images/radio-off.png") no-repeat left center; margin-right: 13px; cursor: pointer; }
+span > input[type='radio']:checked~label { background:url("../images/radio-on.png") no-repeat left center; }
+span > input[type='radio']~label.standalone { padding: 0; width: 28px; margin: 0; }
+
 .dn { display: none !important; }
 
 
@@ -108,3 +117,8 @@ nav.submenus a { line-height: 60px; padding: 0 40px; font-size: 18px; }
 
 /** 조회 데이터 없음 */
 .no_data { height: 200px; text-align: center; font-weight: bold; font-size: 16px; }
+
+/** 페이징 공통 */
+.pagination { text-align: center; margin: 15px 0; }
+.pagination a { display: inline-block; padding: 5px 10px; border: 1px solid #d5d5d5; border-radius: 5px; margin: 0 2px; font-size: 0.9rem; }
+.pagination a.on { background-color: #727272; color: #ffffff; border-color: #727272; }

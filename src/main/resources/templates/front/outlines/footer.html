@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <footer th:fragment="common">
-
+    <section class="footer_box">
+        <div>
+            <img th:src="@{/common/images/logo3.png}" class="footer_logo" alt="logo">
+        </div>
+        <div>
+            <!--이용약관 등-->
+            <div class="footer_terms">
+                <a href="#"><span class="introduce">회사소개</span></a>
+                <a href="#"><span class="terms_of_use">이용약관</span></a>
+                <a href="#"><span class="policy">개인정보처리방침</span></a>
+            </div>
+            <!--회사정보-->
+            <div class="footer_info">
+                <p>대표자: JAVA1조 | 사업자등록번호: 000-00-00000</p>
+                <p>주소: 코리아IT아카데미</p>
+                <p>email: koreaITacademi@mail.com | TEL : 02-1234-5678</p>
+            </div>
+        </div>
+    </section>
 </footer>
 </html>

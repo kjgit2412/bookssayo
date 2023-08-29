@@ -25,6 +25,8 @@ public class Book extends BaseMemberEntity {
 
     @Column(length=100, nullable = false)
     private String bookNm;
+    private String author;
+    private String publisher;
     private int price;
     private int stock;
 

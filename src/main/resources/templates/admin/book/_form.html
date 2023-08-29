@@ -33,6 +33,20 @@
                 </td>
             </tr>
             <tr>
+                <th>저자</th>
+                <td>
+                    <input type="text" name="author" th:field="*{author}">
+                    <div class="errors" th:each="err : ${#fields.errors('author')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>출판사</th>
+                <td>
+                    <input type="text" name="author" th:field="*{publisher}">
+                    <div class="errors" th:each="err : ${#fields.errors('publisher')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
                 <th>판매가격</th>
                 <td>
                     <input type="number" name="price" th:field="*{price}">

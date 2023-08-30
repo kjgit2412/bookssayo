@@ -21,7 +21,6 @@ public class Menu {
             menus.add(new MenuDetail("view", "주문 상세", "/admin/buyer"));
         }
 
-
         return menus;
     }
 

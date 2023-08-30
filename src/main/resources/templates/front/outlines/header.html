@@ -22,7 +22,7 @@
                     <a th:href="@{/main/index}" class="sbtn blue">마이페이지</a>
                 </th:block>
                 <th:block sec:authorize="isAnonymous()"> <!--로그인 하지 않은 경우-->
-                    <a th:href="@{/member/signup}" class="sbtn">회원가입</a>
+                    <a th:href="@{/member/join}" class="sbtn">회원가입</a>
                     <a th:href="@{/member/login}" class="sbtn blue">로그인</a>
                 </th:block>
         </section>

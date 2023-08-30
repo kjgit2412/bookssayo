@@ -25,15 +25,18 @@ public class BookSaveService {
         } else {
             book = new Book();
             book.setGid(gid); // 그룹 ID는 처음 추가할때만 저장, 그 이후는 변경 불가
+            System.out.println("bookNo1 = " + bookNo);
         }
 
         book.setCategory(categoryInfoService.get(form.getCateCd()));
         book.setBookNm(form.getBookNm());
+        book.setAuthor(form.getAuthor());
+        book.setPublisher(form.getPublisher());
         book.setPrice(form.getPrice());
         book.setStock(form.getStock());
         book.setDescription(form.getDescription());
         book.setStatus(BookStatus.valueOf(form.getStatus()));
-        System.out.println(book);
+
         bookRepository.saveAndFlush(book);
         form.setBookNo(book.getBookNo());
 

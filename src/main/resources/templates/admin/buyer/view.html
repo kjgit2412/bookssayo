@@ -5,29 +5,32 @@
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
 
-<th:block th:fragment="form" th:object="${buyerForm}">
+<th:block th:fragment="form" th:object="${buyer}">
     <table class="table-cols">
         <tr>
             <th>주문번호</th>
-            <td th:text="#{buyerForm.buyerNo}"></td>
-
+            <td th:text="${buyer.buyerNo}" readonly></td>
         </tr>
         <tr>
             <th>주문상태</th>
             <td>
-
+                <select>
+                    <option th:each="s : ${statusList}" th:value="${s[0]}" th:text="${s[1]}"  th:selected="${s[0] == buyer.status.name()}"></option>
+                </select>
             </td>
         </tr>
         <tr>
+            <th>주문 수량</th>
+            <td align="left" th:text="${buyer.buyerCnt}"></td>
+        </tr>
+        <tr>
             <th>총 주문금액</th>
-            <td>
-                <td th:text="#{buyerForm.sumPrice}"></td>
-            </td>
+            <td align="left" th:text="${buyer.sumPrice + '원'}"></td>
         </tr>
         <tr>
             <th>운송장번호</th>
             <td>
-                <td th:text="#{buyerForm.waybillNo}"></td>
+                <input type="text" th:value="${buyer.waybillNo}" >
             </td>
         </tr>
         <tr>
@@ -44,7 +47,9 @@
         </tr>
 
     </table>
-
+    <div>
+        <button type="button" class="form_action sbtn blue" data-mode="save">주문 내역 수정</button>
+    </div>
 </th:block>
 
 </section>

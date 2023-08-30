@@ -63,7 +63,7 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
                 bookDeleteService.deleteList(form);
             }
             else if(mode.equals("edit")) {
-
+                saveService.saveList(form);
             }
         } catch (CommonException e) {
             e.printStackTrace();

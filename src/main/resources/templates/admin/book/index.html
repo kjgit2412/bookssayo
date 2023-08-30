@@ -58,17 +58,17 @@
                     <input type="checkbox" class="checkall" id="checkall" data-target-name="chkNo">
                     <label for="checkall" class="standalone"></label>
                 </th>
-                <th>도서정보수정</th>
+                <th width="80">정보수정</th>
                 <th width="80">도서번호</th>
-                <th width="150">분류</th>
-                <th width="150">판매상태</th>
+                <th>분류</th>
+                <th width="80">판매상태</th>
                 <th>도서명</th>
                 <th>저자</th>
                 <th>출판사</th>
                 <th width="100">판매가</th>
-                <th width="100">재고</th>
-                <th width="100">진열가중치</th>
-                <th>등록일</th>
+                <th width="80">재고</th>
+                <th width="90">진열가중치</th>
+                <th width="150">등록일</th>
             </tr>
             </thead>
             <tbody>
@@ -82,6 +82,12 @@
                     <td align="center"><a class="book-edit-clk" th:href="'book/edit/'+*{bookNo}">수정</a></td>
                     <td align="center" th:text="*{#numbers.formatInteger(bookNo, 4)}"></td>
                     <td th:text="*{category.cateNm}"></td>
+                    <!--<td>
+                        <select th:name="${'cateCds_' + status.index}">
+                            &lt;!&ndash;<option th:each="s : ${categories}" th:value="${s[0]}" th:text="${s[1]}"  th:selected="${s[0] == item.status.name()}"></option>&ndash;&gt;
+                            <option th:each="category : ${categories}" th:value="${category.cateCd}" th:text="${category.cateNm}" th:selected="${category.cateCd == item.status.name()}"></option>
+                        </select>
+                    </td>-->
                     <td>
                         <select th:name="${'status_' + status.index}">
                             <option th:each="s : ${statusList}" th:value="${s[0]}" th:text="${s[1]}"  th:selected="${s[0] == item.status.name()}"></option>

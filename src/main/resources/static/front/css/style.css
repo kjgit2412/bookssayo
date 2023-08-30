@@ -23,16 +23,19 @@ select { border: 1px solid #d5d5d5; min-width: 150px; height: 45px; }
 .input_grp > * { margin-right: 5px; }
 
 /** 기본 스타일 - 체크박스, 라디오 버튼 */
+
 input[type='checkbox'] { display: none; }
-input[type='checkbox']+label { min-height: 32px; line-height: 1; padding: 3px 0 3px 33px; background:url("../images/chk-off.png") no-repeat left center; margin-right: 13px; cursor: pointer; }
-input[type='checkbox']:checked+label { background:url("../images/chk-on.png") no-repeat left center; }
+input[type='checkbox']+label { min-height: 32px; line-height: 1; padding: 3px 0 3px 33px; background:url("../../admin/images/chk-off.png") no-repeat left center; margin-right: 13px; cursor: pointer; }
+input[type='checkbox']:checked+label { background:url("../../admin/images/chk-on.png") no-repeat left center; }
 input[type='checkbox']+label.standalone { padding: 0; width: 28px; display: inline-block; margin: 0; }
 input[type='radio'] { display: none; }
-input[type='radio']+label { min-height: 24px; line-height: 1; padding: 3px 0 3px 25px; background:url("../images/radio-off.png") no-repeat left center; margin-right: 13px; cursor: pointer; }
-input[type='radio']:checked+label { background:url("../images/radio-on.png") no-repeat left center; }
+input[type='radio']+label { min-height: 24px; line-height: 1; padding: 3px 0 3px 25px; background:url("../../admin/images/radio-off.png") no-repeat left center; margin-right: 13px; cursor: pointer; }
+input[type='radio']:checked+label { background:url("../../admin/images/radio-on.png") no-repeat left center; }
 input[type='radio']+label.standalone { padding: 0; width: 28px; margin: 0; }
 
+
 .dn { display: none !important; }
+
 
 
 /** 기본 레이아웃 스타일 */
@@ -144,4 +147,3 @@ nav.submenus a { line-height: 60px; padding: 0 40px; font-size: 18px; }
 .file_items { display: inline-block; border: 1px solid #000; border-radius: 3px; padding: 5px 10px; margin-right: 3px; margin-bottom: 3px; }
 .file_items > a:hover { text-decoration: underline; }
 .file_items .insert_editor { cursor: pointer;  }
-

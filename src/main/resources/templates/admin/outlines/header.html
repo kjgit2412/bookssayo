@@ -6,7 +6,7 @@
         <a th:href="@{/admin}"><img th:src="@{/common/images/logo1.png}" class="logo"></a>
     </section>
     <section class="right">
-        <th:block sec:authorize="isAuthenticated()">
+        <th:block sec:authorize="isAuthenticated()"> <!--로그인 된 경우-->
             <a th:href="@{/admin/myinfo}" class="sbtn">회원정보수정</a>
             <a th:href="@{/member/logout}" class="sbtn blue">로그아웃</a>
         </th:block>

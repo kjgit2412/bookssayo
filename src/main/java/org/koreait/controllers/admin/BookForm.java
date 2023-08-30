@@ -8,6 +8,9 @@ import org.koreait.entities.FileInfo;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 도서 정보를 담는 폼 클래스
+ */
 @Data
 public class BookForm {
 
@@ -44,4 +47,5 @@ public class BookForm {
 
     private List<FileInfo> editorImages; // 에디터 이미지
 
-    private List<Integer> bookChkNo;}
+    private List<Integer> chkNo;
+}

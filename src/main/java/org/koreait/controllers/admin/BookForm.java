@@ -47,4 +47,5 @@ public class BookForm {
 
     private List<FileInfo> editorImages; // 에디터 이미지
 
-    private List<Integer> bookChkNo;}
+    private List<Integer> chkNo;
+}

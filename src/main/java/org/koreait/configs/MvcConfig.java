@@ -1,5 +1,8 @@
 package org.koreait.configs;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.koreait.commons.interceptors.CommonInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +24,9 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Value("${file.upload.url}")
     private String fileUploadUrl;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private CommonInterceptor commonInterceptor; // 공통 인터셉터
@@ -52,5 +58,10 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
         return new HiddenHttpMethodFilter();
+    }
+
+    @Bean
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(entityManager);
     }
 }

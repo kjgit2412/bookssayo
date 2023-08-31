@@ -7,6 +7,7 @@ dl, dt, dd { margin:0; padding: 0; }
 a { text-decoration: none; }
 body { margin: 0; }
 img { border: 0; }
+em {font-style: normal;}
 
 /** 기준 너비 */
 .layout_width { max-width: 1300px; min-width: 1100px; margin: 0 auto; padding: 0 10px; }
@@ -83,9 +84,29 @@ header .drop_column a:hover { background-color: #ddd;}
 
 
 
-main { min-width: 1100px; min-height: 800px; display: flex; }
+main { min-width: 1100px; min-height: 800px; }
 main > aside { width: 208px; background: #596b99; }
 main > section { flex-grow: 1; margin: 0 50px 50px; }
+
+/* 메인 배너 */
+.main_banner1 {border-bottom: 1px solid #ccc; padding: 20px 0 20px 0;}
+.main_banner1 .main_banner_img1 {width: 100%;}
+
+/* 메인 상품 리스트 */
+.main_prd_ul {display: flex; padding:0;}
+.main_prd_li { width: 211px; margin-left: 36px; text-align: left; display: flex; }
+/* 첫 번째 상품의 왼쪽 여백 제거 */
+.main_prd_li:first-child { margin-left: 0; }
+
+
+.main_img_box {display: block; width : 211px;}
+.main_prd_img {width: 100%;}
+.main_book_info_box { margin-top: 8px; text-align: left; }
+.main_auth_pub em.divi { margin: 0 4px; } /* 분리선 */
+.main_auth_pub em.divi:before { content: '|'; margin-right: 4px; }
+.main_bookNm { font-size: 18px; font-weight: bold; margin: 4px 0; }
+.main_price { font-size: 14px; font-weight: bold; }
+.main_author, .main_pub { font-size: 12px; }
 
 aside li > a { display: block; height: 71px; line-height: 71px; border-top: 1px solid #61729e; color: #dddee4; font-size: 18px;  position: relative; padding-left: 30px; }
 aside li > a * { color: #dddee4; font-size: 18px; }

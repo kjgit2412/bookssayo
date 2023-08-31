@@ -3,6 +3,53 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
+    <section>
+        <div class="main_banner1">
+            <img th:src="@{/common/images/main_banner1.png}" alt="banner1" class="main_banner_img1">
+        </div>
+    </section>
+    <section>
+        <h1>새로 올라온 책</h1>
+        <div class="main_prd">
+            <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
+                <th:block th:if="${items != null && items.size() > 0}">
+                        <div>
+                            <ul class="main_prd_ul">
+                                <!--메인 화면 상품 리스트에는 '판매중' 인 상품만 진열-->
+                                <li th:each="item, status : ${items}" th:object="${item}" class="main_prd_li" th:if="${item.status.toString().equals('SALE')}">
+                                        <a>
+                                        <div>
+                                            <span class="main_img_box">
+                                                <img class="main_prd_img" alt="메인 상품 이미지" th:src="@{/common/images/test_img.jpg}">
+                                            </span>
+                                        </div>
+                                        <div class="main_book_info_box">
+                                            <p class="main_bookNm" th:text="*{bookNm}"></p>
+                                            <p class="main_auth_pub">
+                                                <span class="main_author" th:text="*{author}"></span>
+                                                <em class="divi"></em>
+                                                <span class="main_pub" th:text="*{publisher}"></span>
+                                            </p>
+                                            <p class="main_price_box">
+                                                <span class="main_price" th:if="*{price >= 1000}" th:text="*{#numbers.formatInteger(price, 3, 'COMMA') + '원'}"></span>
+                                                <span class="main_price" th:unless="*{price >= 1000}" th:text="*{price + '원'}"></span>
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    <!--</th:block>-->
+                    <!--</th:block>-->
+                </th:block>
+                <th:block th:unless="${items != null && items.size() > 0}">
+                    <h3>조회된 목록이 없습니다.</h3>
+                </th:block>
+
+            </form>
+        </div>
+    </section>
+
 
 </main>
 </html>

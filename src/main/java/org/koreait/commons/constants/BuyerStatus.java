@@ -7,6 +7,7 @@ import java.util.List;
 
 public enum BuyerStatus {
 
+
     ORDER,      // 주문
     PAY,        // 입금
     SHIP,      // 배송

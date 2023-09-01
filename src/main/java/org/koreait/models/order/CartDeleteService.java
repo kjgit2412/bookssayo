@@ -14,6 +14,8 @@ public class CartDeleteService {
     private final CartRepository repository;
     private final CartService cartService;
 
+
+    // 장바구니 비우기
     public void deleteAll(String mode) {
         List<Cart> items = cartService.getList(mode);
         repository.deleteAll(items);

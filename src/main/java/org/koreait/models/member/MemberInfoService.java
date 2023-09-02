@@ -30,14 +30,14 @@ public class MemberInfoService implements UserDetailsService {
         );
 
         return MemberInfo.builder()
-                .userNo(member.getUserNo())
-                .userId(member.getUserId())
-                .userPw(member.getUserPw())
-                .userNm(member.getUserNm())
-                .email(member.getEmail())
-                .mobile(member.getMobile())
-                .role(member.getRole())
-                .authorities(authorities)
-                .build();
+                         .userNo(member.getUserNo())
+                         .userId(member.getUserId())
+                         .userPw(member.getUserPw())
+                         .userNm(member.getUserNm())
+                         .email(member.getEmail())
+                         .mobile(member.getMobile())
+                         .role(member.getRole())
+                         .authorities(authorities)
+                         .build();
     }
 }

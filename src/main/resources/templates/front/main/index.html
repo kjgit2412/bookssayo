@@ -13,7 +13,8 @@
         <div class="main_prd">
             <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
                 <th:block th:if="${items != null && items.size() > 0}">
-                        <div>
+                        <div class="book-pagination">
+                            <button id="prevPage" class="page-button" style="display: none; transform: rotate(180deg);"></button>
                             <ul class="main_prd_ul">
                                 <!--메인 화면 상품 리스트에는 '판매중' 인 상품만 진열-->
                                 <li th:each="item, status : ${items}" th:object="${item}" class="main_prd_li" th:if="${item.status.toString().equals('SALE')}">
@@ -38,6 +39,7 @@
                                     </a>
                                 </li>
                             </ul>
+                            <button id="nextPage" class="page-button" style="margin-left: 36px;"></button>
                         </div>
                     <!--</th:block>-->
                     <!--</th:block>-->
@@ -50,6 +52,66 @@
         </div>
     </section>
 
+    <script>
+        const itemsPerPage = 6;
+        const items = document.querySelectorAll('.main_prd_li');
+        const prevButton = document.getElementById('prevPage');
+        const nextButton = document.getElementById('nextPage');
+        const noResultsMessage = document.querySelector('.no-results');
+        let currentPage = 1;
+
+        function showPage(page) {
+            for (let i = 0; i < items.length; i++) {
+                items[i].style.display = 'none';
+            }
+            for (let i = (page - 1) * itemsPerPage; i < page * itemsPerPage; i++) {
+                if (items[i]) {
+                    items[i].style.display = 'block';
+                }
+            }
+        }
+
+        function updatePaginationButtons() {
+            if (currentPage === 1) {
+                prevButton.style.display = 'none';
+            } else {
+                prevButton.style.display = 'block';
+            }
+            if (currentPage * itemsPerPage >= items.length) {
+                nextButton.style.display = 'none';
+            } else {
+                nextButton.style.display = 'block';
+            }
+        }
+
+        function checkResults() {
+            if (items.length === 0) {
+                noResultsMessage.style.display = 'block';
+            } else {
+                noResultsMessage.style.display = 'none';
+            }
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+                updatePaginationButtons();
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentPage * itemsPerPage < items.length) {
+                currentPage++;
+                showPage(currentPage);
+                updatePaginationButtons();
+            }
+        });
+
+        showPage(currentPage);
+        updatePaginationButtons();
+        checkResults();
+    </script>
 
 </main>
 </html>

@@ -19,16 +19,17 @@ public class Utils {
 
     private static Utils instance;
 
-    private final HttpServletRequest request;
-    private final HttpSession session;
+    private final HttpServletRequest request; // 요청 관련 정보를 처리하는 객체
+    private final HttpSession session; // 세션을 관리하는 객체
 
 
     /**
-     * 모바일 장비 접속 여부
+     * 현재 접속한 장치가 모바일 장치인지 여부를 판단.
      *
-     * @return
+     * @return 모바일 장치에 접속한 경우 true, 아닌 경우 false를 반환.
      */
     public boolean isMobile() {
+        // User-Agent 헤더를 이용하여 모바일 장치 여부를 판단.
         boolean isMobile = request.getHeader("User-Agent").matches(".*(iPhone|iPod|iPad|BlackBerry|Android|Windows CE|LG|MOT|SAMSUNG|SonyEricsson).*");
 
         /** 세션에 device 값이 이미 있는 경우 대체 */
@@ -41,8 +42,8 @@ public class Utils {
     /**
      * PC와 Mobile 구분에 따른 템플릿 prefix 처리
      *
-     * @param tpl
-     * @return
+     * @param tpl 뷰 템플릿 파일명
+     * @return 모바일 장치에 접속한 경우 "mobile/" 경로를, 그렇지 않은 경우 "front/" 경로를 반환.
      */
     public String view(String tpl) {
         String prefix = isMobile() ? "mobile/":"front/";
@@ -78,7 +79,6 @@ public class Utils {
 
     /**
      * 단일 요청 데이터 조회
-     *
      */
     public String getParam(String name) {
         return request.getParameter(name);

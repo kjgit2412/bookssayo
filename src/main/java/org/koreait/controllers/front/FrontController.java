@@ -43,24 +43,6 @@ public class FrontController implements CommonProcess {
         return "front/main/index";
     }
 
-    /** 도서 상세 페이지*/
-    @GetMapping("/goods/view/{bookNo}")
-    public String view(@PathVariable Long bookNo, Model model) {
-        try {
-            Book data = infoService.get(bookNo);
-            commonProcess(model, "view", data.getBookNm());
-
-            model.addAttribute("data", data);
-
-        } catch (CommonException e) {
-            e.printStackTrace();
-            throw new AlertBackException(e.getMessage());
-        }
-
-        return "front/goods/view";
-    }
-
-
     public void commonProcess(Model model, String mode) {
         commonProcess(model, mode, null);
     }

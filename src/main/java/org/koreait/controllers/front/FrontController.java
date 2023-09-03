@@ -43,6 +43,28 @@ public class FrontController implements CommonProcess {
         return "front/main/index";
     }
 
+    /** 도서 목록 페이지 */
+    @GetMapping("main/list")
+    public String list(@ModelAttribute BookSearch search, Model model){
+        commonProcess(model, "list");
+        search.setLimit(10);
+        ListData<Book> data = infoService.getList(search);
+        // 각 도서에 대한 이미지 정보를 가져와서 모델에 추가
+        for (Book book : data.getContent()) {
+            infoService.addFileInfo(book);
+        }
+        model.addAttribute("items", data.getContent());
+        model.addAttribute("pagination", data.getPagination());
+
+        return "front/main/list";
+    }
+
+    /** 이벤트 페이지 */
+    @GetMapping("main/event")
+    public String event(){
+        return "front/main/event";
+    }
+
     public void commonProcess(Model model, String mode) {
         commonProcess(model, mode, null);
     }
@@ -55,6 +77,9 @@ public class FrontController implements CommonProcess {
         }
         else if(mode.equals("main")){
             pageTitle = "북싸요";
+        }
+        else if(mode.equals("list")){
+            pageTitle = "도서 검색";
         }
 
 

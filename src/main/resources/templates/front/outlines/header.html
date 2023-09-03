@@ -17,7 +17,7 @@
         </section>
         <section class="right">
                 <th:block sec:authorize="isAuthenticated()"> <!--로그인 된 경우-->
-                    <a th:href="@{/member/myinfo}" class="sbtn">회원정보수정</a>
+                    <a th:href="@{/member/edit}" class="sbtn">회원정보수정</a>
                     <a th:href="@{/member/logout}" class="sbtn blue">로그아웃</a>
                     <a th:href="@{/main/index}" class="sbtn blue">마이페이지</a>
                 </th:block>

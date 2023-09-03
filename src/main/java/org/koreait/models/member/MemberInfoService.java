@@ -1,8 +1,11 @@
 package org.koreait.models.member;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.controllers.member.JoinForm;
 import org.koreait.entities.Member;
+import org.koreait.models.books.BookNotFoundException;
 import org.koreait.repositories.MemberRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,5 +54,17 @@ public class MemberInfoService implements UserDetailsService {
                          .role(member.getRole())
                          .authorities(authorities)
                          .build();
+    }
+    public Member get(Long userNo) {
+        Member member = repository.findById(userNo).orElseThrow(BookNotFoundException::new);
+
+        return member;
+    }
+
+    public JoinForm getJoinForm(Long userNo) {
+        Member member = get(userNo);
+        JoinForm form = new ModelMapper().map(member, JoinForm.class);
+
+        return form;
     }
 }

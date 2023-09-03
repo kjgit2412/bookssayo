@@ -7,14 +7,15 @@
     <form name="frmCart" method="post" th:action="@{/order/cart}" target="ifrmProcess" autocomplete="off">
         <input type="hidden" name="_method" value="PATCH">
 
-        <table border="1">
+        <table class="cart-table-cols">
             <thead>
             <tr>
                 <th>
                     <input type="checkbox" class="checkall" data-target-name="chkNo" id="checkall" checked>
                     <label for="checkall" class="standalone"></label>
                 </th>
-                <th colspan="2">상품정보</th>
+                <th>상품정보</th>
+                <th>도서명</th>
                 <th>수량</th>
                 <th>판매가</th>
                 <th>합계</th>
@@ -39,7 +40,7 @@
                     <th:block th:if="*{book != null}" th:text="*{book.bookNm}"></th:block>
                 </td>
                 <td>
-                    <input type="number" th:name="${'ea_' + status.index}" th:value="*{ea}" min="1">개
+                    <input type="number" th:name="${'ea_' + status.index}" th:value="*{ea}" min="1">
                 </td>
                 <td>
                     <th:block th:if="*{book != null && book.price < 1000}" th:text="*{book.price + '원'}"></th:block>

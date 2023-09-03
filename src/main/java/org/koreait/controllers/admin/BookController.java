@@ -46,6 +46,7 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
     @GetMapping
     public String index(@ModelAttribute BookSearch search, Model model) {
         commonProcess(model, "list");
+        search.setLimit(10);
         ListData<Book> data = infoService.getList(search);
         model.addAttribute("items", data.getContent());
         model.addAttribute("pagination", data.getPagination());

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.entities.Cart;
 import org.koreait.repositories.CartRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -22,4 +21,18 @@ public class CartDeleteService {
         repository.flush();
     }
 
+    /**
+     * 장바구니 등록번호로 삭제
+     *
+     * @param cartNos
+     */
+    public void delete(List<Long> cartNos) {
+
+        List<Cart> items = cartService.getList(cartNos);
+        if (items == null || items.isEmpty()) return;
+
+        repository.deleteAll(items);
+        repository.flush();
+
+    }
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/main}">
+<main layout:fragment="content" style="background: #fff;" th:object="${data}">
+    <h1 th:text="${pageTitle}"></h1>
+
+    <div>주문이 완료되었습니다.</div>
+    <div>
+        주문번호 : <a th:href="@{/order/view/id(id=*{id})}" th:text="*{id}"></a>
+    </div>
+</main>
+</html>

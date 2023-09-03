@@ -26,10 +26,6 @@
                             <td th:text="*{bookNm}"></td>
                         </tr>
                         <tr>
-                            <th>도서명</th>
-                            <td th:text="*{bookNm}"></td>
-                        </tr>
-                        <tr>
                             <th>판매가</th>
                             <td th:if="*{price < 1000}" th:text="*{price + '원'}"></td>
                             <td th:if="*{price >= 1000}" th:text="*{#numbers.formatInteger(price, 3, 'COMMA') + '원'}"></td>

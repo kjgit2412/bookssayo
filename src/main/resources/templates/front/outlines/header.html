@@ -34,10 +34,10 @@
                 <button class="dropbtn">
                     <img th:src="@{/common/images/list.png}" alt="목록">
                 </button>
-                <a th:href="@{/main/list}" class="header_content">전체도서</a>
-                <a th:href="@{/main/list}" class="header_content">국내도서</a>
-                <a th:href="@{/main/list}" class="header_content">해외도서</a>
-                <a th:href="@{/main/event}" class="header_content">이벤트</a>
+                <a th:href="@{/front/main/list}" class="header_content">전체도서</a>
+                <a th:href="@{/front/main/list}" class="header_content">국내도서</a>
+                <a th:href="@{/front/main/list}" class="header_content">해외도서</a>
+                <a th:href="@{/front/main/event}" class="header_content">이벤트</a>
             </div>
             <div class="menu_right">
                 <button class="dropbtn">
@@ -52,38 +52,38 @@
     <section>
         <div class="header_drop_menu">
             <div class="drop_column">
-                <a href="#">국내도서</a>
-                <a href="#">소설</a>
-                <a href="#">시/에세이</a>
-                <a href="#">인문</a>
-                <a href="#">경영/경제</a>
-                <a href="#">자기계발</a>
-                <a href="#">정치/사회</a>
-                <a href="#">역사/문화</a>
-                <a href="#">외국어</a>
+                <a href="#" class="drop_top_cate">국내도서</a>
+                <a href="#" class="drop_items">소설</a>
+                <a href="#" class="drop_items">시/에세이</a>
+                <a href="#" class="drop_items">인문</a>
+                <a href="#" class="drop_items">경영/경제</a>
+                <a href="#" class="drop_items">자기계발</a>
+                <a href="#" class="drop_items">정치/사회</a>
+                <a href="#" class="drop_items">역사/문화</a>
+                <a href="#" class="drop_items">외국어</a>
             </div>
             <div class="drop_column">
-                <a href="#">해외도서</a>
-                <a href="#">문학</a>
-                <a href="#">인문</a>
-                <a href="#">고전</a>
-                <a href="#">경제/경영</a>
-                <a href="#">ELT/수험서</a>
+                <a href="#" class="drop_top_cate">해외도서</a>
+                <a href="#" class="drop_items">문학</a>
+                <a href="#" class="drop_items">인문</a>
+                <a href="#" class="drop_items">고전</a>
+                <a href="#" class="drop_items">경제/경영</a>
+                <a href="#" class="drop_items">ELT/수험서</a>
             </div>
             <div class="drop_column">
-                <a href="#">고객센터</a>
-                <a href="#">자주 묻는 질문</a>
-                <a href="#">1:1 문의</a>
-                <a href="#">공지사항</a>
+                <a href="#" class="drop_top_cate">고객센터</a>
+                <a href="#" class="drop_items">자주 묻는 질문</a>
+                <a href="#" class="drop_items">1:1 문의</a>
+                <a href="#" class="drop_items">공지사항</a>
             </div>
         </div>
     </section>
     <!--common.js 가 제대로 로딩되지 않는 것 같아 임시로 스크립트 넣어둠-->
-    <script>
+    <!--<script>
         document.querySelector('.dropbtn').addEventListener('click', function() {
             var dropdownContent = document.querySelector('.header_drop_menu');
             dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
         });
-    </script>
+    </script>-->
 </header>
 </html>

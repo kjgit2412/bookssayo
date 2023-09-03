@@ -57,7 +57,7 @@ public class CartService {
 
         QCart cart = QCart.cart;
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(cart.mode.eq(mode));
+        if (mode != null && !mode.isBlank()) builder.and(cart.mode.eq(mode));
 
         /** 장바구니 등록 번호로 조회 S */
         if (cartNos != null && !cartNos.isEmpty()) {

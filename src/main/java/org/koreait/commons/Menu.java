@@ -5,7 +5,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 메뉴와 관련된 유틸리티 클래스.
+ */
 public class Menu {
+
+    /**
+     * 주어진 코드에 따라 메뉴 목록을 반환.
+     *
+     * @param code 메뉴 코드
+     * @return 주어진 메뉴 코드에 따른 메뉴 목록
+     */
     public static List<MenuDetail> gets(String code) {
         List<MenuDetail> menus = new ArrayList<>();
 
@@ -24,6 +34,12 @@ public class Menu {
         return menus;
     }
 
+    /**
+     * 주어진 요청에 대한 하위 메뉴 코드를 반환.
+     *
+     * @param request HttpServletRequest 객체
+     * @return 요청에 대한 하위 메뉴 코드
+     */
     public static String getSubMenuCode(HttpServletRequest request) {
         String URI = request.getRequestURI();
 

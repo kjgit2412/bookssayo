@@ -1,10 +1,7 @@
 package org.koreait.controllers.goods;
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.AlertBackException;
-import org.koreait.commons.CommonException;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.ScriptExceptionProcess;
+import org.koreait.commons.*;
 import org.koreait.entities.Book;
 import org.koreait.models.books.BookInfoService;
 import org.springframework.stereotype.Controller;
@@ -17,11 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("/front/goods")
 @RequiredArgsConstructor
 public class GoodsController implements CommonProcess, ScriptExceptionProcess {
 
     private final BookInfoService infoService;
+    private final Utils utils;
+
     @GetMapping("/view/{bookNo}")
     public String view(@PathVariable Long bookNo, Model model) {
         try {
@@ -35,7 +34,7 @@ public class GoodsController implements CommonProcess, ScriptExceptionProcess {
             throw new AlertBackException(e.getMessage());
         }
 
-        return "goods/view";
+        return utils.view("goods/view");
     }
 
     public void commonProcess(Model model, String mode) {
@@ -56,9 +55,7 @@ public class GoodsController implements CommonProcess, ScriptExceptionProcess {
 
         if (mode.equals("view")) {
             addScript.add("goods/view");
-            addScript.add("order/cart");
         }
-
 
         model.addAttribute("addScript", addScript);
         model.addAttribute("addCss", addCss);

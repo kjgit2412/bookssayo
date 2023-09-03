@@ -40,9 +40,8 @@
 * 로고 구현 by MC.
 * Buyer Entity 추가
 
-![로고1](https://github.com/kjgit2412/bookssayo/assets/140779367/5e0a900f-a78a-4a63-a743-b62418a77e15)
+![로고](https://github.com/kjgit2412/bookssayo/assets/140779367/127b06bd-3d4a-4ecd-b766-394212a2bca4)
 
-![로고2.](https://github.com/kjgit2412/bookssayo/assets/140779367/a16be9f1-ba5f-438c-8d37-c2bf194ca672)
 
 ***
 

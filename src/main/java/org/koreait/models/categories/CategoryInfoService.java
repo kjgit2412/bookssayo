@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryInfoService {
-
     private final CategoryRepository repository;
 
     /**
@@ -23,9 +22,10 @@ public class CategoryInfoService {
      * @return
      */
     public Category get(String cateCd) {
-
         return repository.findById(cateCd).orElse(null);
     }
+
+
 
     /**
      * 사용중 분류 목록 조회

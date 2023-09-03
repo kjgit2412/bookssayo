@@ -53,6 +53,7 @@ header .logo {width: 230px; }
 main { min-width: 1100px; min-height: 800px; display: flex; }
 main > aside { width: 208px; background: #596b99; }
 main > section { flex-grow: 1; margin: 0 50px 50px; }
+.list_prd_img { width: 100px; }
 
 aside li > a { display: block; height: 71px; line-height: 71px; border-top: 1px solid #61729e; color: #dddee4; font-size: 18px;  position: relative; padding-left: 30px; }
 aside li > a * { color: #dddee4; font-size: 18px; }

@@ -46,10 +46,25 @@ public class CartService {
     }
 
     public List<Cart> getList(String mode) {
-        mode = Objects.requireNonNullElse(mode, "cart");
+        return getList(mode, null);
+    }
+
+    public List<Cart> getList(List<Long> cartNos) {
+        return getList(null, cartNos);
+    }
+
+    public List<Cart> getList(String mode, List<Long> cartNos) {
+
         QCart cart = QCart.cart;
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(cart.mode.eq(mode));
+        if (mode != null && !mode.isBlank()) builder.and(cart.mode.eq(mode));
+
+        /** 장바구니 등록 번호로 조회 S */
+        if (cartNos != null && !cartNos.isEmpty()) {
+            builder.and(cart.CartNo.in(cartNos));
+        }
+        /** 장바구니 등록 번호로 조회 E */
+
         if (memberUtil.isLogin()) { // 회원
             builder.and(cart.member.userNo.eq(memberUtil.getMember().getUserNo()));
         } else { // 비회원
@@ -78,4 +93,11 @@ public class CartService {
         if (book != null) bookInfoService.addFileInfo(book);
     }
 
+    public int getTotalPrice(List<Cart> items) {
+        items.stream().forEach(item -> item.setTotalPrice(item.getBook().getPrice() * item.getEa()));
+
+        int totalPrice = items.stream().mapToInt(Cart::getTotalPrice).sum()+3000;       // 배송료 포함
+
+        return totalPrice;
+    }
 }

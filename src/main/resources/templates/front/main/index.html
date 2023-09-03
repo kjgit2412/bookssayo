@@ -13,14 +13,15 @@
         <div class="main_prd">
             <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
                 <th:block th:if="${items != null && items.size() > 0}">
-                        <div>
+                        <div class="book-pagination">
+                            <button id="prevPage" class="page-button" style="display: none; transform: rotate(180deg);"></button>
                             <ul class="main_prd_ul">
                                 <!--메인 화면 상품 리스트에는 '판매중' 인 상품만 진열-->
-                                <li th:each="item, status : ${items}" th:object="${item}" class="main_prd_li" th:if="${item.status.toString().equals('SALE')}">
-                                        <a>
-                                        <div>
+                                <li th:each="item : ${items}" th:object="${item}" class="main_prd_li" th:if="${item.status.toString().equals('SALE')}">
+                                    <a th:href="'/front/goods/view/'+*{bookNo}">
+                                        <div th:each="imageInfo : ${item.listImages}">
                                             <span class="main_img_box">
-                                                <img class="main_prd_img" alt="메인 상품 이미지" th:src="@{/common/images/test_img.jpg}">
+                                                <img class="main_prd_img" alt="메인 상품 이미지" th:src="${imageInfo.fileUrl}">
                                             </span>
                                         </div>
                                         <div class="main_book_info_box">
@@ -38,6 +39,7 @@
                                     </a>
                                 </li>
                             </ul>
+                            <button id="nextPage" class="page-button" style="margin-left: 36px;"></button>
                         </div>
                     <!--</th:block>-->
                     <!--</th:block>-->
@@ -49,7 +51,6 @@
             </form>
         </div>
     </section>
-
 
 </main>
 </html>

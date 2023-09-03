@@ -39,7 +39,6 @@ public class BookInfoService {
 
     /**
      * 도서 개별 조회
-     *
      * @param bookNo
      * @return
      */
@@ -152,7 +151,6 @@ public class BookInfoService {
         }
         /** 정렬 처리 E */
 
-
         JPAQueryFactory factory = new JPAQueryFactory(em);
         List<Book> items = factory.selectFrom(book)
                 .leftJoin(book.category)
@@ -166,9 +164,11 @@ public class BookInfoService {
         ListData<Book> data = new ListData<>();
         data.setContent(items);
 
+
+
         /* Todo : 페이징 처리 로직 추가 */
         int total = (int)bookRepository.count(andBuilder);
-        Pagination pagination = new Pagination(page, total, 10, 10, request);
+        Pagination pagination = new Pagination(page, total, 10, limit, request);
         data.setPagination(pagination);
 
         return data;
@@ -176,7 +176,6 @@ public class BookInfoService {
 
     /**
      * 첨부된 이미지 추가 처리
-     *
      * @param book
      */
     public void addFileInfo(Book book) {

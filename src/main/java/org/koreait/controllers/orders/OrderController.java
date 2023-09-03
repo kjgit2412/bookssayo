@@ -3,16 +3,12 @@ package org.koreait.controllers.orders;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.koreait.commons.AlertBackException;
-import org.koreait.commons.CommonException;
-import org.koreait.commons.MemberUtil;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.ScriptExceptionProcess;
+import org.koreait.commons.*;
+import org.koreait.commons.constants.PaymentType;
 import org.koreait.entities.Cart;
+import org.koreait.entities.OrderInfo;
 import org.koreait.models.member.MemberInfo;
-import org.koreait.models.order.CartItemNotFoundException;
-import org.koreait.models.order.CartService;
-import org.koreait.models.order.OrderSaveService;
+import org.koreait.models.order.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -32,15 +28,18 @@ import java.util.Objects;
 public class OrderController implements CommonProcess, ScriptExceptionProcess {
 
     private final CartService cartService;
+    private final CartDeleteService cartDeleteService;
     private final OrderSaveService saveService;
+    private final OrderInfoService infoService;
     private final MemberUtil memberUtil;
+    private final Utils utils;
 
     @GetMapping
     public String index(@ModelAttribute OrderForm form, Model model) {
         try {
             commonProcess(model, "form", form);
 
-            return "order/index";
+            return utils.view("order/index");
         } catch (CommonException e) {
             throw new AlertBackException(e.getMessage());
         }
@@ -51,10 +50,31 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
         commonProcess(model, "form", form);
 
         if (errors.hasErrors()) {
-            return "order/index";
+            return utils.view("order/index");
         }
 
-        return "commons/_execute_script";
+        saveService.save(form);
+
+        PaymentType paymentType = PaymentType.valueOf(form.getPaymentType());
+        String script = "";
+        if (paymentType == PaymentType.LBT) { // 무통장 입금인 경우는 주문 완료 페이지로 이동
+            /** 주문 장바구니 상품 삭제 */
+            cartDeleteService.delete(form.getCartNo());
+            return "redirect:/order/end?id=" + form.getId();
+        } else { // 그외 결제는 PG 연동
+            // 추후...
+        }
+
+        return "common/_execute_script";
+    }
+
+    @GetMapping("/end")
+    public String orderEnd(Long id, Model model) {
+        commonProcess(model, "end");
+        OrderInfo data = infoService.get(id);
+        model.addAttribute("data", data);
+        log.info(data.toString());
+        return utils.view("order/end");
     }
 
     public void commonProcess(Model model, String mode) {
@@ -63,6 +83,9 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
 
     public void commonProcess(Model model, String mode, OrderForm form) {
         String pageTitle = "주문서 작성";
+        if (mode.equals("end")) {
+            pageTitle = "주문완료";
+        }
         CommonProcess.super.commonProcess(model, pageTitle);
 
         List<String> addScript = new ArrayList<>();

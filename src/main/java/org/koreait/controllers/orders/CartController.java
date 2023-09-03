@@ -1,10 +1,7 @@
 package org.koreait.controllers.orders;
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.AlertException;
-import org.koreait.commons.CommonException;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.ScriptExceptionProcess;
+import org.koreait.commons.*;
 import org.koreait.entities.Cart;
 import org.koreait.models.order.CartSaveService;
 import org.koreait.models.order.CartService;
@@ -25,7 +22,7 @@ public class CartController implements CommonProcess, ScriptExceptionProcess {
 
     private final CartSaveService cartSaveService;
     private final CartService cartService;
-
+    private final Utils utils;
 
     @GetMapping
     public String index(@ModelAttribute CartForm form, Model model) {
@@ -36,7 +33,7 @@ public class CartController implements CommonProcess, ScriptExceptionProcess {
 
         items.stream().forEach(System.out::println);
 
-        return "cart/index";
+        return utils.view("cart/index");
     }
 
 
@@ -52,7 +49,7 @@ public class CartController implements CommonProcess, ScriptExceptionProcess {
             String script = String.format("parent.location.replace('%s');", url);
             model.addAttribute("script", script);
 
-            return "commons/_execute_script";
+            return "common/_execute_script";
         } catch (CommonException e) {
             e.printStackTrace();
             throw new AlertException(e.getMessage());

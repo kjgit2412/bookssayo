@@ -2,11 +2,9 @@ package org.koreait.controllers.front;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.ListData;
-import org.koreait.commons.Menu;
-import org.koreait.commons.MenuDetail;
+import org.koreait.commons.*;
 import org.koreait.commons.constants.BookStatus;
+import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Book;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSearch;
@@ -14,13 +12,15 @@ import org.koreait.models.categories.CategoryInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller("frontController")
-@RequestMapping("/front/main")
+@RequestMapping("/front")
 @RequiredArgsConstructor
 public class FrontController implements CommonProcess {
 
@@ -28,64 +28,65 @@ public class FrontController implements CommonProcess {
     private final CategoryInfoService categoryInfoService;
     private final HttpServletRequest request;
 
-    @GetMapping
-    public String main(Model model){
-        commonProcess(model, "북싸요");
+    /** 메인 페이지 */
+    @GetMapping("main")
+    public String main(@ModelAttribute BookSearch search, Model model){
+        commonProcess(model, "main");
 
-        BookSearch search = new BookSearch();
         ListData<Book> data = infoService.getList(search);
-
+        // 각 도서에 대한 이미지 정보를 가져와서 모델에 추가
+        for (Book book : data.getContent()) {
+            infoService.addFileInfo(book);
+        }
         model.addAttribute("items", data.getContent());
 
         return "front/main/index";
     }
 
+    /** 도서 상세 페이지*/
+    @GetMapping("/goods/view/{bookNo}")
+    public String view(@PathVariable Long bookNo, Model model) {
+        try {
+            Book data = infoService.get(bookNo);
+            commonProcess(model, "view", data.getBookNm());
 
+            model.addAttribute("data", data);
 
-    @Override
-    public void commonProcess(Model model, String mode) {
-        // 페이지 제목 설정을 위한 변수 초기화
-        String pageTitle = "도서 목록";
-
-        // mode 값에 따라 페이지 제목 설정
-        if (mode.equals("add")) {
-            pageTitle = "도서 등록";
-        } else if (mode.equals("edit")) {
-            pageTitle = "도서 수정";
-        } else if (mode.equals("category")) {
-            pageTitle = "도서 분류";
+        } catch (CommonException e) {
+            e.printStackTrace();
+            throw new AlertBackException(e.getMessage());
         }
 
-        // CommonProcess의 기본 commonProcess 메서드 호출 및 페이지 제목 전달
+        return "front/goods/view";
+    }
+
+
+    public void commonProcess(Model model, String mode) {
+        commonProcess(model, mode, null);
+    }
+
+    public void commonProcess(Model model, String mode, String addTitle) {
+        String pageTitle = "";
+        if (mode.equals("view")) {
+            if (addTitle != null && !addTitle.isBlank()) addTitle += "|";
+            pageTitle = addTitle;
+        }
+        else if(mode.equals("main")){
+            pageTitle = "북싸요";
+        }
+
+
         CommonProcess.super.commonProcess(model, pageTitle);
 
-        // 페이지 스크립트 추가를 위한 리스트 초기화
-        List<String> addCommonScript = new ArrayList<>();
         List<String> addScript = new ArrayList<>();
+        List<String> addCss = new ArrayList<>();
 
-        // mode 값에 따라 필요한 스크립트 추가
-        if (mode.equals("add") || mode.equals("edit") || mode.equals("save")) {
-            addCommonScript.add("ckeditor/ckeditor"); // CKEditor 스크립트 추가
-            addCommonScript.add("fileManager"); // 파일 관리자 스크립트 추가
-            addScript.add("book/form"); // 도서 관련 폼 스크립트 추가
-            model.addAttribute("categories", categoryInfoService.getListAll());
-        } else if (mode.equals("list")) {
-            model.addAttribute("categories", categoryInfoService.getListAll());
-            model.addAttribute("statusList", BookStatus.getList());
-
+        if (mode.equals("view")) {
+            addScript.add("goods/view");
+            addScript.add("order/cart");
         }
 
-        // 모델에 데이터 추가
-        model.addAttribute("menuCode", "book"); // 메뉴 코드 추가
-        model.addAttribute("addCommonScript", addCommonScript); // 공통 스크립트 추가
-        model.addAttribute("addScript", addScript); // 페이지 스크립트 추가
-
-        // 서브 메뉴 처리
-        String subMenuCode = Menu.getSubMenuCode(request);
-        model.addAttribute("subMenuCode", subMenuCode);
-
-        // 서브 메뉴 조회
-        List<MenuDetail> submenus = Menu.gets("book");
-        model.addAttribute("submenus", submenus);
+        model.addAttribute("addScript", addScript);
+        model.addAttribute("addCss", addCss);
     }
 }

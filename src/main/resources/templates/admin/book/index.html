@@ -59,6 +59,7 @@
                     <label for="checkall" class="standalone"></label>
                 </th>
                 <th width="80">정보수정</th>
+                <th>이미지</th>
                 <th width="80">도서번호</th>
                 <th>분류</th>
                 <th width="80">판매상태</th>
@@ -80,6 +81,13 @@
                         <label th:for="${'chkNo_' + status.index}" class="standalone"></label>
                     </td>
                     <td align="center"><a class="book-edit-clk" th:href="'book/edit/'+*{bookNo}">수정</a></td>
+                    <td>
+                        <div th:each="imageInfo : ${item.listImages}">
+                            <span class="list_img_box">
+                                <img class="list_prd_img" alt="목록 이미지" th:src="${imageInfo.fileUrl}">
+                            </span>
+                        </div>
+                    </td>
                     <td align="center" th:text="*{#numbers.formatInteger(bookNo, 4)}"></td>
                     <td th:text="*{category.cateNm}"></td>
                     <!--<td>

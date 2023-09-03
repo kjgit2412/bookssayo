@@ -3,6 +3,11 @@ window.addEventListener("DOMContentLoaded", function() {
     const chkNos = document.getElementsByName("chkNo");
     const target = frmCart._method;
 
+
+
+
+
+
         for (const el of actionButtons) {
             el.addEventListener("click", function() {
             try {

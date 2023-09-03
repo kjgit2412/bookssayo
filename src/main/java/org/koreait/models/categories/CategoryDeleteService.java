@@ -19,7 +19,6 @@ public class CategoryDeleteService implements RequiredValidator {
 
     /**
      * 분류 삭제
-     *
      * @param cateCd
      */
     public void delete(String cateCd) {

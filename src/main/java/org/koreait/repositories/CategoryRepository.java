@@ -26,7 +26,6 @@ public interface CategoryRepository extends JpaRepository<Category, String>, Que
 
     /**
      * 분류 전체목록 조회
-     *
      */
     default List<Category> getListAll() {
         return getList("all");
@@ -34,7 +33,6 @@ public interface CategoryRepository extends JpaRepository<Category, String>, Que
 
     /**
      * 사용중 분류 목록 조회
-     *
      */
     default List<Category> getList() {
         return getList("use");
@@ -42,7 +40,6 @@ public interface CategoryRepository extends JpaRepository<Category, String>, Que
 
     /**
      * 분류코드 중복 여부
-     *
      */
     default boolean exists(String cateCd) {
         return exists(QCategory.category.cateCd.eq(cateCd));

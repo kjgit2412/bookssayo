@@ -76,6 +76,7 @@ public class BuyerController implements CommonProcess, ScriptExceptionProcess {
 
         List<String> addCommonScript = new ArrayList<>();
         List<String> addScript = new ArrayList<>();
+
         if (mode.equals("add") || mode.equals("edit") || mode.equals("save")) {
             addCommonScript.add("ckeditor/ckeditor");
             addCommonScript.add("fileManager");

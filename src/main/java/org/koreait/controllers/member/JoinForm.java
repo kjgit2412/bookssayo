@@ -5,9 +5,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
+/**회원가입 양식 */
 @Data
 public class JoinForm {
+    private String mode;
+
     @NotBlank
     @Size(min=6)
     private String userId;

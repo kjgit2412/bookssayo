@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * 회원 정보를 담는 클래스입니다. Spring Security의 UserDetails 인터페이스를 구현하여 사용자 정보와 권한 정보를 제공
+ */
 @Data @Builder
 public class MemberInfo implements UserDetails {
     private Long userNo;

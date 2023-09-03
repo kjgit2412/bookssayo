@@ -37,8 +37,6 @@ input[type='radio']+label.standalone { padding: 0; width: 28px; margin: 0; }
 
 .dn { display: none !important; }
 
-
-
 /** 기본 레이아웃 스타일 */
 header { background: #fff; align-items: center; justify-content: space-between;}
 header .header_top{ display: flex;}

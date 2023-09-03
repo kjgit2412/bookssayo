@@ -48,6 +48,10 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
         commonProcess(model, "list");
         search.setLimit(10);
         ListData<Book> data = infoService.getList(search);
+        // 각 도서에 대한 이미지 정보를 가져와서 모델에 추가
+        for (Book book : data.getContent()) {
+            infoService.addFileInfo(book);
+        }
         model.addAttribute("items", data.getContent());
         model.addAttribute("pagination", data.getPagination());
 

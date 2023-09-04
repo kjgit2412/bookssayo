@@ -7,6 +7,7 @@ import org.koreait.commons.*;
 import org.koreait.commons.constants.PaymentType;
 import org.koreait.entities.Cart;
 import org.koreait.entities.OrderInfo;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.member.MemberInfo;
 import org.koreait.models.order.*;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     private final Utils utils;
 
     @GetMapping
-    public String index(@ModelAttribute OrderForm form, Model model) {
+    public String index(@ModelAttribute OrderForm form, Model model, @ModelAttribute BookSearch search) {
         try {
             commonProcess(model, "form", form);
 
@@ -67,7 +68,7 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     }
 
     @GetMapping("/end")
-    public String orderEnd(Long id, Model model) {
+    public String orderEnd(Long id, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "end");
         OrderInfo data = infoService.get(id);
         model.addAttribute("data", data);

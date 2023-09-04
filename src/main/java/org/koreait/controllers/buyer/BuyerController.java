@@ -8,6 +8,7 @@ import org.koreait.entities.Book;
 import org.koreait.entities.Buyer;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSaveService;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.buyer.BuyerListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class BuyerController implements CommonProcess, ScriptExceptionProcess {
 
     // 주문 목록 조회
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "list");
 
         List<Buyer> buyersDone = listService.getBuyerDone();
@@ -52,7 +53,7 @@ public class BuyerController implements CommonProcess, ScriptExceptionProcess {
 
     // 주문 목록 상세조회
     @GetMapping("/view/{buyerNo}")
-    public String view(@PathVariable Long buyerNo, Model model) {
+    public String view(@PathVariable Long buyerNo, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "view");
         Buyer buyer = listService.get(buyerNo);
         model.addAttribute("buyer", buyer);

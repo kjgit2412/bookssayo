@@ -7,6 +7,37 @@
 
     <form name="frmSearch" method="GET" th:object="${orderSearch}" autocomplete="off">
 
+        <table class="table-cols">
+            <tr>
+                <th>주문번호</th>
+                <td>
+                    <input type="text" name="id" th:field="*{id}">
+                </td>
+                <th>키워드 검색</th>
+                <td>
+                    <div class="input_grp">
+                        <select name="sopt" th:field="*{sopt}">
+                            <option value="all">통합검색</option>
+                            <option value="name">이름</option>
+                            <option value="mobile">휴대전화번호</option>
+                            <option value="address">주소</option>
+                            <option value="bookNm">도서명</option>
+                        </select>
+                        <input type="text" name="skey" th:field="*{skey}">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>주문상태</th>
+                <td colspan="3">
+                    <span th:each="orderStatus, status : ${orderStatuses}">
+                        <input type="checkbox" name="statuses" th:value="${orderStatus[0]}" th:id="${'status_' + status.index}" th:field="*{statuses}">
+                        <label th:for="${'status_' + status.index}" th:text="${orderStatus[1]}"></label>
+                    </span>
+                </td>
+            </tr>
+        </table>
+
         <div class="search_btn">
             <button type="submit">검색하기</button>
         </div>
@@ -20,7 +51,7 @@
             <th>주문자명</th>
             <th>주문상품</th>
             <th>결제수단</th>
-            <th>주문서수정</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -43,7 +74,7 @@
             </td>
         </tr>
         <tr th:unless="${items != null && !items.isEmpty()}">
-            <td colspan="5" class="no_data">검색된 주문이 없습니다.</td>
+            <td colspan="6" class="no_data">검색된 주문이 없습니다.</td>
         </tr>
         </tbody>
     </table>

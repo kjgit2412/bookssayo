@@ -100,6 +100,12 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.20</version>
 		</dependency>
+		<dependency>
+			<groupId>com.oracle.database.nls</groupId>
+			<artifactId>orai18n</artifactId>
+			<version>23.2.0.0</version>
+		</dependency>
+
 
 
 	</dependencies>

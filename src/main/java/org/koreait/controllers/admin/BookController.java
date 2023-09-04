@@ -46,7 +46,12 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
     @GetMapping
     public String index(@ModelAttribute BookSearch search, Model model) {
         commonProcess(model, "list");
+        search.setLimit(10);
         ListData<Book> data = infoService.getList(search);
+        // 각 도서에 대한 이미지 정보를 가져와서 모델에 추가
+        for (Book book : data.getContent()) {
+            infoService.addFileInfo(book);
+        }
         model.addAttribute("items", data.getContent());
         model.addAttribute("pagination", data.getPagination());
 
@@ -63,7 +68,7 @@ public class BookController implements CommonProcess, ScriptExceptionProcess {
                 bookDeleteService.deleteList(form);
             }
             else if(mode.equals("edit")) {
-
+                saveService.saveList(form);
             }
         } catch (CommonException e) {
             e.printStackTrace();

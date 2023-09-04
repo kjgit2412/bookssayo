@@ -24,6 +24,13 @@ public class FileUploadService {
     private int width = 150;
     private int height = 150;
 
+    /**
+     * 파일을 업로드하고 관련 정보를 저장
+     * @param files 업로드할 파일 배열
+     * @param gid 파일 그룹 식별자
+     * @param location 파일 저장 위치
+     * @return 업로드된 파일 정보 리스트
+     */
     public List<FileInfo> upload(MultipartFile[] files, String gid, String location) {
         gid = gid == null || gid.isBlank() ? UUID.randomUUID().toString() : gid;
 
@@ -33,7 +40,7 @@ public class FileUploadService {
             String fileName = file.getOriginalFilename();
             String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-            /** 파일 정보 저장 처리 S */
+            // 파일 정보 저장 처리 시작
             FileInfo item = FileInfo.builder()
                     .fileName(fileName)
                     .fileType(fileType)
@@ -45,14 +52,14 @@ public class FileUploadService {
             repository.saveAndFlush(item);
 
             infoService.addFileInfo(item); // 파일 경로, 파일 URL 등의 추가 정보
-            /** 파일 정보 저장 처리 E */
+            // 파일 정보 저장 처리 종료
 
-            /** 파일 업로드 처리 S */
+            // 파일 업로드 처리 시작
             try {
                 File _file = new File(item.getFilePath());
                 file.transferTo(_file);
 
-                /** 썸네일 생성 처리 S */
+                // 썸네일 생성 처리 시작
                 if (fileType.indexOf("image") != -1) { // 이미지 형식 파일
                     String thumbPath = infoService.getThumbPath(item.getId(), item.getExtension(), width, height);
                     String thumbUrl = infoService.getThumbUrl(item.getId(), item.getExtension(), width, height);
@@ -65,23 +72,34 @@ public class FileUploadService {
                             .size(width, height)
                             .toFile(_thumb);
                 }
-                /** 썸네일 생성 처리 E */
+                // 썸네일 생성 처리 종료
 
                 uploadedFiles.add(item);
 
             } catch (IOException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
-            /** 파일 업로드 처리 E */
+            // 파일 업로드 처리 종료
         }
 
         return uploadedFiles;
     }
 
+    /**
+     * 파일을 업로드하고 관련 정보를 저장
+     * @param files 업로드할 파일 배열
+     * @param gid 파일 그룹 식별자
+     * @return 업로드된 파일 정보 리스트
+     */
     public List<FileInfo> upload(MultipartFile[] files, String gid) {
         return upload(files, gid, null);
     }
 
+    /**
+     * 파일을 업로드하고 관련 정보를 저장
+     * @param files 업로드할 파일 배열
+     * @return 업로드된 파일 정보 리스트
+     */
     public List<FileInfo> upload(MultipartFile[] files) {
         return upload(files, null);
     }

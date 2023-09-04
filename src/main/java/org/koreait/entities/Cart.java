@@ -1,9 +1,6 @@
 package org.koreait.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,10 +18,22 @@ public class Cart extends BaseEntity {
     @Id   @GeneratedValue
     private Long CartNo;
 
-    @Column(length=40, nullable = false)
-    private String buyerNm;         // 주문자명
+    @Column(name="_uid")
+    private int uid;
 
-    //  array로 지정 필요
-    private String bookNm;         // 주문한 상품 번호
-    private Long buyerCnt;          // 주문한 상품의 수량
+    @Column(length=10, nullable = false, name="_mode")
+    private String mode = "direct"; // 바로 구매
+
+    private int ea = 1;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="bookNo")
+    private Book book;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="userNo")
+    private Member member;
+
+    @Transient
+    private int totalPrice;
 }

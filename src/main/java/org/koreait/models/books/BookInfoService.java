@@ -39,7 +39,6 @@ public class BookInfoService {
 
     /**
      * 도서 개별 조회
-     *
      * @param bookNo
      * @return
      */
@@ -120,16 +119,27 @@ public class BookInfoService {
             sopt = sopt.trim();
             skey = skey.trim();
 
-            if (sopt.equals("all")) { // 통합 검색
+            if (sopt.equals("all")) { // 통합 검색, 관리자용
                 BooleanBuilder orBuilder = new BooleanBuilder();
                 orBuilder.or(book.bookNo.stringValue().contains(skey))
-                        .or(book.bookNm.containsIgnoreCase(skey));
+                        .or(book.bookNm.containsIgnoreCase(skey))
+                        .or(book.author.containsIgnoreCase(skey))
+                        .or(book.publisher.containsIgnoreCase(skey));
                 andBuilder.and(orBuilder);
-
-            } else if (sopt.equals("bookNm")) {
+            } else if (sopt.equals("frontAll")) { // 통합 검색, 홈페이지용
+                BooleanBuilder orBuilder = new BooleanBuilder();
+                orBuilder.or(book.bookNm.containsIgnoreCase(skey))
+                        .or(book.author.containsIgnoreCase(skey))
+                        .or(book.publisher.containsIgnoreCase(skey));
+                andBuilder.and(orBuilder);
+            } else if (sopt.equals("bookNm")) { // 도서명 검색
                 andBuilder.and(book.bookNm.containsIgnoreCase(skey));
-            } else if (sopt.equals("bookNo")) {
+            } else if (sopt.equals("bookNo")) { // 도서 번호 검색
                 andBuilder.and(book.bookNo.stringValue().contains(skey));
+            } else if (sopt.equals("author")) { // 저자명 검색
+                andBuilder.and(book.author.containsIgnoreCase(skey));
+            } else if (sopt.equals("publisher")) { // 출판사 검색
+                andBuilder.and(book.publisher.containsIgnoreCase(skey));
             }
         }
         /** 조건 및 키워드 검색 E */
@@ -165,6 +175,8 @@ public class BookInfoService {
         ListData<Book> data = new ListData<>();
         data.setContent(items);
 
+
+
         /* Todo : 페이징 처리 로직 추가 */
         int total = (int)bookRepository.count(andBuilder);
         Pagination pagination = new Pagination(page, total, 10, limit, request);
@@ -175,7 +187,6 @@ public class BookInfoService {
 
     /**
      * 첨부된 이미지 추가 처리
-     *
      * @param book
      */
     public void addFileInfo(Book book) {

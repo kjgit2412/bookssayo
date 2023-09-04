@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/main}">
+<main layout:fragment="content">
+    <section style="margin-left: 50px;">
+    <h2>도서 목록</h2>
+    <div class="list_container">
+        <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
+            <th:block th:if="${items != null && items.size() > 0}">
+                    <ul class="list_prd_ul">
+                        <li th:each="item : ${items}" th:object="${item}" class="list_prd_li" th:if="${item.status.toString().equals('SALE')} or ${item.status.toString().equals('OUT_OF_STOCK')}">
+<!--                            <a th:href="'/front/goods/view/'+*{bookNo}" class="list_prd_a">-->
+                                <div th:each="imageInfo : ${item.listImages}">
+                                            <a class="list_img_box" th:href="'/front/goods/view/'+*{bookNo}">
+                                                <img class="list_prd_img" alt="상품 목록 이미지" th:src="${imageInfo.fileUrl}">
+                                            </a>
+                                </div>
+                                <div class="list_book_info_box">
+                                    <p class="list_bookNm" th:text="*{bookNm}"></p>
+                                    <p class="list_auth_pub">
+                                        <span class="list_author" th:text="*{author}"></span>
+                                        <em class="divi"></em>
+                                        <span class="list_pub" th:text="*{publisher}"></span>
+                                    </p>
+                                    <p class="list_price_box">
+                                        <span class="list_price" th:if="*{price >= 1000}" th:text="*{#numbers.formatInteger(price, 3, 'COMMA') + '원'}"></span>
+                                        <span class="list_price" th:unless="*{price >= 1000}" th:text="*{price + '원'}"></span>
+                                    </p>
+                                    <div class="list_content" th:utext="${item.description.length() > 300 ? item.description.substring(0, 300) + '...' : item.description}"></div>
+                                </div>
+                                <div class="list_btns">
+                                    <button type="button" class="action_button cart" data-mode="cart">장바구니</button>
+                                    <button type="button" class="action_button direct" data-mode="direct">바로구매</button>
+                                </div>
+
+<!--                            </a>-->
+                        </li>
+                    </ul>
+                <!--</th:block>-->
+                <!--</th:block>-->
+            </th:block>
+            <th:block th:unless="${items != null && items.size() > 0}">
+                <h3>조회된 목록이 없습니다.</h3>
+            </th:block>
+        </form>
+    </div>
+    </section>
+    <th:block th:if="${pagination != null}" th:replace="~{common/_pagination::pagination}"></th:block>
+</main>
+</html>

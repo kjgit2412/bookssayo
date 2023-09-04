@@ -46,7 +46,7 @@ public class FileInfoService {
     }
 
     /**
-     * 주어진 옵션에 맞게 파일 정보 리스트를 검색.     *
+     * 주어진 옵션에 맞게 파일 정보 리스트를 검색.
      * @param opts 파일 정보 검색 옵션 객체
      * @return 파일 정보 리스트
      */

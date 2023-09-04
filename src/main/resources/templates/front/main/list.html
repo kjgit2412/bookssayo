@@ -2,39 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
-<main layout:fragment="content">
-    <h1 th:text="${pageTitle}"></h1>
-    <form method="get" th:action="@{/admin/book}" th:object="${bookSearch}">
-        <table class="table-cols">
-            <tr>
-                <th>도서분류</th>
-                <td colspan="3">
-                    <span th:each="category, status : ${categories}">
-                        <input type="checkbox" name="cateCds" th:value="${category.cateCd}" th:field="*{cateCds}" th:id="${'cateCds_' + status.index}">
-                        <label th:for="${'cateCds_' + status.index}" th:text="${category.cateNm}"></label>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>키워드검색</th>
-                <td>
-                    <div class="input_grp">
-                        <select name="sopt" th:field="*{sopt}">
-                            <option value="all">통합검색</option>
-                            <option value="bookNm">도서명</option>
-                            <option value="bookNo">저자</option>
-                            <option value="bookNo">출판사</option>
-                        </select>
-                        <input type="text" name="skey" th:field="*{skey}" placeholder="검색어 입력">
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div class="search_btn">
-            <button type="submit">검색하기</button>
-        </div>
-    </form>
-
+<main layout:fragment="content"
     <section style="margin-left: 50px;">
     <h2>도서 목록</h2>
     <div class="list_container">

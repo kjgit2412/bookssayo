@@ -41,6 +41,13 @@
         <div class="btns">
             <button type="submit" th:text="#{btn.login}"></button>
         </div>
+        <div class="errors" th:if="${session.globalError}" th:text="${session.globalError}"></div>
+        <div class="links">
+            <a th:href="@{/member/find/id}" th:text="#{link.findId}"></a>
+            <a th:href="@{/member/find/pw}" th:text="#{link.findPw}"></a>
+            <a th:href="@{/member/join}" th:text="#{link.join}"></a>
+        </div>
+        <button type="submit" th:text="#{btn.login}"></button>
     </form>
 </main>
 </html>

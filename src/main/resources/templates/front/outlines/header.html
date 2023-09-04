@@ -9,21 +9,34 @@
         </section>
         <section class="search">
             <div class="search_box">
-                <input type="text" class="search_text" placeholder="도서명을 입력하세요">
-                <button class="main_search_btn" type="button">
-                    <img th:src="@{/common/images/find.webp}" alt="검색" width="20" height="20">
-                </button>
+              <!--  <form method="get" th:action="@{/front/main/list}" th:object="${bookSearch}">
+                    <select name="sopt" th:field="*{sopt}" class="header_select">
+                        <option value="frontAll">통합검색</option>
+                        <option value="bookNm">도서명</option>
+                        <option value="author">저자</option>
+                        <option value="publisher">출판사</option>
+                    </select>
+                    <input name="skey" th:field="*{skey}" type="text" class="search_text" placeholder="도서명을 입력하세요">
+                    <button class="main_search_btn" type="submit">
+                        <img th:src="@{/common/images/find.webp}" alt="검색" width="20" height="20">
+                    </button>
+
+                </form>-->
             </div>
         </section>
+
         <section class="right">
                 <th:block sec:authorize="isAuthenticated()"> <!--로그인 된 경우-->
-                    <a th:href="@{/member/edit}" class="sbtn">회원정보수정</a>
-                    <a th:href="@{/member/logout}" class="sbtn blue">로그아웃</a>
-                    <a th:href="@{/main/index}" class="sbtn blue">마이페이지</a>
+                    <a th:href="@{/member/edit}" class="hbtn">회원정보수정</a>
+                    <a th:href="@{/member/logout}" class="hbtn green">로그아웃</a>
+                    <a th:href="@{/main/index}" class="hbtn green">마이페이지</a>
+                    <th:block sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a th:href="@{/admin}" class="hbtn admin"}>관리자 페이지</a>
+                    </th:block>
                 </th:block>
                 <th:block sec:authorize="isAnonymous()"> <!--로그인 하지 않은 경우-->
-                    <a th:href="@{/member/join}" class="sbtn">회원가입</a>
-                    <a th:href="@{/member/login}" class="sbtn blue">로그인</a>
+                    <a th:href="@{/member/join}" class="hbtn">회원가입</a>
+                    <a th:href="@{/member/login}" class="hbtn green">로그인</a>
                 </th:block>
         </section>
     </section>
@@ -40,7 +53,7 @@
                 <a th:href="@{/front/main/event}" class="header_content">이벤트</a>
             </div>
             <div class="menu_right">
-                <button class="dropbtn">
+                <button class="dropbtn" th:onclick="|location.href='/order/cart'|">
                     <img th:src="@{/common/images/cart.png}" alt="장바구니">
                 </button>
                 <button class="dropbtn">

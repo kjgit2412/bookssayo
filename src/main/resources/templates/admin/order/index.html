@@ -33,7 +33,7 @@
             <td>
                 <ul>
                     <li th:each="orderItem : *{orderItems}" th:object="${orderItem}">
-                        [[*{#strings.concat('[', status.title, ']')}]][[*{gameNm}]] X [[*{ea}]]개
+                        [[*{#strings.concat('[', status.title, ']')}]][[*{bookNm}]] X [[*{ea}]]개
                     </li>
                 </ul>
             </td>
@@ -49,6 +49,6 @@
     </table>
 
 
-    <th:block th:replace="~{commons/_pagination::pagination}"></th:block>
+    <th:block th:replace="~{common/_pagination::pagination}"></th:block>
 </section>
 </html>

@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class OrderForm {
 
-    private Long id;
+    private Long id;        // 주문번호
     private List<Long> cartNo;
 
     @NotBlank

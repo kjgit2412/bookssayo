@@ -29,6 +29,8 @@ public class Menu {
         } else if (code.equals("buyer")) { // 주문관리 하위 메뉴
             menus.add(new MenuDetail("list", "주문 목록", "/admin/buyer"));
             menus.add(new MenuDetail("view", "주문 상세", "/admin/buyer"));
+        } else if (code.equals("order")) {
+            menus.add(new MenuDetail("order", "주문 목록", "/admin/order"));
         }
 
         return menus;

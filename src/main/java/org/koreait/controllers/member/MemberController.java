@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.CommonProcess;
 import org.koreait.commons.Utils;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.member.MemberSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ public class MemberController implements CommonProcess {
     private final MemberSaveService saveService; // 회원 저장 서비스 클래스
 
     @GetMapping("/join")
-    public String join(@ModelAttribute JoinForm joinForm, Model model) {
+    public String join(@ModelAttribute JoinForm joinForm, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "회원가입"); // 공통 처리 메소드 호출
         return utils.view("member/join"); // 회원가입 페이지의 뷰 이름 반환
     }
@@ -45,7 +46,7 @@ public class MemberController implements CommonProcess {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "로그인"); // 공통 처리 메소드 호출
 
         return utils.view("member/login"); // 로그인 페이지의 뷰 이름 반환

@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
 import org.koreait.entities.Book;
 import org.koreait.models.books.BookInfoService;
+import org.koreait.models.books.BookSearch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +24,7 @@ public class GoodsController implements CommonProcess, ScriptExceptionProcess {
     private final Utils utils;
 
     @GetMapping("/view/{bookNo}")
-    public String view(@PathVariable Long bookNo, Model model) {
+    public String view(@PathVariable Long bookNo, Model model, @ModelAttribute BookSearch search) {
         try {
             Book data = infoService.get(bookNo);
             commonProcess(model, "view", data.getBookNm());

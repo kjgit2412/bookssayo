@@ -153,6 +153,7 @@ public class OrderInfoService {
                 .fetchJoin()
                 .offset(offset)
                 .limit(limit)
+                .where(andBuilder)
                 .orderBy(orderSpecifier.toArray(OrderSpecifier[]::new))
                 .fetch();
 

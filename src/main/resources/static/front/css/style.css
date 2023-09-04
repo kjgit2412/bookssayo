@@ -1,12 +1,12 @@
 /** 사이트 공통 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 * { box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; color: #000; outline: none; }
-html { }
+html {}
 ul, ol { list-style: none; margin:0; padding:0; }
 dl, dt, dd { margin:0; padding: 0; }
 a { text-decoration: none; transition: transform 0.3s;}
 a:hover{transform: scale(1.1);}
-body { margin: 0; }
+body { margin: 0; display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh;}
 img { border: 0; }
 em {font-style: normal;}
 
@@ -47,7 +47,7 @@ header .left a img.left_logo { width: 400px; }
 /** 헤더 검색창 스타일 */
 header .search { display: flex; justify-content: center; align-items: center; flex-grow: 1;}
 header .search_box { display: flex; align-items: center; border: 1px solid #cccccc; border-radius: 10px; justify-content: space-between; padding-right: 20px;}
-header .header_select {border: none; border-radius: 10px; width: 120px; text-align: center; }
+header .header_select {border: none; border-radius: 10px; width: 120px; text-align: left; padding: 0 5px 0 25px;}
 
 header .main_search_btn { margin-left: 10px; background-color: #fff; border: none; transition: transform 0.3s; cursor: pointer; }
 header .main_search_btn:hover { transform: scale(1.2); }
@@ -126,12 +126,27 @@ main > section { flex-grow: 1; margin: 0 50px 50px; }
 .page-button{width: 44px; height: 44px; border: 1px solid #ccc; background-color: #fff; border-radius: 50%; text-align: center; line-height: 44px; cursor: pointer; background-size: 44px 44px; background-image: url("/common/images/next_btn.png"); min-width: 44px; min-height: 44px; }
 
 /* 상품 리스트 */
-.list_prd_li {text-align: left; transition: transform 0.3s; display: flex; margin: 10px 0; justify-content: space-between;}
+.list_container { display: flex; }
+.side_cate_box { border: 1px solid #ccc; border-radius: 10px; padding: 20px 30px; min-width: 200px; width: 100%;}
+.side_cate_box > span { font-size: 30px; font-weight: bold; min-width: 160px; width: 100%; border-bottom: 1px solid #ccc; margin: 10px 0; }
+.list_side_cate { margin: 30px 30px 0 0; }
+.list_side_cate .side_column + .side_column { border-top: 1px solid #ccc; margin: 10px 0; }
+.list_top_cate {font-weight: bold; font-size: 18px; margin: 20px 0;}
+.list_top_cate:hover { text-decoration: underline; transform: scale(1); }
+.list_items { margin-bottom: 20px; }
+.list_items:hover { text-decoration: underline; transform: scale(1);}
+.side_column { display: flex; flex-direction: column; }
+.list_prd_ul { width: 100%; }
+.list_prd_li {width: 100%; text-align: left; transition: transform 0.3s; display: flex; margin: 20px 0; justify-content: space-between; border-bottom: 1px solid #ccc; padding-bottom: 20px; }
 .list_img_box {display: block; width : 211px;}
+.list_img_box:hover {transform: scale(1);}
 .list_prd_img {width: 100%;}
 .list_book_info_box { margin-left: 20px; text-align: left; }
-.list_bookNm {margin-top: 0; }
-.list_price { font-size: 14px; font-weight: bold; }
+.list_bookNm {margin-top: 0; cursor: pointer; font-size: 18px; font-weight: bold; transition: transform 0.3s; }
+.list_bookNm:hover { text-decoration: underline; }
+.list_auth_pub * { color: #555555; font-size: 14px;}
+.list_price { font-size: 16px; font-weight: bold; }
+.list_content { margin-top: 110px;}
 .list_content * { max-height: 100px; overflow: hidden; text-overflow: ellipsis; max-width: 800px; }
 
 .list_btns { margin: 0 auto; text-align: right; display: flex; flex-direction: column; }
@@ -167,7 +182,7 @@ aside li > a.on:after { content: ''; display: block; position: absolute; width: 
 
 /** 기본 제목 스타일 */
 h1 { font-size: 30px; font-weight: bold; margin: 0; margin-top: 35px; margin-bottom: 35px; line-height: 1; padding: 0; }
-h2 { font-size: 18px; font-weight: bold; margin: 25px 0 10px; line-height: 1; }
+h2 { font-size: 18px; font-weight: bold; margin: 30px 0 10px; line-height: 1; }
 
 /** 기본 테이블 스타일 */
 .table-cols { width: 100%; border-spacing: 0; padding: 0; border-top: 3px solid #222; margin-bottom: 20px; }

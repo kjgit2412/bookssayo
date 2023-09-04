@@ -39,6 +39,7 @@ public class BookInfoService {
 
     /**
      * 도서 개별 조회
+     *
      * @param bookNo
      * @return
      */
@@ -51,7 +52,7 @@ public class BookInfoService {
 
     /**
      * 도서 엔티티를 도서 양식으로 반환
-     * 
+     *
      * @param bookNo
      * @return
      */
@@ -141,61 +142,80 @@ public class BookInfoService {
             } else if (sopt.equals("publisher")) { // 출판사 검색
                 andBuilder.and(book.publisher.containsIgnoreCase(skey));
             }
-        }
-        /** 조건 및 키워드 검색 E */
-
-        /** 검색 처리 E */
-
-        /** 정렬 처리 S */
-        // listOrder_DESC,createdAt_ASC
-        List<OrderSpecifier> orderSpecifier = new ArrayList<>();
-        String sort = search.getSort();
-        if (sort != null && !sort.isBlank()) {
-            List<String[]> sorts = Arrays.stream(sort.trim().split(","))
-                    .map(s -> s.split("_")).toList();
-            PathBuilder pathBuilder = new PathBuilder(Book.class, "book");
-
-            for (String[] _sort : sorts) {
-                Order direction = Order.valueOf(_sort[1].toUpperCase()); // 정렬 방향
-                orderSpecifier.add(new OrderSpecifier(direction, pathBuilder.get(_sort[0])));
+        } else if (sopt != null && !sopt.isBlank()) {
+            if (sopt.equals("D001")) { // 소설
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D002")) { // 시/에세이
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D003")) { // 인문
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D004")) { // 경영/경제
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D005")) { // 자기계발
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D006")) { // 정치/사회
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D007")) { // 역사/문화
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D008")) { // 외국어
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
             }
         }
-        /** 정렬 처리 E */
+            /** 조건 및 키워드 검색 E */
 
-        JPAQueryFactory factory = new JPAQueryFactory(em);
-        List<Book> items = factory.selectFrom(book)
-                .leftJoin(book.category)
-                .fetchJoin()
-                .limit(limit)
-                .offset(offset)
-                .where(andBuilder)
-                .orderBy(orderSpecifier.toArray(OrderSpecifier[]::new))
-                .fetch();
+            /** 검색 처리 E */
 
-        ListData<Book> data = new ListData<>();
-        data.setContent(items);
+            /** 정렬 처리 S */
+            // listOrder_DESC,createdAt_ASC
+            List<OrderSpecifier> orderSpecifier = new ArrayList<>();
+            String sort = search.getSort();
+            if (sort != null && !sort.isBlank()) {
+                List<String[]> sorts = Arrays.stream(sort.trim().split(","))
+                        .map(s -> s.split("_")).toList();
+                PathBuilder pathBuilder = new PathBuilder(Book.class, "book");
+
+                for (String[] _sort : sorts) {
+                    Order direction = Order.valueOf(_sort[1].toUpperCase()); // 정렬 방향
+                    orderSpecifier.add(new OrderSpecifier(direction, pathBuilder.get(_sort[0])));
+                }
+            }
+            /** 정렬 처리 E */
+
+            JPAQueryFactory factory = new JPAQueryFactory(em);
+            List<Book> items = factory.selectFrom(book)
+                    .leftJoin(book.category)
+                    .fetchJoin()
+                    .limit(limit)
+                    .offset(offset)
+                    .where(andBuilder)
+                    .orderBy(orderSpecifier.toArray(OrderSpecifier[]::new))
+                    .fetch();
+
+            ListData<Book> data = new ListData<>();
+            data.setContent(items);
 
 
 
-        /* Todo : 페이징 처리 로직 추가 */
-        int total = (int)bookRepository.count(andBuilder);
-        Pagination pagination = new Pagination(page, total, 10, limit, request);
-        data.setPagination(pagination);
+            /* Todo : 페이징 처리 로직 추가 */
+            int total = (int) bookRepository.count(andBuilder);
+            Pagination pagination = new Pagination(page, total, 10, limit, request);
+            data.setPagination(pagination);
 
-        return data;
+            return data;
+        }
+
+        /**
+         * 첨부된 이미지 추가 처리
+         * @param book
+         */
+        public void addFileInfo(Book book){
+            String gid = book.getGid();
+            List<FileInfo> mainImages = fileInfoService.getListDone(gid, "main");
+            List<FileInfo> listImages = fileInfoService.getListDone(gid, "list");
+            List<FileInfo> editorImages = fileInfoService.getListDone(gid, "editor");
+            book.setMainImages(mainImages);
+            book.setListImages(listImages);
+            book.setEditorImages(editorImages);
+        }
     }
 
-    /**
-     * 첨부된 이미지 추가 처리
-     * @param book
-     */
-    public void addFileInfo(Book book) {
-        String gid = book.getGid();
-        List<FileInfo> mainImages = fileInfoService.getListDone(gid, "main");
-        List<FileInfo> listImages = fileInfoService.getListDone(gid, "list");
-        List<FileInfo> editorImages = fileInfoService.getListDone(gid, "editor");
-        book.setMainImages(mainImages);
-        book.setListImages(listImages);
-        book.setEditorImages(editorImages);
-    }
-}

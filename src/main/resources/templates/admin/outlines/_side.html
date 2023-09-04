@@ -10,20 +10,26 @@
         </li>
         <li>
             <a th:href="@{/admin/member}" th:classappend="${menuCode} == 'member' ? 'on'">
-                <i class="xi-view-list"></i>
+                <i class="xi-users-o"></i>
                 회원 관리
             </a>
         </li>
         <li>
             <a th:href="@{/admin/book}" th:classappend="${menuCode} == 'book' ? 'on'">
-                <i class="xi-view-list"></i>
+                <i class="xi-book-o"></i>
                 상품 관리
             </a>
         </li>
         <li>
-            <a th:href="@{/admin/buyer}" th:classappend="${menuCode} == 'buyer' ? 'on'">
+            <a th:href="@{/admin/order}" th:classappend="${menuCode} == 'order' ? 'on'">
                 <i class="xi-view-list"></i>
                 주문 관리
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/admin/order}" th:classappend="${menuCode} == 'board' ? 'on'">
+                <i class="xi-pen-o"></i>
+                게시판 관리
             </a>
         </li>
     </ul>

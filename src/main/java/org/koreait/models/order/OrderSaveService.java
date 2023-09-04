@@ -70,7 +70,7 @@ public class OrderSaveService {
         }
 
         itemRepository.saveAllAndFlush(items);
-        form.setId(orderInfo.getId());
+        form.setId(orderInfo.getId());      // 객체참조를 위해서
         /** 주문 상품 정보 저장 E */
     }
 }

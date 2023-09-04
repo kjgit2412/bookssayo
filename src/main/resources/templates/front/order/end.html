@@ -3,19 +3,20 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content" style="background: #fff;" th:object="${data}">
-    <h1 th:text="${pageTitle}"></h1>
+    <section class="inner-section">
+        <h1 th:text="${pageTitle}"></h1>
 
-    <div class="order_no">
-        주문번호 :
-        <a th:href="@{/order/view/{id}(id=*{id})}" th:text="*{id}"></a>
-    </div>
-    <div>
-        주문 상품 : <th:block th:text="*{bookNm}"></th:block>
-    </div>
-    <div class="btns">
-        <a th:href="@{/}">계속 쇼핑하기</a>
-        <a th:href="@{/order/view/{id}(id=*{id})}">주문서 확인</a>
-    </div>
-
+        <div class="order_no">
+            주문번호 :
+            <a th:href="@{/order/view/{id}(id=*{id})}" th:text="*{id}"></a>
+        </div>
+        <div>
+            주문 상품 : <th:block th:text="*{bookNm}"></th:block>
+        </div>
+        <div class="btns">
+            <a th:href="@{/front/main}" class="action_button gohome">계속 쇼핑하기</a>
+            <a th:href="@{/order/view/{id}(id=*{id})}"  class="action_button">주문서 확인</a>
+        </div>
+    </section>
 </main>
 </html>

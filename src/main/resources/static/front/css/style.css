@@ -6,7 +6,7 @@ ul, ol { list-style: none; margin:0; padding:0; }
 dl, dt, dd { margin:0; padding: 0; }
 a { text-decoration: none; transition: transform 0.3s;}
 a:hover{transform: scale(1.1);}
-body { margin: 0; }
+body { margin: 0; display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh;}
 img { border: 0; }
 em {font-style: normal;}
 
@@ -241,6 +241,7 @@ h3 { color : #be0000; #font-size: 18px; font-weight: bold; margin: 25px 0 10px; 
 /*.action_button.order {  color:#fff; background:#3f048c; }
 .action_button.delete { color:#fff; background:#000; }  */
 .action_button.payment {  color:#fff; background:#596b99;  }
+.action_button.gohome { justify-content: center; align-items:center; color:#fff; background:#596b99;  }
 
 
 /** 페이징 공통 */

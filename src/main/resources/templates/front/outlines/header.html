@@ -53,7 +53,8 @@
                 <a th:href="@{/front/main/event}" class="header_content">이벤트</a>
             </div>
             <div class="menu_right">
-                <button class="dropbtn" th:onclick="|location.href='/order/cart'|">
+                <button class="dropbtn">
+                    <a th:href="'/order/cart'">
                     <img th:src="@{/common/images/cart.png}" alt="장바구니">
                 </button>
                 <button class="dropbtn">

@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <th:block th:fragment="form" th:object="${joinForm}">
-        <div class="errors global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-
-        <div class="rows">
-            <input type="text" name="userId" th:field="*{userId}" th:placeholder="#{userId}">
-            <div class="errors" th:each="err : ${#fields.errors('userId')}" th:text="${err}"></div>
-        </div>
-        <div class="rows">
-            <input type="password" name="userPw" th:field="*{userPw}" th:placeholder="#{userPw}">
-            <div class="errors" th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
-        </div>
-        <div class="rows">
-            <input type="password" name="userPwRe" th:field="*{userPwRe}" th:placeholder="#{userPwRe}">
-            <div class="errors" th:each="err : ${#fields.errors('userPwRe')}" th:text="${err}"></div>
-        </div>
-        <div class="rows">
-            <input type="text" name="userNm" th:field="*{userNm}" th:placeholder="#{userNm}">
-            <div class="errors" th:each="err : ${#fields.errors('userNm')}" th:text="${err}"></div>
-        </div>
-        <div class="rows">
-            <input type="text" name="userId" th:field="*{email}" th:placeholder="#{email}">
-            <div class="errors" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
-        </div>
-        <div class="rows">
-            <input type="text" name="mobile" th:field="*{mobile}" th:placeholder="#{mobile}">
-            <div class="errors" th:each="err : ${#fields.errors('mobile')}" th:text="${err}"></div>
-        </div>
-        <div class="terms_wrap">
-            <div class="stit" th:text="#{member.terms}"></div>
-            <div class="terms">회원가입 약관...</div>
-            <input type="checkbox" name="agree" value="true" th:field="*{agree}" id="agree">
-            <label for="agree" th:text="#{member.agree}"></label>
-            <div class="errors" th:each="err : ${#fields.errors('agree')}" th:text="${err}"></div>
-        </div>
-    </th:block>
+<th:block th:fragment="form" th:object="${joinForm}">
+    <table class="table-cols">
+        <tr>
+            <th>아이디</th>
+            <td>
+                <input type="text" name="userId" th:field="*{userId}" th:placeholder="#{userId}">
+                <div class="errors" th:each="err : ${#fields.errors('userId')}" th:text="${err}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>비밀번호</th>
+            <td>
+                <input type="password" name="userPw" th:field="*{userPw}" th:placeholder="#{userPw}">
+                <div class="errors" th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>비밀번호 확인</th>
+            <td>
+                <input type="password" name="userPwRe" th:field="*{userPwRe}" th:placeholder="#{userPwRe}">
+                <div class="errors" th:each="err : ${#fields.errors('userPwRe')}" th:text="${err}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>회원명</th>
+            <td>
+                <input type="text" name="userNm" th:field="*{userNm}" th:placeholder="#{userNm}">
+                <div class="errors" th:each="err : ${#fields.errors('userNm')}" th:text="${err}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>이메일</th>
+            <td>
+                <input type="text" name="email" th:field="*{email}" th:placeholder="#{email}">
+                <div class="errors" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>휴대전화번호</th>
+            <td>
+                <input type="text" name="mobile" th:field="*{mobile}" th:placeholder="#{mobile}">
+                <div class="errors" th:each="err : ${#fields.errors('mobile')}" th:text="${err}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>회원가입 약관</th>
+            <td>
+                <div class="terms_wrap">
+                    <div class="stit" th:text="#{member.terms}"></div>
+                    <input type="checkbox" name="agree" value="true" th:field="*{agree}" id="agree">
+                    <label th:for="agree" th:text="#{member.agree}"></label>
+                    <div class="errors" th:each="err : ${#fields.errors('agree')}" th:text="${err}"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </html>

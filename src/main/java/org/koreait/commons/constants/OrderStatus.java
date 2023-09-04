@@ -1,5 +1,6 @@
 package org.koreait.commons.constants;
 
+
 import org.koreait.commons.Utils;
 
 import java.util.Arrays;
@@ -7,17 +8,23 @@ import java.util.List;
 
 public enum OrderStatus {
 
-        READY, // 주문접수
-        PAYMENT, // 입금확인
-        PREPARE, // 상품준비중
-        DELIVERY, // 배송중
-        ARRIVAL, // 배송완료
-        DONE, // 주문완료
-        CANCEL, // 주문취소
-        REFUND, // 환불
-        EXCHANGE; // 교환
+        READY("주문접수"), // 주문접수
+        PAYMENT("입금확인"), // 입금확인
+        PREPARE("상품준비중"), // 상품준비중
+        DELIVERY("배송중"), // 배송중
+        ARRIVAL("배송완료"), // 배송완료
+        DONE("주문완료"), // 주문완료
+        CANCEL("주문취소"), // 주문취소
+        REFUND("환불"), // 환불
+        EXCHANGE("교환"); // 교환
 
+        private String title;
+        OrderStatus(String title) { this.title = title;}
+        public String getTitle() {
+                return title;
+        }
 
+        /*
         public String getString() {
                 return Utils.getMessage("BuyerStatus." + name(), "common");
         }
@@ -35,4 +42,5 @@ public enum OrderStatus {
                         new String[]{EXCHANGE.name(),EXCHANGE.getString()}
                 );
         }
+        */
 }

@@ -7,12 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.koreait.commons.constants.PaymentType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class OrderInfo {
+@NoArgsConstructor  @AllArgsConstructor
+public class OrderInfo extends BaseMemberEntity {
 
     @Id @GeneratedValue
     private Long id;
@@ -47,7 +49,18 @@ public class OrderInfo {
 
     private int payPrice; // 결제 금액
 
+    @Column(length=50)
+    private String deliveryCompany; // 배송 업체
+    @Column(length=50)
+    private String invoice; // 운송장 번호
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="userNo")
     private Member member;
+
+    @Transient
+    private String bookNm;
+
+    @OneToMany(mappedBy = "orderInfo", fetch=FetchType.EAGER)
+    private List<OrderItem> orderItems = new ArrayList<>();
 }

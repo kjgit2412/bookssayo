@@ -12,10 +12,7 @@ import org.koreait.models.order.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +55,12 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
         PaymentType paymentType = PaymentType.valueOf(form.getPaymentType());
         String script = "";
         if (paymentType == PaymentType.LBT) { // 무통장 입금인 경우는 주문 완료 페이지로 이동
-            /** 주문 장바구니 상품 삭제 */
+            // 주문완료 후에  장바구니 상품 삭제
             cartDeleteService.delete(form.getCartNo());
             return "redirect:/order/end?id=" + form.getId();
-        } else { // 그외 결제는 PG 연동
+        } else { // 그외 결제는 PG사를 통한 결제 연동
             // 추후...
+
         }
 
         return "common/_execute_script";
@@ -77,6 +75,21 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
         return utils.view("order/end");
     }
 
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable Long id, Model model) {
+        commonProcess(model, "view");
+
+        if (id == null) {
+            throw new BadRequestException();
+        }
+
+        OrderInfo data = infoService.get(id);
+
+        model.addAttribute("data", data);
+
+        return "order/view";
+    }
+
     public void commonProcess(Model model, String mode) {
         commonProcess(model, mode, null);
     }
@@ -85,7 +98,10 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
         String pageTitle = "주문서 작성";
         if (mode.equals("end")) {
             pageTitle = "주문완료";
+        } else if (mode.equals("view")) {
+            pageTitle = "주문리스트";
         }
+
         CommonProcess.super.commonProcess(model, pageTitle);
 
         List<String> addScript = new ArrayList<>();

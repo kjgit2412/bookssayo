@@ -21,11 +21,7 @@ public class CartDeleteService {
         repository.flush();
     }
 
-    /**
-     * 장바구니 등록번호로 삭제
-     *
-     * @param cartNos
-     */
+     // 장바구니 등록번호로 삭제
     public void delete(List<Long> cartNos) {
 
         List<Cart> items = cartService.getList(cartNos);
@@ -33,6 +29,5 @@ public class CartDeleteService {
 
         repository.deleteAll(items);
         repository.flush();
-
     }
 }

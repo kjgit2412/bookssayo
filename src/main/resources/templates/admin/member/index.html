@@ -4,39 +4,68 @@
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
-
-    <div>
-        <input type="hidden" name="mode" value="list">
-
-        <table class="table-rows">
+    <form method="get" th:action="@{/admin/member}" th:object="${memberSearch}">
+        <table class="table-cols">
             <tr>
-                <th width="100" th:text="#{userNo}"></th>
-                <th th:text="#{userId}"></th>
-                <th th:text="#{userPw}"></th>
-                <th th:text="#{userNm}"></th>
-                <th th:text="#{email}"></th>
-                <th th:text="#{mobile}"></th>
-                <th th:text="#{terms.agree}"></th>
-                <th th:text="#{terms.agree}"></th>
-                <th th:text="#{role}"></th>
+                <th>회원 번호</th>
+                <td>
+                    <input type="text" name="userNo" th:field="*{userNo}">
+                </td>
             </tr>
-
-            <tbody>
-
-            <th:block th:if="${items != null && items.size() > 0}">
-                <tr th:each="item, status : ${items}" th:object="${item}">
-
-                </tr>
-            </th:block>
-            <th:block th:unless="${items != null && items.size() > 0}">
-                <tr>
-                    <td colspan="9" class="no_data">조회된 목록이 없습니다.</td>
-                </tr>
-            </th:block>
-            </tbody>
+            <tr>
+                <th>회원명</th>
+                <td>
+                    <input type="text" name="userNm" th:field="*{userNm}">
+                </td>
+            </tr>
         </table>
-    </div>
-
+        <div class="search_btn">
+            <button type="submit">검색하기</button>
+        </div>
+    </form>
+    <form name="frmList" method="post" th:action="@{/admin/member}" target="ifrmProcess" autocomplete="off">
+    <table class="table-rows">
+        <thead>
+        <tr>
+            <th width="40">
+                <input type="checkbox" class="checkall" id="checkall" data-target-name="chkNo">
+                <label for="checkall" class="standalone"></label>
+            </th>
+            <th width="80">정보수정</th>
+            <th width="80">회원번호</th>
+            <th width="80">아이디</th>
+            <th>비밀번호</th>
+            <th>회원명</th>
+            <th>이메일</th>
+            <th width="100">휴대전화번호</th>
+            <th width="80">등급</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:if="${items != null && items.size() > 0}">
+            <tr th:each="item, status : ${items}" th:object="${item}">
+                <td>
+                    <input type="checkbox" name="chkNo" th:value="${status.index}" th:id="${'chkNo_' + status.index}">
+                    <label th:for="${'chkNo_' + status.index}" class="standalone"></label>
+                </td>
+                <td align="center"><a class="user-edit-clk" th:href="'member/edit/'+*{userNo}">수정</a></td>
+                <td th:text="*{userNo}"></td>
+                <td th:text="*{userId}"></td>
+                <td th:text="*{userPw}"></td>
+                <td th:text="*{userNm}"></td>
+                <td th:text="*{email}"></td>
+                <td th:text="*{mobile}"></td>
+                <td th:text="*{role}"></td>
+            </tr>
+        </th:block>
+        <th:block th:unless="${items != null && items.size() > 0}">
+            <tr>
+                <td colspan="8" class="no_data">조회된 목록이 없습니다.</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    </form>
 
 </section>
 </html>

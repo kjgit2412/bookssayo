@@ -20,10 +20,11 @@ public class Book extends BaseMemberEntity {
     @JoinColumn(name="cateCd")
     private Category category;
 
-    @Column(length=45, nullable = false)
+
+    @Column(length = 45, nullable = false)
     private String gid;
 
-    @Column(length=100, nullable = false)
+    @Column(length = 100, nullable = false )
     private String bookNm;
     private String author;
     private String publisher;

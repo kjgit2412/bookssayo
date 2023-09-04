@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{front/layouts/main}">
+<main layout:fragment="content" style="background: #fff;">
+    <section class="inner-section">
+        <h1 th:text="${pageTitle}"></h1>
+
+
+        <h2>주문자 정보</h2>
+        <dl>
+            <dt>주문자명</dt>
+            <dd th:text="*{orderName}"></dd>
+        </dl>
+        <dl>
+            <dt>이메일</dt>
+            <dd th:text="*{orderEmail}"></dd>
+        </dl>
+
+        <h2>배송지 정보</h2>
+        <dl>
+            <dt>받는분</dt>
+            <dd th:text="*{receiverName}"></dd>
+        </dl>
+        <dl>
+            <dt>휴대전화번호</dt>
+            <dd th:text="*{receiverMobile}"></dd>
+        </dl>
+        <dl>
+            <dt>주소</dt>
+            <dd>
+                <th:block th:text="*{zonecode}"></th:block>
+                <th:block th:text="*{address}"></th:block>
+                <th:block th:text="*{addressSub}"></th:block>
+           </dd>
+        </dl>
+
+        <h2>결제 정보</h2>
+        <table class="table-cols">
+            <tr>
+                <th>배송비</th>
+                <td>3,000원</td>
+            </tr>
+            <tr>
+                <th>결제금액</th>
+                <td>
+                    <th:block th:if="*{totalPrice < 1000}" th:text="*{totalPrice + '원'}"></th:block>
+                    <th:block th:if="*{totalPrice >= 1000}" th:text="*{#numbers.formatInteger(totalPrice, 3, 'COMMA') + '원'}"></th:block>
+                </td>
+            </tr>
+            <tr>
+                <th>결제방법</th>
+                <td>
+                    <span>
+                        <input type="radio" name="paymentType" value="LBT" id="paymentType_lbt" th:field="*{paymentType}">
+                        <label for="paymentType_lbt">무통장 입금</label>
+                        <input type="radio" name="paymentType" value="DIRECT" id="paymentType_direct" th:field="*{paymentType}">
+                        <label for="paymentType_direct">신용카드</label>
+                        <input type="radio" name="paymentType" value="VACCOUNT" id="paymentType_vaccount" th:field="*{paymentType}">
+                        <label for="paymentType_vaccount">가상계좌</label>
+                        <input type="radio" name="paymentType" value="CARD" id="paymentType_card" th:field="*{paymentType}">
+                        <label for="paymentType_card">신용카드</label>
+                    </span>
+                    <div class="errors" th:each="err : ${#fields.errors('paymentType')}" th:text="${err}"></div>
+                </td>
+                <td class="lbt_account_info">
+                    <dt>입금계좌번호</dt>
+                    <dd>
+                        국민 0000-00-0000 / 입금자명
+                    </dd>
+                </td>
+            </tr>
+        </table>
+
+        <button class="action_button payment" type="submit">결제하기</button>
+        </form>
+    </section>
+</main>
+</html>

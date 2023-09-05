@@ -1,4 +1,4 @@
-package org.koreait.controllers.member;
+package org.koreait.controllers.admin;
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
 import org.koreait.commons.constants.Role;
+import org.koreait.controllers.member.JoinForm;
 import org.koreait.entities.Member;
 import org.koreait.models.member.MemberInfoService;
 import org.koreait.models.member.MemberListService;
@@ -22,7 +23,7 @@ import java.util.List;
 @Controller("AdminMemberController")
 @RequestMapping("/admin/member")
 @RequiredArgsConstructor
-public class AdminMemberController implements CommonProcess, ScriptExceptionProcess {
+public class MemberController implements CommonProcess, ScriptExceptionProcess {
 
 
     private String tplCommon = "admin/member/";
@@ -45,7 +46,7 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
         return tplCommon + "index";
     }
     @PostMapping
-    public String indexPs(JoinForm form ,Model model, Errors errors) {
+    public String indexPs(JoinForm form , Model model, Errors errors) {
         commonProcess(model, "list");
 
         String mode = form.getMode();
@@ -62,6 +63,52 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
         model.addAttribute("script", script);
         return "common/_execute_script";
     }
+
+
+
+    @GetMapping("/edit/{userNo}")
+    public String edit(@PathVariable Long userNo, Model model) {
+        commonProcess(model, "edit");
+        MemberForm memberForm = infoService.getMemberForm(userNo);
+        model.addAttribute("memberForm", memberForm);
+        return tplCommon + "edit2";
+    }
+
+    @PostMapping("/save")
+    public String save(@Valid MemberForm memberForm, Errors errors, Model model) {
+        commonProcess(model, "edit");
+
+        if (errors.hasErrors()) {
+            return tplCommon + "edit2";
+        }
+
+        return "redirect:/admin/member";
+    }
+    /**
+    @GetMapping("/edit/{userNo}")
+    public String edit(@PathVariable Long userNo, Model model) {
+        commonProcess(model, "edit");
+        JoinForm joinForm = infoService.getJoinForm(userNo);
+        model.addAttribute("joinForm", joinForm);
+
+        return tplCommon + "edit";
+    }
+
+    @PostMapping("/save")
+    public String bookSave(@Valid JoinForm joinForm, Model model, Errors errors) {
+
+        commonProcess(model, "save");
+
+        String mode = joinForm.getMode();
+        if (errors.hasErrors()) {
+            return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "edit";
+        }
+
+        saveService.save(joinForm, errors);
+
+        return "redirect:/admin/member";
+    }
+    */
 
     @Override
     public void commonProcess(Model model, String mode) {
@@ -90,29 +137,4 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
 
         model.addAttribute("roles", Role.getList());
     }
-
-    @GetMapping("/edit/{userNo}")
-    public String edit(@PathVariable Long userNo, Model model) {
-        commonProcess(model, "edit");
-        JoinForm joinForm = infoService.getJoinForm(userNo);
-        model.addAttribute("joinForm", joinForm);
-
-        return tplCommon + "edit";
-    }
-
-    @PostMapping("/save")
-    public String bookSave(@Valid JoinForm joinForm, Model model, Errors errors) {
-
-        commonProcess(model, "save");
-
-        String mode = joinForm.getMode();
-        if (errors.hasErrors()) {
-            return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "edit";
-        }
-
-        saveService.save(joinForm, errors);
-
-        return "redirect:/admin/member";
-    }
-
 }

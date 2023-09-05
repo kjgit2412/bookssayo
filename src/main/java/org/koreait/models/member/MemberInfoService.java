@@ -1,6 +1,7 @@
 package org.koreait.models.member;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.controllers.admin.MemberForm;
 import org.koreait.controllers.member.JoinForm;
 import org.koreait.entities.Member;
 import org.koreait.models.books.BookNotFoundException;
@@ -66,5 +67,9 @@ public class MemberInfoService implements UserDetailsService {
         JoinForm form = new ModelMapper().map(member, JoinForm.class);
 
         return form;
+    }
+    public MemberForm getMemberForm(Long userNo) {
+        Member member = get(userNo);
+        return new ModelMapper().map(member, MemberForm.class);
     }
 }

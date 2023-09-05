@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+<section layout:fragment="content">
+    <h1 th:text="${pageTitle}"></h1>
+    <form method="post" th:action="@{/admin/member/save}" th:object="${memberForm}" autocomplete="off">
+        <div clas="errors global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        <input type="hidden" name="userNo" th:field="*{userNo}">
+        <table class="table-cols">
+            <tr>
+                <th>아이디</th>
+                <td th:text="*{userId}"></td>
+            </tr>
+            <tr>
+                <th>비밀번호 변경</th>
+                <td>
+                    <input type="password" name="userPw" th:field="*{userPw}">
+                    <div clas="errors" th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호 확인</th>
+                <td>
+                    <input type="password" name="userPwRe" th:field="*{userPwRe}">
+                    <div clas="error" th:each="err : ${#fields.errors('userPwRe')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>회원명</th>
+                <td>
+                    <input type="text" name="userNm" th:field="*{userNm}">
+                    <div clas="error" th:each="err : ${#fields.errors('userNm')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td>
+                    <input type="text" name="email" th:field="*{email}">
+                    <div clas="error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>휴대전화번호</th>
+                <td>
+                    <input type="text" name="mobile" th:field="*{mobile}">
+                    <div clas="error" th:each="err : ${#fields.errors('mobile')}" th:text="${err}"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="btns">
+            <button type="reset">다시입력</button>
+            <button type="submit" onclick="return confirm('정말 수정하시겠습니까?');">수정하기</button>
+        </div>
+    </form>
+</section>
+</html>

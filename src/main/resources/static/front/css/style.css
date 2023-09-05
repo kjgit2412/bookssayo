@@ -143,15 +143,15 @@ main > section { flex-grow: 1; margin: 0 50px 50px; }
 .list_prd_ul { width: 100%; }
 .list_prd_li {width: 100%; text-align: left; transition: transform 0.3s; display: flex; margin: 20px 0; justify-content: space-between; border-bottom: 1px solid #ccc; padding-bottom: 20px; }
 .list_img_box {display: block; width : 211px;}
-.list_img_box:hover {transform: scale(1);}
 .list_prd_img {width: 100%;}
-.list_book_info_box { margin:0 50px 0 30px; text-align: left; }
-.list_bookNm {margin-top: 0; cursor: pointer; font-size: 18px; font-weight: bold; transition: transform 0.3s; }
-.list_bookNm:hover { text-decoration: underline; }
-.list_auth_pub * { color: #555555; font-size: 14px;}
-.list_price { font-size: 16px; font-weight: bold; }
-.list_content { margin-top: 110px;}
-.list_content * { max-height: 100px; overflow: hidden; text-overflow: ellipsis; max-width: 800px; }
+.list_book_info_box { margin-left: 20px; text-align: left; }
+.list_price { font-size: 14px; font-weight: bold; }
+.list_content * {
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 800px;
+}
 
 .list_btns { margin: 0 auto; text-align: right; display: flex; flex-direction: column; }
 .action_button.cart { width: 0; flex-grow: 1; height: 50px; max-height: 50px; font-size: 18px; border: 1px solid #09923d; color: #09923d; background: #fff; cursor: pointer; transition: transform 0.3s;}
@@ -243,9 +243,13 @@ h3 { color : #be0000; #font-size: 18px; font-weight: bold; margin: 25px 0 10px; 
 /*.action_button.order {  color:#fff; background:#3f048c; }
 .action_button.delete { color:#fff; background:#000; }  */
 .action_button.payment {  color:#fff; background:#596b99;  }
+.action_button.gohome { justify-content: center; align-items:center; color:#fff; background:#596b99;  }
 
 
 /** 페이징 공통 */
 .pagination { text-align: center; margin: 15px 0; }
 .pagination a { display: inline-block; padding: 5px 10px; border: 1px solid #d5d5d5; border-radius: 5px; margin: 0 2px; font-size: 0.9rem; }
 .pagination a.on { background-color: #727272; color: #ffffff; border-color: #727272; }
+
+/** 로그인*/
+.links{text-size: 15px; margin-left: 10px;}

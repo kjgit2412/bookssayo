@@ -5,8 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
+import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Member;
-import org.koreait.models.books.BookSearch;
 import org.koreait.models.member.MemberInfoService;
 import org.koreait.models.member.MemberListService;
 import org.koreait.models.member.MemberSaveService;
@@ -36,29 +36,44 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
 
     //회원 관리 메인
     @GetMapping
-    public String index(@ModelAttribute MemberSearch search, Model model, @ModelAttribute BookSearch search2) {
+    public String index(@ModelAttribute MemberSearch search, Model model) {
         commonProcess(model, "list");
         ListData<Member> data = listService.getList(search);
         model.addAttribute("items", data.getContent());
         //model.addAttribute("pagination", data.getPageable());
         return tplCommon + "index";
     }
+    @PostMapping
+    public String indexPs(JoinForm form ,Model model, Errors errors) {
+        commonProcess(model, "list");
 
+        String mode = form.getMode();
+        try {
+            if(mode.equals("edit")) {
+                saveService.save(form, errors);
+            }
+        } catch (CommonException e) {
+            e.printStackTrace();
+            throw new AlertException(e.getMessage()); // 자바스크립트 alert 형태로 에러 출력
+        }
 
+        String script = "parent.location.reload();";
+        model.addAttribute("script", script);
+        return "common/_execute_script";
+    }
 
     @Override
     public void commonProcess(Model model, String mode) {
         String pageTitle = "회원 목록";
-        if (mode.equals("view")) {
-            pageTitle = "회원 상세";
-        } else if (mode.equals("category")) {
-            pageTitle = "회원 분류";
+        if (mode.equals("edit")) {
+            pageTitle = "정보 수정";
         }
 
         CommonProcess.super.commonProcess(model, pageTitle);
 
         List<String> addCommonScript = new ArrayList<>();
         List<String> addScript = new ArrayList<>();
+
 
         model.addAttribute("menuCode", "member");
         model.addAttribute("addCommonScript", addCommonScript);
@@ -74,7 +89,7 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
     }
 
     @GetMapping("/edit/{userNo}")
-    public String edit(@PathVariable Long userNo, Model model, @ModelAttribute BookSearch search) {
+    public String edit(@PathVariable Long userNo, Model model) {
         commonProcess(model, "edit");
         JoinForm joinForm = infoService.getJoinForm(userNo);
         model.addAttribute("joinForm", joinForm);
@@ -83,16 +98,16 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
     }
 
     @PostMapping("/save")
-    public String bookSave(@Valid JoinForm joinForm, Errors errors, Model model, @ModelAttribute BookSearch search) {
+    public String bookSave(@Valid JoinForm joinForm, Model model, Errors errors) {
 
         commonProcess(model, "save");
 
         String mode = joinForm.getMode();
         if (errors.hasErrors()) {
-            return mode != null && mode.equals("edit") ? tplCommon + "edit" : "admin/member";
+            return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "edit";
         }
 
-        saveService.save(joinForm, errors, search);
+        saveService.save(joinForm, errors);
 
         return "redirect:/admin/member";
     }

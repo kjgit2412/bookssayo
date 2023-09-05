@@ -88,7 +88,9 @@
                             </span>
                         </div>
                     </td>
-                    <td align="center" th:text="*{#numbers.formatInteger(bookNo, 4)}"></td>
+                    <td align="center">
+                        <a th:href="@{/front/goods/view/{bookNo}(bookNo=*{bookNo})}" th:text="*{#numbers.formatInteger(bookNo, 4)}" target="_blank"></a>
+                    </td>
                     <td th:text="*{category.cateNm}"></td>
                     <!--<td>
                         <select th:name="${'cateCds_' + status.index}">

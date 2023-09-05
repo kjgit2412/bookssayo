@@ -32,9 +32,12 @@ public class OrderItem {
     @Column(length=15, nullable = false)
     private OrderStatus status = OrderStatus.READY;
 
+    @Column(length=50)
+    private String deliveryCompany; // 배송 업체
+    @Column(length=50)
+    private String invoice; // 운송장 번호
     @ToString.Exclude
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="orderNo")
     private OrderInfo orderInfo;
-
 }

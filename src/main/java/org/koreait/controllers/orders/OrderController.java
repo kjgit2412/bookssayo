@@ -88,7 +88,7 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
 
         model.addAttribute("data", data);
 
-        return "order/view";
+        return utils.view("order/view");
     }
 
     public void commonProcess(Model model, String mode) {

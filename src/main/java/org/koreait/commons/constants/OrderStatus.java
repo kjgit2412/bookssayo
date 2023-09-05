@@ -1,8 +1,6 @@
 package org.koreait.commons.constants;
 
 
-import org.koreait.commons.Utils;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,19 +26,20 @@ public enum OrderStatus {
         public String getString() {
                 return Utils.getMessage("BuyerStatus." + name(), "common");
         }
+        */
+
 
         public static List<String[]> getList() {
                 return Arrays.asList(
-                        new String[]{READY.name(),READY.getString()},
-                        new String[]{DONE.name(),DONE.getString()},
-                        new String[]{PAYMENT.name(),PAYMENT.getString()},
-                        new String[]{PREPARE.name(),PREPARE.getString()},
-                        new String[]{DELIVERY.name(),DELIVERY.getString()},
-                        new String[]{ARRIVAL.name(),ARRIVAL.getString()},
-                        new String[]{CANCEL.name(),CANCEL.getString()},
-                        new String[]{REFUND.name(),REFUND.getString()},
-                        new String[]{EXCHANGE.name(),EXCHANGE.getString()}
+                        new String[]{READY.name(),READY.getTitle()},
+                        new String[]{DONE.name(),DONE.getTitle()},
+                        new String[]{PAYMENT.name(),PAYMENT.getTitle()},
+                        new String[]{PREPARE.name(),PREPARE.getTitle()},
+                        new String[]{DELIVERY.name(),DELIVERY.getTitle()},
+                        new String[]{ARRIVAL.name(),ARRIVAL.getTitle()},
+                        new String[]{CANCEL.name(),CANCEL.getTitle()},
+                        new String[]{REFUND.name(),REFUND.getTitle()},
+                        new String[]{EXCHANGE.name(),EXCHANGE.getTitle()}
                 );
         }
-        */
 }

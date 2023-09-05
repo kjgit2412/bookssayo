@@ -16,6 +16,8 @@
                 <div class="errors" th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
             </td>
         </tr>
+
+
         <tr>
             <th>비밀번호 확인</th>
             <td>
@@ -23,6 +25,7 @@
                 <div class="errors" th:each="err : ${#fields.errors('userPwRe')}" th:text="${err}"></div>
             </td>
         </tr>
+
         <tr>
             <th>회원명</th>
             <td>

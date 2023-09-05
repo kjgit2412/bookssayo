@@ -28,6 +28,8 @@ public class Menu {
             menus.add(new MenuDetail("category", "도서 분류", "/admin/book/category"));
         } else if (code.equals("order")) { // 주문관리 하위 메뉴
             menus.add(new MenuDetail("order", "주문 목록", "/admin/order"));
+        } else if (code.equals("config")) { // 프론트로
+            menus.add(new MenuDetail("config", "주문 목록", "/front/main"));
         }
 
         return menus;

@@ -6,7 +6,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
-    <section class="inner-section">
+    <section>
         <h1>장바구니</h1>
         <form name="frmCart" method="post" th:action="@{/order/cart}" target="ifrmProcess" autocomplete="off">
             <input type="hidden" name="_method" value="PATCH">
@@ -67,9 +67,9 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="action_button order" data-mode="order" style="color:black;">선택상품 주문하기</button>
-            <button type="button" class="action_button edit" data-mode="edit" style="color:black;">선택상품 수정하기</button>
-            <button type="button" class="action_button delete" data-mode="delete" style="color:black;">선택상품 삭제하기</button>
+            <button type="button" class="action_button order" data-mode="order">선택상품 주문하기</button>
+            <button type="button" class="action_button edit" data-mode="edit">선택상품 수정하기</button>
+            <button type="button" class="action_button delete" data-mode="delete">선택상품 삭제하기</button>
         </form>
     </section>
 </main>

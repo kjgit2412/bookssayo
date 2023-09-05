@@ -14,12 +14,30 @@
 
 ## Step2
 * 스프링 부트 기본 설정
-* Maven + Spring Boot DevToos + Lombok + Spring Web + Thymeleaf + Spring JPA + H2 Database + Validation + Security .....
+<img src="https://img.shields.io/badge/apachemaven-C71A36?style=for-the-badge&logo=apachemaveng&logoColor=white"> + <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> + <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> + <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> + <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> 
 
-* 개발환경 : Spring Boot, Maven
-* 개발도구 : IntelliJ, dbever, GitHub  
-* 개발언어 및 프레임워크 : Java, HTML, JavaScript
-* DB : Oracle
+  Lombok + Spring JPA + H2 Database + Validation   .....
+
+
+* 개발환경 :
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
+<img src="https://img.shields.io/badge/apachemaven-C71A36?style=for-the-badge&logo=apachemaveng&logoColor=white">
+
+
+* 개발도구 : dbeaver, 
+<img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">, 
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> 
+
+
+* 개발언어 및 프레임워크 :
+<img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=Java&logoColor=white">, 
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">, 
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+
+
+* DB : <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white">
+
+
 * API : REST
 
 ***
@@ -74,5 +92,30 @@
 ## Step9
 * 프론트 화면 구성
 * 주문관리, 장바구니 기능 추가
+
+***
+
+## 화면소개1
+* productlist:
+
+<img width="960" alt="productlist" src="https://github.com/kjgit2412/bookssayo/assets/140779367/51105e1e-4308-45ec-adc0-333a39daf7b5">
+
+
+***
+
+## 화면소개2
+* cart:
+
+<img width="1281" alt="cart" src="https://github.com/kjgit2412/bookssayo/assets/140779367/4f3272a2-77b4-4b0d-8b1b-41857f0b4609">
+
+
+***
+
+## 화면소개3
+* main front:
+ 
+<img width="682" alt="main front" src="https://github.com/kjgit2412/bookssayo/assets/140779367/72be250b-8714-4a5d-aedf-b0329d227b0f">
+
+
 
 ***

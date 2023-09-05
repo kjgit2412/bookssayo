@@ -44,16 +44,24 @@
                 <button class="dropbtn">
                     <img th:src="@{/common/images/list.png}" alt="목록">
                 </button>
+                <a th:href="'/front/main/list?sopt=domestic'" class="header_content">전체도서</a>
+                <a th:href="'/front/main/list?sopt=domestic'" class="header_content">국내도서</a>
+                <a th:href="'/front/main/list?sopt=domestic'" class="header_content">해외도서</a>
+                <a th:href="'/front/main/list?sopt=domestic'" class="header_content">이벤트</a>
+<!--
                 <a th:href="@{/front/main/list}" class="header_content">전체도서</a>
                 <a th:href="'/front/main/list?sopt=domestic'" class="header_content">국내도서</a>
                 <a th:href="@{/front/main/list}" class="header_content">해외도서</a>
                 <a th:href="@{/front/main/event}" class="header_content">이벤트</a>
+-->
             </div>
             <div class="menu_right">
                 <button class="dropbtn" th:onclick="|location.href='/order/cart'|">
                     <img th:src="@{/common/images/cart.png}" alt="장바구니">
                 </button>
-
+                <button class="dropbtn" th:onclick="|location.href='/admin'|">
+                    <img th:src="@{/common/images/alarm.png}" alt="관리자페이지">
+                </button>
   <!--
                 <button class="dropbtn">
                     <img th:src="@{/common/images/alarm.png}" alt="알림">

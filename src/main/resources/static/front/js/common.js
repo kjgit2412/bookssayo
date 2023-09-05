@@ -78,7 +78,7 @@ window.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", function () {
     // 맨 위로 가는 버튼 요소 가져오기
     var topButton = document.querySelector(".bottom_top_btn");
 

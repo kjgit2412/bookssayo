@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
+    <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
     <section>
         <div class="main_banner1">
             <img th:src="@{/common/images/main_banner1.png}" alt="banner1" class="main_banner_img1">
@@ -10,7 +11,6 @@
     </section>
     <section>
         <div class="main_prd">
-            <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
                 <th:block th:if="${items != null && items.size() > 0}">
                     <div>
                         <h1>새로 올라온 책</h1>
@@ -49,9 +49,23 @@
                 <th:block th:unless="${items != null && items.size() > 0}">
                     <h3>조회된 목록이 없습니다.</h3>
                 </th:block>
-            </form>
         </div>
     </section>
+    <section>
+        <div class="main_recommend">
+            <div class="recommend_wrap">
+                <div class="recommend_inner">
+                    <div class="inner_title">
+                        <span class="inner_logo"></span>
+                    </div>
+                    <div class="inner_content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </form>
 </main>
 
 </html>

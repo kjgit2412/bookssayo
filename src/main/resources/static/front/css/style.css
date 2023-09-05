@@ -266,10 +266,9 @@ nav.submenus a { line-height: 60px; padding: 0 40px; font-size: 18px; }
 main > inner-section { margin-left: 100px; }
 
 /*  cart  설정 */
-.cart-table-cols { width: 100%; border-spacing: 0; padding: 0; border-top: 3px solid #222;}
-.cart-table-cols th { background: #3f048c; width: 160px; padding: 10px 20px; color:#fff; font-size:20px; text-align: left; }
+.cart-table-cols { width: 100%; border-spacing: 0; padding: 0; border-top: #555555 3px solid;}
+.cart-table-cols th { border-bottom: #555555 3px solid; align-items: center; background: white; width: 160px; padding: 10px 20px; color:#000000; font-size:20px; text-align: left; }
 .cart-table-cols td { background: #fff; padding: 10px 15px; }
-.cart-table-cols th,
 .cart-table-cols td { border-bottom: 1px solid #d5d5d5; }
 
 h3 { color : #be0000; #font-size: 18px; font-weight: bold; margin: 25px 0 10px; line-height: 1; }

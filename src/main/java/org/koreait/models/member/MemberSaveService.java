@@ -1,10 +1,14 @@
 package org.koreait.models.member;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.constants.BookStatus;
 import org.koreait.commons.constants.Role;
+import org.koreait.controllers.admin.BookForm;
 import org.koreait.controllers.member.JoinForm;
 import org.koreait.controllers.member.JoinValidator;
+import org.koreait.entities.Book;
 import org.koreait.entities.Member;
+import org.koreait.models.books.BookNotFoundException;
 import org.koreait.repositories.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +32,17 @@ public class MemberSaveService {
      * @param errors   유효성 검사 에러
      */
     public void save(JoinForm joinForm, Errors errors) {
+
+        Long userNo = joinForm.getUserNo();
+        Member member = null;
+
+        if (userNo != null) {
+            member = repository.findById(userNo).orElseThrow(MemberNotfoundException::new);
+        }else {
+            member = new Member();
+            System.out.println("userNo1 = " + userNo);
+        }
+
         // 회원 가입 폼 유효성 검사
         validator.validate(joinForm, errors);
         if (errors.hasErrors()) {
@@ -35,7 +50,7 @@ public class MemberSaveService {
         }
 
         // 회원 정보 매핑 및 저장
-        Member member = new ModelMapper().map(joinForm, Member.class);
+        member = new ModelMapper().map(joinForm, Member.class);
         member.setRole(Role.USER);
 
         // 비밀번호 해싱하여 저장
@@ -43,5 +58,6 @@ public class MemberSaveService {
         member.setUserPw(hash);
 
         repository.saveAndFlush(member);
+        joinForm.setUserNo(member.getUserNo());
     }
 }

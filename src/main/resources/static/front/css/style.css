@@ -46,10 +46,10 @@ header .left a img.left_logo { width: 400px; }
 
 /** 헤더 검색창 스타일 */
 header .search { display: flex; justify-content: center; align-items: center; flex-grow: 1; margin-right: 50px; }
-header .search_box { display: flex; align-items: center; border: 1px solid #cccccc; border-radius: 10px; justify-content: space-between; padding-right: 20px;}
+header .search_box { display: flex; align-items: center; border: 1px solid #cccccc; border-radius: 10px; justify-content: space-between; padding-right: 50px;}
 header .header_select {border: none; border-radius: 10px; width: 120px; text-align: left; padding: 0 5px 0 25px;}
 
-header .main_search_btn { margin-left: 10px; background-color: #fff; border: none; transition: transform 0.3s; cursor: pointer; }
+header .main_search_btn { margin-left: 10px; background-color: #fff; border: none; transition: transform 0.3s; cursor: pointer; position: absolute; top: 64px;}
 header .main_search_btn:hover { transform: scale(1.2); }
 header .search_text{border: none; width: 300px; }
 
@@ -253,3 +253,7 @@ h3 { color : #be0000; #font-size: 18px; font-weight: bold; margin: 25px 0 10px; 
 
 /** 로그인*/
 .links{text-size: 15px; margin-left: 10px;}
+
+
+/* 하단 사이드 고정 퀵메뉴 */
+.bottom_top_btn {width: 44px; height: 44px; border: 1px solid #ccc; background-color: #fff; border-radius: 50%; text-align: center; line-height: 44px; cursor: pointer; background-size: 30px 30px; background-image: url("/common/images/top.png"); background-repeat: no-repeat; background-position: center; min-width: 44px; min-height: 44px; }

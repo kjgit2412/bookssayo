@@ -9,11 +9,13 @@ import org.koreait.controllers.member.JoinValidator;
 import org.koreait.entities.Book;
 import org.koreait.entities.Member;
 import org.koreait.models.books.BookNotFoundException;
+import org.koreait.models.books.BookSearch;
 import org.koreait.repositories.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
  * 회원 가입 정보를 저장하는 서비스 클래스
@@ -31,7 +33,7 @@ public class MemberSaveService {
      * @param joinForm 회원 가입 폼 정보
      * @param errors   유효성 검사 에러
      */
-    public void save(JoinForm joinForm, Errors errors) {
+    public void save(JoinForm joinForm, Errors errors, @ModelAttribute BookSearch search) {
 
         Long userNo = joinForm.getUserNo();
         Member member = null;

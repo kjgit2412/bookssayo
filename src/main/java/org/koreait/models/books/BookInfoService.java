@@ -120,19 +120,33 @@ public class BookInfoService {
             sopt = sopt.trim();
             skey = skey.trim();
 
-            if (sopt.equals("all")) { // 통합 검색
+            if (sopt.equals("all")) { // 통합 검색, 관리자용
                 BooleanBuilder orBuilder = new BooleanBuilder();
                 orBuilder.or(book.bookNo.stringValue().contains(skey))
-                        .or(book.bookNm.containsIgnoreCase(skey));
+                        .or(book.bookNm.containsIgnoreCase(skey))
+                        .or(book.author.containsIgnoreCase(skey))
+                        .or(book.publisher.containsIgnoreCase(skey));
                 andBuilder.and(orBuilder);
-
-            } else if (sopt.equals("bookNm")) {
+            } else if (sopt.equals("frontAll")) { // 통합 검색, 홈페이지용
+                BooleanBuilder orBuilder = new BooleanBuilder();
+                orBuilder.or(book.bookNm.containsIgnoreCase(skey))
+                        .or(book.author.containsIgnoreCase(skey))
+                        .or(book.publisher.containsIgnoreCase(skey));
+                andBuilder.and(orBuilder);
+            } else if (sopt.equals("bookNm")) { // 도서명 검색
                 andBuilder.and(book.bookNm.containsIgnoreCase(skey));
-            } else if (sopt.equals("bookNo")) {
+            } else if (sopt.equals("bookNo")) { // 도서 번호 검색
                 andBuilder.and(book.bookNo.stringValue().contains(skey));
+            } else if (sopt.equals("author")) { // 저자명 검색
+                andBuilder.and(book.author.containsIgnoreCase(skey));
+            } else if (sopt.equals("publisher")) { // 출판사 검색
+                andBuilder.and(book.publisher.containsIgnoreCase(skey));
             }
-        } else if (sopt != null && !sopt.isBlank()) {
-            if (sopt.equals("D001")) { // 소설
+        } else if (sopt != null && !sopt.isBlank()) { // 카테고리(sopt)만 이용
+            if(sopt.equals("domestic")){ // 국산도서 전체
+                // 국산도서의 분류코드는 D로 시작한다.
+                andBuilder.and(book.category.cateCd.containsIgnoreCase("D"));
+            } else if (sopt.equals("D001")) { // 소설
                 andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
             } else if (sopt.equals("D002")) { // 시/에세이
                 andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
@@ -149,62 +163,66 @@ public class BookInfoService {
             } else if (sopt.equals("D008")) { // 외국어
                 andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
             }
-        }
-            /** 조건 및 키워드 검색 E */
 
-            /** 검색 처리 E */
-
-            /** 정렬 처리 S */
-            // listOrder_DESC,createdAt_ASC
-            List<OrderSpecifier> orderSpecifier = new ArrayList<>();
-            String sort = search.getSort();
-            if (sort != null && !sort.isBlank()) {
-                List<String[]> sorts = Arrays.stream(sort.trim().split(","))
-                        .map(s -> s.split("_")).toList();
-                PathBuilder pathBuilder = new PathBuilder(Book.class, "book");
-
-                for (String[] _sort : sorts) {
-                    Order direction = Order.valueOf(_sort[1].toUpperCase()); // 정렬 방향
-                    orderSpecifier.add(new OrderSpecifier(direction, pathBuilder.get(_sort[0])));
-                }
+            if(sopt.equals("foreign")) { // 해외도서 전체
+                // 해외도서의 분류코드는 D로 시작한다.
+                andBuilder.and(book.category.cateCd.containsIgnoreCase("F"));
             }
-            /** 정렬 처리 E */
-
-            JPAQueryFactory factory = new JPAQueryFactory(em);
-            List<Book> items = factory.selectFrom(book)
-                    .leftJoin(book.category)
-                    .fetchJoin()
-                    .limit(limit)
-                    .offset(offset)
-                    .where(andBuilder)
-                    .orderBy(orderSpecifier.toArray(OrderSpecifier[]::new))
-                    .fetch();
-
-            ListData<Book> data = new ListData<>();
-            data.setContent(items);
-
-
-
-            /* Todo : 페이징 처리 로직 추가 */
-            int total = (int) bookRepository.count(andBuilder);
-            Pagination pagination = new Pagination(page, total, 10, limit, request);
-            data.setPagination(pagination);
-
-            return data;
         }
+        /** 조건 및 키워드 검색 E */
 
-        /**
-         * 첨부된 이미지 추가 처리
-         * @param book
-         */
-        public void addFileInfo(Book book){
-            String gid = book.getGid();
-            List<FileInfo> mainImages = fileInfoService.getListDone(gid, "main");
-            List<FileInfo> listImages = fileInfoService.getListDone(gid, "list");
-            List<FileInfo> editorImages = fileInfoService.getListDone(gid, "editor");
-            book.setMainImages(mainImages);
-            book.setListImages(listImages);
-            book.setEditorImages(editorImages);
+        /** 검색 처리 E */
+
+        /** 정렬 처리 S */
+        // listOrder_DESC,createdAt_ASC
+        List<OrderSpecifier> orderSpecifier = new ArrayList<>();
+        String sort = search.getSort();
+        if (sort != null && !sort.isBlank()) {
+            List<String[]> sorts = Arrays.stream(sort.trim().split(","))
+                    .map(s -> s.split("_")).toList();
+            PathBuilder pathBuilder = new PathBuilder(Book.class, "book");
+
+            for (String[] _sort : sorts) {
+                Order direction = Order.valueOf(_sort[1].toUpperCase()); // 정렬 방향
+                orderSpecifier.add(new OrderSpecifier(direction, pathBuilder.get(_sort[0])));
+            }
         }
+        /** 정렬 처리 E */
+
+        JPAQueryFactory factory = new JPAQueryFactory(em);
+        List<Book> items = factory.selectFrom(book)
+                .leftJoin(book.category)
+                .fetchJoin()
+                .limit(limit)
+                .offset(offset)
+                .where(andBuilder)
+                .orderBy(orderSpecifier.toArray(OrderSpecifier[]::new))
+                .fetch();
+
+        ListData<Book> data = new ListData<>();
+        data.setContent(items);
+
+
+
+        /* Todo : 페이징 처리 로직 추가 */
+        int total = (int) bookRepository.count(andBuilder);
+        Pagination pagination = new Pagination(page, total, 10, limit, request);
+        data.setPagination(pagination);
+
+        return data;
     }
 
+    /**
+     * 첨부된 이미지 추가 처리
+     * @param book
+     */
+    public void addFileInfo(Book book){
+        String gid = book.getGid();
+        List<FileInfo> mainImages = fileInfoService.getListDone(gid, "main");
+        List<FileInfo> listImages = fileInfoService.getListDone(gid, "list");
+        List<FileInfo> editorImages = fileInfoService.getListDone(gid, "editor");
+        book.setMainImages(mainImages);
+        book.setListImages(listImages);
+        book.setEditorImages(editorImages);
+    }
+}

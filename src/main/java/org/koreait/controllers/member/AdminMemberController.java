@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
 import org.koreait.controllers.admin.BookForm;
 import org.koreait.entities.Member;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.member.MemberInfoService;
 import org.koreait.models.member.MemberListService;
 import org.koreait.models.member.MemberSaveService;
@@ -36,7 +37,7 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
 
     //회원 관리 메인
     @GetMapping
-    public String index(@ModelAttribute MemberSearch search, Model model) {
+    public String index(@ModelAttribute MemberSearch search, Model model, @ModelAttribute BookSearch bookSearch) {
         commonProcess(model, "list");
         ListData<Member> data = listService.getList(search);
         model.addAttribute("items", data.getContent());
@@ -44,13 +45,13 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
         return tplCommon + "index";
     }
     @PostMapping
-    public String indexPs(JoinForm form ,Model model, Errors errors) {
+    public String indexPs(JoinForm form ,Model model, Errors errors, @ModelAttribute BookSearch search) {
         commonProcess(model, "list");
 
         String mode = form.getMode();
         try {
             if(mode.equals("edit")) {
-                saveService.save(form, errors);
+                saveService.save(form, errors, search);
             }
         } catch (CommonException e) {
             e.printStackTrace();
@@ -89,7 +90,7 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
     }
 
     @GetMapping("/edit/{userNo}")
-    public String edit(@PathVariable Long userNo, Model model) {
+    public String edit(@PathVariable Long userNo, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "edit");
         JoinForm joinForm = infoService.getJoinForm(userNo);
         model.addAttribute("joinForm", joinForm);
@@ -98,7 +99,7 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
     }
 
     @PostMapping("/save")
-    public String bookSave(@Valid JoinForm joinForm, Model model, Errors errors) {
+    public String bookSave(@Valid JoinForm joinForm, Model model, Errors errors, @ModelAttribute BookSearch search) {
 
         commonProcess(model, "save");
 
@@ -107,7 +108,7 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
             return mode != null && mode.equals("edit") ? tplCommon + "edit" : tplCommon + "edit";
         }
 
-        saveService.save(joinForm, errors);
+        saveService.save(joinForm, errors, search);
 
         return "redirect:/admin/member";
     }

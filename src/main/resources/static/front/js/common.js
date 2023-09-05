@@ -78,6 +78,27 @@ window.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // 맨 위로 가는 버튼 요소 가져오기
+    var topButton = document.querySelector(".bottom_top_btn");
+
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener("scroll", function () {
+        // 페이지의 스크롤 위치가 200 이상인 경우 버튼을 표시
+        if (window.pageYOffset > 200) {
+            topButton.style.display = "block";
+        } else {
+            topButton.style.display = "none";
+        }
+    });
+
+    // 버튼을 클릭할 때 맨 위로 스크롤
+    topButton.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+});
+
+
 
 
 

@@ -11,7 +11,7 @@
                 <span>카테고리</span>
                 <form method="get" th:action="@{/front/main/list}" th:object="${bookSearch}">
                 <div class="side_column">
-                    <a  class="list_top_cate">국내도서</a>
+                    <a th:href="'/front/main/list?sopt=domestic'" class="list_top_cate">국내도서</a>
                     <a th:href="'/front/main/list?sopt=D001'" class="list_items">소설</a>
                     <a th:href="'/front/main/list?sopt=D002'" class="list_items">시/에세이</a>
                     <a th:href="'/front/main/list?sopt=D003'" class="list_items">인문</a>

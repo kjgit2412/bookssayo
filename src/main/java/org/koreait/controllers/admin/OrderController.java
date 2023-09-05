@@ -37,7 +37,7 @@ public class OrderController implements CommonProcess {
         model.addAttribute("items", data.getContent());
         model.addAttribute("pagination", data.getPagination());
 
-        return tplCommon + "index";
+        return tplCommon + "index";     // template/admin/order/index.html, 관리자페이지에서 주문목록
     }
 
     @GetMapping("/{orderNo}")
@@ -47,7 +47,7 @@ public class OrderController implements CommonProcess {
         model.addAttribute("data", data);
 
 
-        return tplCommon + "view";
+        return tplCommon + "view";      // template/admin/order/index.html, 관리자페이지에서 주문서 수정
     }
 
     public void commonProcess(Model model, String mode) {

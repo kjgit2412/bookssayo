@@ -42,7 +42,7 @@ public class CartController implements CommonProcess, ScriptExceptionProcess {
     public String cartPs(CartForm form, Model model, @ModelAttribute BookSearch search) {
 
         try {
-            cartSaveService.save(form);
+            cartSaveService.save(form, search);
 
             String mode = form.getMode();
             String url = mode.equals("direct") ? "/order" : "/order/cart";

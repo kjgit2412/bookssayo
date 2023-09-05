@@ -44,14 +44,14 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     }
 
     @PostMapping
-    public String indexPs(@Valid OrderForm form, Errors errors, Model model) {
+    public String indexPs(@Valid OrderForm form, Errors errors, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "form", form);
 
         if (errors.hasErrors()) {
             return utils.view("order/index");
         }
 
-        saveService.save(form);
+        saveService.save(form, search);
 
       //  PaymentType paymentType = PaymentType.valueOf(form.getPaymentType());
      //   String script = "";

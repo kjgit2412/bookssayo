@@ -12,8 +12,10 @@ import org.koreait.entities.Book;
 import org.koreait.entities.Cart;
 import org.koreait.entities.QCart;
 import org.koreait.models.books.BookInfoService;
+import org.koreait.models.books.BookSearch;
 import org.koreait.repositories.CartRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +29,7 @@ public class CartService {
     private final Utils utils;
     private final JPAQueryFactory factory;
 
-    public Cart getByBookNo(Long bookNo) {
+    public Cart getByBookNo(Long bookNo, @ModelAttribute BookSearch search) {
         int uid = utils.guestUid();
         QCart cart = QCart.cart;
         BooleanBuilder builder = new BooleanBuilder();

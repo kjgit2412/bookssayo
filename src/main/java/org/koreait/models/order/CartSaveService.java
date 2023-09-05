@@ -7,9 +7,11 @@ import org.koreait.controllers.orders.CartForm;
 import org.koreait.entities.Book;
 import org.koreait.entities.Cart;
 import org.koreait.models.books.BookInfoService;
+import org.koreait.models.books.BookSearch;
 import org.koreait.repositories.CartRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class CartSaveService {
     private final CartRepository repository;
     private final Utils utils;
 
-    public void save(CartForm form) {
+    public void save(CartForm form, @ModelAttribute BookSearch search) {
         Long bookNo = form.getBookNo();
         String mode = form.getMode();
 
@@ -31,7 +33,7 @@ public class CartSaveService {
         }
 
         Book book = bookInfoService.get(bookNo);
-        Cart cart = mode.equals("direct")?null:cartService.getByBookNo(bookNo);
+        Cart cart = mode.equals("direct")?null:cartService.getByBookNo(bookNo, search);
         System.out.println("cart : " + cart);
         if (cart == null) { // 신규 추가  - 장바구니에 없는 경우 + 바로 구매(direct)
             cart = new ModelMapper().map(form, Cart.class);

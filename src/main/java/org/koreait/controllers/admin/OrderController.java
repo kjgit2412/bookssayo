@@ -8,6 +8,7 @@ import org.koreait.commons.constants.OrderStatus;
 import org.koreait.controllers.orders.OrderForm;
 import org.koreait.controllers.orders.OrderSearch;
 import org.koreait.entities.OrderInfo;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.order.OrderInfoService;
 import org.koreait.models.order.OrderSaveService;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class OrderController implements CommonProcess {
     private final OrderSaveService orderSaveService;
 
     @GetMapping
-    public String index(@ModelAttribute OrderSearch search, Model model) {
+    public String index(@ModelAttribute OrderSearch search, Model model, @ModelAttribute BookSearch bookSearch) {
         commonProcess(model, "list");
         ListData<OrderInfo> data = orderInfoService.getList(search);
 
@@ -40,7 +41,7 @@ public class OrderController implements CommonProcess {
     }
 
     @GetMapping("/{orderNo}")
-    public String view(@PathVariable Long orderNo, Model model) {
+    public String view(@PathVariable Long orderNo, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "view");
         OrderInfo data = orderInfoService.get(orderNo);
         model.addAttribute("data", data);
@@ -50,7 +51,7 @@ public class OrderController implements CommonProcess {
     }
 
     @PostMapping
-    public String save(@Valid OrderForm orderForm, Errors errors, Model model) {
+    public String save(@Valid OrderForm orderForm, Errors errors, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "view");
         orderInfoService.updateInfo(orderForm);
 

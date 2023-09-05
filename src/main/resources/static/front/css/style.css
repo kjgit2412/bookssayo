@@ -77,8 +77,8 @@ header .dropbtn:hover{transform: scale(1.1); transition: transform 0.3s;}
 header .dropbtn img{ width: 40px; }
 
 /* 헤더 드롭다운 컨텐츠 스타일 */
-header .header_drop_menu { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border: 1px solid #000; border-radius: 16px; margin: 10px 0 0 50px;}
+header .header_drop_menu { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; left: calc(50% - 800px);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border: #aeb3b9 1px solid; border-radius: 16px; margin: 10px 0 0 50px;}
 
 /* 헤더 드롭다운 컬럼 스타일 */
 header .drop_column { float: left; padding: 10px; border-right: 1px solid #ccc; height: 100%; }
@@ -95,11 +95,13 @@ header .drop_column .drop_items { font-size: 15px; margin: 20px 10px; display: b
 header .drop_column + .drop_column { margin-left: 10px; }
 
 /* 공통 푸터 스타일 */
-.footer_box{ background-color: #464646; width: 100%; height: auto; padding: 20px 0; display: flex; justify-content:center; }
-.footer_logo{ width: 300px; }
-.footer_box .footer_terms{ display: flex; justify-content: center;}
+.footer_box{ background-color: #464646; width: 100%; height: auto; padding: 50px 0; display: flex; justify-content:center; }
+.footer_wrap { display: flex; }
+.footer_logo{ width: 120px; }
+.footer_info_wrap { margin-left: 40px; justify-content: center; }
+.footer_terms{ display: flex; justify-content: center;}
 .footer_terms a{ cursor: pointer; }
-.footer_terms span{ color: white; padding: 0 15px; }
+.footer_terms span{ color: white; padding: 0 10px; margin-left: 10px;}
 .footer_terms .introduce, .terms_of_use{ border-right: 1px solid white;}
 .footer_info{ display: flex; flex-direction: column; justify-content: center; text-align: center; margin-top: 20px; }
 .footer_info p{ color: white; margin-block-start: initial; margin-block-end: 8px; }
@@ -137,7 +139,7 @@ main > section { flex-grow: 1; margin: 0 50px 50px; }
 #nextPage {position: absolute; right: calc(50% - 810px); }
 
 /* 메인 북싸요 홍보 */
-.main_recommend { background: #f5faf2; }
+.main_recommend { background: #f5faf2; margin-top: 150px;}
 .recommend_wrap { max-width: 1500px; margin: 0 auto; }
 .recommend_inner { padding: 80px 0; }
 .inner_title {  }
@@ -175,7 +177,7 @@ main > section { flex-grow: 1; margin: 0 50px 50px; }
 .side_column { display: flex; flex-direction: column; }
 .list_prd_ul { width: 100%; }
 .list_prd_li {width: 100%; text-align: left; transition: transform 0.3s; display: flex; margin: 20px 0; justify-content: space-between; border-bottom: 1px solid #ccc; padding-bottom: 20px; }
-.list_img_box {display: block; width : 211px;}
+.list_img_box {display: block; width : 190px;}
 .list_prd_img {width: 100%;}
 .list_book_info_box { margin-left: 20px; text-align: left; }
 .list_price { font-size: 14px; font-weight: bold; }

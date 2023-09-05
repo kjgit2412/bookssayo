@@ -17,12 +17,14 @@
     <script th:each="jsFile : ${addCommonScript}" th:src="@{/common/js/{jsFile}.js(jsFile=${jsFile})}"></script>
     <script th:src="@{/front/js/common.js}"></script>
     <script th:each="jsFile : ${addScript}" th:src="@{/front/js/{jsFile}.js(jsFile=${jsFile})}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <th:block layout:fragment="addScript"></th:block>
 </head>
 <body>
 <header th:replace="~{front/outlines/header::common}"></header>
 <main layout:fragment="content"></main>
 <footer th:replace="~{front/outlines/footer::common}"></footer>
+<h1>테스트!</h1>
 <iframe name="ifrmProcess" class="dn"></iframe>
 </body>
 </html>

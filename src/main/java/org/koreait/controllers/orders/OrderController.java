@@ -77,7 +77,7 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     }
 
     @GetMapping("/view/{id}")
-    public String view(@PathVariable Long id, Model model) {
+    public String view(@PathVariable Long id, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "view");
 
         if (id == null) {

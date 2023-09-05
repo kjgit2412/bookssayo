@@ -9,12 +9,14 @@
         </div>
     </section>
     <section>
-        <h1>새로 올라온 책</h1>
         <div class="main_prd">
             <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
                 <th:block th:if="${items != null && items.size() > 0}">
-                        <div class="book-pagination">
-                            <button id="prevPage" class="page-button" style="display: none; transform: rotate(180deg);"></button>
+                    <div>
+                        <h1>새로 올라온 책</h1>
+                    </div>
+                    <div class="book-pagination">
+                            <button id="prevPage" class="page-button" style="transform: rotate(180deg);"></button>
                             <ul class="main_prd_ul">
                                 <!--메인 화면 상품 리스트에는 '판매중' 인 상품만 진열-->
                                 <li th:each="item : ${items}" th:object="${item}" class="main_prd_li" th:if="${item.status.toString().equals('SALE')}">
@@ -47,10 +49,9 @@
                 <th:block th:unless="${items != null && items.size() > 0}">
                     <h3>조회된 목록이 없습니다.</h3>
                 </th:block>
-
             </form>
         </div>
     </section>
-
 </main>
+
 </html>

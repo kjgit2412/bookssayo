@@ -3,6 +3,7 @@ package org.koreait.controllers.orders;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
 import org.koreait.entities.Cart;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.order.CartSaveService;
 import org.koreait.models.order.CartService;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class CartController implements CommonProcess, ScriptExceptionProcess {
     private final Utils utils;
 
     @GetMapping
-    public String index(@ModelAttribute CartForm form, Model model) {
+    public String index(@ModelAttribute CartForm form, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "cart");
 
         List<Cart> items = cartService.getList("cart");
@@ -38,7 +39,7 @@ public class CartController implements CommonProcess, ScriptExceptionProcess {
 
 
     @PostMapping
-    public String cartPs(CartForm form, Model model) {
+    public String cartPs(CartForm form, Model model, @ModelAttribute BookSearch search) {
 
         try {
             cartSaveService.save(form);

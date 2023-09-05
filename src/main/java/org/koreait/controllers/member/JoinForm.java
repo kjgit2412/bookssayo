@@ -30,5 +30,5 @@ public class JoinForm {
     private String mobile;
 
     @AssertTrue
-    private boolean agree;
+    private boolean agree = true;
 }

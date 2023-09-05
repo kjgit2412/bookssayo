@@ -5,10 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
 import org.koreait.commons.constants.BookStatus;
 import org.koreait.controllers.admin.BookForm;
+import org.koreait.controllers.member.JoinForm;
 import org.koreait.entities.Book;
+import org.koreait.entities.Member;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.models.books.BookSearch;
 import org.koreait.models.categories.CategoryInfoService;
+import org.koreait.models.member.MemberInfoService;
+import org.koreait.models.member.MemberSearch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +31,7 @@ public class FrontController implements CommonProcess {
     private final BookInfoService infoService;
     private final CategoryInfoService categoryInfoService;
     private final HttpServletRequest request;
+    private final MemberInfoService memberInfoService;
 
     /** 메인 페이지 */
     @GetMapping("main")

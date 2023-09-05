@@ -24,7 +24,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         /** redirectURL 값이 있으면 지정된 URL로 로그인 후 이동, 없다면 메인 페이지로 이동 */
         String redirectUrl = request.getParameter("redirectURL");
-        String url = redirectUrl == null || redirectUrl.isBlank() ? request.getContextPath() + "/" : request.getContextPath() + redirectUrl;
+        String url = redirectUrl == null || redirectUrl.isBlank() ? request.getContextPath() + "/front/main" : request.getContextPath() + redirectUrl;
 
         response.sendRedirect(url);
     }

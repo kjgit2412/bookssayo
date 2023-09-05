@@ -13,6 +13,7 @@ import org.koreait.commons.ListData;
 import org.koreait.commons.Pagination;
 import org.koreait.commons.Utils;
 import org.koreait.commons.constants.OrderStatus;
+import org.koreait.controllers.orders.OrderForm;
 import org.koreait.controllers.orders.OrderSearch;
 import org.koreait.entities.OrderInfo;
 import org.koreait.entities.OrderItem;
@@ -20,6 +21,8 @@ import org.koreait.entities.QOrderInfo;
 import org.koreait.entities.QOrderItem;
 import org.koreait.models.books.BookInfoService;
 import org.koreait.repositories.order.OrderInfoRepository;
+import org.koreait.repositories.order.OrderItemRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class OrderInfoService {
     private final OrderInfoRepository repository;
+    private final OrderItemRepository itemRepository;
 
     private final EntityManager em;
     private final BookInfoService bookInfoService;
@@ -51,6 +55,13 @@ public class OrderInfoService {
         return data;
     }
 
+    public OrderForm getForm(Long orderNo) {
+        OrderInfo data = get(orderNo);
+
+        OrderForm form = new ModelMapper().map(data, OrderForm.class);
+        form.setPaymentType(data.getPaymentType().getTitle());
+        return form;
+    }
 
     public ListData<OrderInfo> getList(OrderSearch search) {
         QOrderInfo orderInfo = QOrderInfo.orderInfo;
@@ -174,6 +185,16 @@ public class OrderInfoService {
         if (items == null || items.isEmpty()) return;
 
         items.stream().forEach(i -> bookInfoService.addFileInfo(i.getBook()));
+    }
+
+    public void updateInfo(OrderForm orderForm) {
+        Long orderNo = orderForm.getId();
+        QOrderItem orderItem = QOrderItem.orderItem;
+        List<OrderItem> items = (List<OrderItem>)itemRepository.findAll(orderItem.orderInfo.id.eq(orderNo));
+
+        items.stream().forEach(i -> bookInfoService.addFileInfo(i.getBook()));
+        orderForm.setOrderItems(items);
+
     }
 
 }

@@ -1,21 +1,19 @@
 package org.koreait.controllers.admin;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.CommonProcess;
-import org.koreait.commons.ListData;
-import org.koreait.commons.Menu;
-import org.koreait.commons.MenuDetail;
+import org.koreait.commons.*;
 import org.koreait.commons.constants.OrderStatus;
+import org.koreait.controllers.orders.OrderForm;
 import org.koreait.controllers.orders.OrderSearch;
 import org.koreait.entities.OrderInfo;
 import org.koreait.models.order.OrderInfoService;
+import org.koreait.models.order.OrderSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ public class OrderController implements CommonProcess {
     private String tplCommon = "admin/order/";
     private final HttpServletRequest request;
     private final OrderInfoService orderInfoService;
+    private final OrderSaveService orderSaveService;
 
     @GetMapping
     public String index(@ModelAttribute OrderSearch search, Model model) {
@@ -50,6 +49,25 @@ public class OrderController implements CommonProcess {
         return tplCommon + "view";      // template/admin/order/index.html, 관리자페이지에서 주문서 수정
     }
 
+    @PostMapping
+    public String save(@Valid OrderForm orderForm, Errors errors, Model model) {
+        commonProcess(model, "view");
+        orderInfoService.updateInfo(orderForm);
+
+        if (errors.hasErrors()) {
+            return tplCommon + "view";
+        }
+        try {
+            orderSaveService.update(orderForm);
+
+            return "redirect:/admin/order"; // 주문서 수정 완료 후 주문서 목록으로 이동
+        } catch (CommonException e) {
+            e.printStackTrace();
+            throw new AlertException(e.getMessage());
+        }
+    }
+
+
     public void commonProcess(Model model, String mode) {
         String pageTitle = "주문 목록";
 
@@ -58,6 +76,9 @@ public class OrderController implements CommonProcess {
         List<String> addScript = new ArrayList<>();
         List<String> addCommonScript = new ArrayList<>();
 
+        if (mode.equals("view")) { // 주문서 관리
+            addCommonScript.add("address");
+        }
 
         model.addAttribute("addScript", addScript);
         model.addAttribute("addCommonScript", addCommonScript);
@@ -65,6 +86,8 @@ public class OrderController implements CommonProcess {
         model.addAttribute("menuCode", "order");
         // 서브 메뉴 처리
         String subMenuCode = Menu.getSubMenuCode(request);
+        if (mode.equals("view")) subMenuCode = "order";
+
         model.addAttribute("subMenuCode", subMenuCode);
 
         // 서브 메뉴 조회

@@ -2,6 +2,7 @@ package org.koreait.controllers.orders;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.koreait.entities.OrderItem;
 
 import java.util.List;
 
@@ -35,4 +36,12 @@ public class OrderForm {
     private String paymentType = "LBT";
 
     private int totalPrice;
+    private int payPrice;
+
+    private String deliveryCompany;
+    private String invoice;
+
+    private List<OrderItem> orderItems;
+
+    private List<Long> itemId;
 }

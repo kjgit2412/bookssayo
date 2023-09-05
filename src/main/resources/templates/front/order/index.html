@@ -134,8 +134,9 @@
                 </tr>
                 <tr>
                     <th>결제방법</th>
-                    <td>
-                    <span>
+                    <td>무통장입금</td>
+
+ <!--                   <span>     이번 과제에서는 무통장입금만 사용
                         <input type="radio" name="paymentType" value="LBT" id="paymentType_lbt" th:field="*{paymentType}">
                         <label for="paymentType_lbt">무통장 입금</label>
                         <input type="radio" name="paymentType" value="DIRECT" id="paymentType_direct" th:field="*{paymentType}">
@@ -147,6 +148,7 @@
                     </span>
                         <div class="errors" th:each="err : ${#fields.errors('paymentType')}" th:text="${err}"></div>
                     </td>
+  -->
                     <td class="lbt_account_info">
                         <dt>입금계좌번호</dt>
                         <dd>

@@ -16,6 +16,12 @@
 * 스프링 부트 기본 설정
 * Maven + Spring Boot DevToos + Lombok + Spring Web + Thymeleaf + Spring JPA + H2 Database + Validation + Security .....
 
+* 개발환경 : Spring Boot, Maven
+* 개발도구 : IntelliJ, dbever, GitHub  
+* 개발언어 및 프레임워크 : Java, HTML, JavaScript
+* DB : Oracle
+* API : REST
+
 ***
 
 ## Step3

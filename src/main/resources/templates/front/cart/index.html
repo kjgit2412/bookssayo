@@ -36,7 +36,7 @@
                     </td>
                     <td>
                         <th:block th:if="*{book != null && book.listImages != null && book.listImages.size() > 0}">
-                            <a th:href="@{/book/view/{no}(no=*{book.bookNo})}">
+                            <a th:href="@{/front/goods/view/{no}(no=*{book.bookNo})}">
                                 <img th:src="*{book.listImages[0].thumbsUrl[0]}">
                             </a>
 

@@ -10,6 +10,8 @@ import org.koreait.commons.constants.PaymentType;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.koreait.commons.constants.PaymentType.LBT;
+
 @Entity
 @Data
 @Builder
@@ -45,7 +47,7 @@ public class OrderInfo extends BaseMemberEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(length=15, nullable = false)
-    private PaymentType paymentType;
+    private PaymentType paymentType = LBT;
 
     private int payPrice; // 결제 금액
 

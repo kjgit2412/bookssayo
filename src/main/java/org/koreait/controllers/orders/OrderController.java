@@ -52,18 +52,18 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
 
         saveService.save(form);
 
-        PaymentType paymentType = PaymentType.valueOf(form.getPaymentType());
-        String script = "";
-        if (paymentType == PaymentType.LBT) { // 무통장 입금인 경우는 주문 완료 페이지로 이동
+      //  PaymentType paymentType = PaymentType.valueOf(form.getPaymentType());
+     //   String script = "";
+      //  if (paymentType == PaymentType.LBT) { // 무통장 입금인 경우는 주문 완료 페이지로 이동
             // 주문완료 후에  장바구니 상품 삭제
             cartDeleteService.delete(form.getCartNo());
             return "redirect:/order/end?id=" + form.getId();
-        } else { // 그외 결제는 PG사를 통한 결제 연동
+     //   } else { // 그외 결제는 PG사를 통한 결제 연동
             // 추후...
 
-        }
+     //   }
 
-        return "common/_execute_script";
+    //    return "common/_execute_script";
     }
 
     @GetMapping("/end")

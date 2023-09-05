@@ -10,6 +10,8 @@ import lombok.Data;
 public class JoinForm {
     private String mode;
 
+    private Long userNo; // 회원 번호 (수정 시에만 사용)
+
     @NotBlank
     @Size(min=6)
     private String userId;

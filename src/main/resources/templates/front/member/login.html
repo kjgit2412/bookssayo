@@ -3,53 +3,49 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
-    <h1 th:text="${pageTitle}"></h1>
-    <form name="frmLogin" id="frmLogin" method="POST" th:action="@{/member/login}" autocomplete="off">
-        <input th:if="${param.redirectURL != null}" type="hidden" name="redirectURL" th:value="${param.redirectURL}">
-        <table class="table-cols">
-            <tr>
-                <th>아이디</th>
-                <td>
-                    <div class="rows">
-                        <input type="text" name="userId" th:value="${session.userId}" th:placeholder="#{userId}">
-                        <div class="errors" th:if="${session.requiredUserId}" th:text="${session.requiredUserId}"></div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>비밀번호</th>
-                <td>
-                    <div class="rows">
-                        <input type="password" name="userPw" th:value="${session.userPw}" th:placeholder="#{userPw}">
-                        <div class="errors" th:if="${session.requiredUserId}" th:text="${session.requiredUserPw}"></div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <div class="errors" th:if="${session.globalError}" th:text="${session.globalError}"></div>
-                <td>
-                    <div class="links">
-                        <a th:href="@{/member/find/id}" th:text="#{link.findId}"></a>
-                        <a th:href="@{/member/find/pw}" th:text="#{link.findPw}"></a>
-                        <a th:href="@{/member/join}" th:text="#{link.join}"></a>
-                    </div>
-
-
-                </td>
-
-            </tr>
-        </table>
-        <div class="btns">
-            <button type="submit" th:text="#{btn.login}"></button>
-        </div>
-        <div class="errors" th:if="${session.globalError}" th:text="${session.globalError}"></div>
-        <div class="links">
-            <a th:href="@{/member/find/id}" th:text="#{link.findId}"></a>
-            <a th:href="@{/member/find/pw}" th:text="#{link.findPw}"></a>
-            <a th:href="@{/member/join}" th:text="#{link.join}"></a>
-        </div>
-        <button type="submit" th:text="#{btn.login}"></button>
-    </form>
+    <section class="inner-section">
+        <h1 th:text="${pageTitle}"></h1>
+        <form name="frmLogin" id="frmLogin" method="POST" th:action="@{/member/login}" autocomplete="off">
+            <input th:if="${param.redirectURL != null}" type="hidden" name="redirectURL"
+                   th:value="${param.redirectURL}">
+            <table class="table-cols">
+                <tr>
+                    <th>아이디</th>
+                    <td>
+                        <div class="rows">
+                            <input type="text" name="userId" th:value="${session.userId}" th:placeholder="#{userId}">
+                            <div class="errors" th:if="${session.requiredUserId}"
+                                 th:text="${session.requiredUserId}"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>비밀번호</th>
+                    <td>
+                        <div class="rows">
+                            <input type="password" name="userPw" th:value="${session.userPw}"
+                                   th:placeholder="#{userPw}">
+                            <div class="errors" th:if="${session.requiredUserId}"
+                                 th:text="${session.requiredUserPw}"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <div class="errors" th:if="${session.globalError}" th:text="${session.globalError}"></div>
+                    <td>
+                        <div class="links">
+                            <a th:href="@{/member/find/id}" th:text="#{link.findId}"></a>
+                            <a th:href="@{/member/find/pw}" th:text="#{link.findPw}"></a>
+                            <a th:href="@{/member/join}" th:text="#{link.join}"></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="btns login">
+                <button type="submit" th:text="#{btn.login}"></button>
+            </div>
+        </form>
+    </section>
 </main>
 </html>

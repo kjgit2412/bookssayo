@@ -52,8 +52,10 @@
             <td>
                 <div class="terms_wrap">
                     <div class="stit" th:text="#{member.terms}"></div>
-                    <input type="checkbox" name="agree" value="true" th:field="*{agree}" id="agree">
-                    <label th:for="agree" th:text="#{member.agree}"></label>
+                    <span>
+                        <input type="checkbox" name="agree" value="true" th:field="*{agree}" id="agree">
+                        <label th:for="agree" th:text="#{member.agree}"></label>
+                    </span>
                     <div class="errors" th:each="err : ${#fields.errors('agree')}" th:text="${err}"></div>
                 </div>
             </td>

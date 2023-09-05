@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.*;
-import org.koreait.controllers.admin.BookForm;
+import org.koreait.commons.constants.Role;
 import org.koreait.entities.Member;
 import org.koreait.models.member.MemberInfoService;
 import org.koreait.models.member.MemberListService;
@@ -40,7 +40,8 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
         commonProcess(model, "list");
         ListData<Member> data = listService.getList(search);
         model.addAttribute("items", data.getContent());
-        //model.addAttribute("pagination", data.getPageable());
+        model.addAttribute("pagination", data.getPagination());
+
         return tplCommon + "index";
     }
     @PostMapping
@@ -86,6 +87,8 @@ public class AdminMemberController implements CommonProcess, ScriptExceptionProc
         // 서브 메뉴 조회
         List<MenuDetail> submenus = Menu.gets("member");
         model.addAttribute("submenus", submenus);
+
+        model.addAttribute("roles", Role.getList());
     }
 
     @GetMapping("/edit/{userNo}")

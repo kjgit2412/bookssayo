@@ -77,10 +77,12 @@ public class MemberController implements CommonProcess, ScriptExceptionProcess {
     @PostMapping("/save")
     public String save(@Valid MemberForm memberForm, Errors errors, Model model) {
         commonProcess(model, "edit");
+        saveService.update(memberForm, errors);
 
         if (errors.hasErrors()) {
             return tplCommon + "edit2";
         }
+
 
         return "redirect:/admin/member";
     }

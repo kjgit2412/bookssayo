@@ -8,6 +8,7 @@ import org.koreait.commons.*;
 import org.koreait.commons.constants.Role;
 import org.koreait.controllers.member.JoinForm;
 import org.koreait.entities.Member;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.member.MemberInfoService;
 import org.koreait.models.member.MemberListService;
 import org.koreait.models.member.MemberSaveService;
@@ -46,13 +47,13 @@ public class MemberController implements CommonProcess, ScriptExceptionProcess {
         return tplCommon + "index";
     }
     @PostMapping
-    public String indexPs(JoinForm form , Model model, Errors errors) {
+    public String indexPs(JoinForm form , Model model, Errors errors, @ModelAttribute BookSearch search) {
         commonProcess(model, "list");
 
         String mode = form.getMode();
         try {
             if(mode.equals("edit")) {
-                saveService.save(form, errors);
+                saveService.save(form, errors, search);
             }
         } catch (CommonException e) {
             e.printStackTrace();

@@ -3,18 +3,20 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 <main layout:fragment="content">
+    <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
     <section>
         <div class="main_banner1">
             <img th:src="@{/common/images/main_banner1.png}" alt="banner1" class="main_banner_img1">
         </div>
     </section>
     <section>
-        <h1>새로 올라온 책</h1>
         <div class="main_prd">
-            <form id="frmList" name="frmList" method="post" th:action="@{/front/main}" target="ifrmProcess" autocomplete="off">
                 <th:block th:if="${items != null && items.size() > 0}">
-                        <div class="book-pagination">
-                            <button id="prevPage" class="page-button" style="display: none; transform: rotate(180deg);"></button>
+                    <div>
+                        <h1>새로 올라온 책</h1>
+                    </div>
+                    <div class="book-pagination">
+                            <button id="prevPage" class="page-button" style="transform: rotate(180deg);"></button>
                             <ul class="main_prd_ul">
                                 <!--메인 화면 상품 리스트에는 '판매중' 인 상품만 진열-->
                                 <li th:each="item : ${items}" th:object="${item}" class="main_prd_li" th:if="${item.status.toString().equals('SALE')}">
@@ -47,10 +49,93 @@
                 <th:block th:unless="${items != null && items.size() > 0}">
                     <h3>조회된 목록이 없습니다.</h3>
                 </th:block>
-
-            </form>
         </div>
     </section>
+    <section>
+        <div class="main_recommend">
+            <div class="recommend_wrap">
+                <div class="recommend_inner">
+                    <div class="inner_title">
+                        <img th:src="@{/common/images/logo4.png}" class="inner_img">
+                    </div>
+                    <div class="inner_content">
+                        <div class="inner_left">
+                            <p class="inner_left_top">절약하는 당신이 아름답습니다.</p>
+                            <p class="inner_left_bottom">북싸요와 특별한 경험을 <br> 함께해요!</p>
+                            <div>
+                                <a class="inner_left_btn" th:href="@{/front/main/list}">저렴한 도서 구경하러 가기</a>
+                            </div>
+                        </div>
+                        <div class="inner_right">
+                            <ul class="inner_ul">
+                                <li class="inner_li">
+                                    <div class="inner_li_item">
+                                        <div class="li_item_img">
+                                            <img th:src="@{/common/images/rec01.png}">
+                                        </div>
+                                        <div>
+                                            <p class="inner_text_top">깨끗한 도서만 선별!</p>
+                                            <p class="inner_text_bottom">
+                                                북싸요에서 판매되는 중고 도서는<br>
+                                                모두 엄격한 선별 과정을 거친<br>
+                                                상태 좋은 서적 뿐이랍니다.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="inner_li">
+                                    <div class="inner_li_item">
+                                        <div class="li_item_img">
+                                            <img th:src="@{/common/images/rec02.png}">
+                                        </div>
+                                        <div>
+                                            <p class="inner_text_top">상태 좋은 문제집도!</p>
+                                            <p class="inner_text_bottom">
+                                                중고 책방에도 상태 좋은 문제집이<br>
+                                                많이 있답니다.<br>
+                                                깨끗하게 사용된 문제집을 만나보세요!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="inner_li">
+                                    <div class="inner_li_item">
+                                        <div class="li_item_img">
+                                            <img th:src="@{/common/images/rec03.png}">
+                                        </div>
+                                        <div>
+                                            <p class="inner_text_top">구하기 힘든 책도!</p>
+                                            <p class="inner_text_bottom">
+                                                중고 책방의 매력 중 하나는<br>
+                                                이제는 구하기 힘든 오래된 책을<br>
+                                                만날 수 있다는 행운이 있다는 것입니다.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="inner_li">
+                                    <div class="inner_li_item">
+                                        <div class="li_item_img">
+                                            <img th:src="@{/common/images/rec04.png}">
+                                        </div>
+                                        <div>
+                                            <p class="inner_text_top">친구와 함께!</p>
+                                            <p class="inner_text_bottom">
+                                                좋은 책은 나눌수록 그 가치가 올라갑니다.<br>
+                                                북싸요에서 만난 좋은 책을<br>친구와 나눠 보는 건 어떨까요?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </form>
 </main>
+
 </html>

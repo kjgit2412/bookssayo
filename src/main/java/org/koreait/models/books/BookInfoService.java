@@ -39,6 +39,7 @@ public class BookInfoService {
 
     /**
      * 도서 개별 조회
+     *
      * @param bookNo
      * @return
      */
@@ -51,7 +52,7 @@ public class BookInfoService {
 
     /**
      * 도서 엔티티를 도서 양식으로 반환
-     * 
+     *
      * @param bookNo
      * @return
      */
@@ -119,16 +120,53 @@ public class BookInfoService {
             sopt = sopt.trim();
             skey = skey.trim();
 
-            if (sopt.equals("all")) { // 통합 검색
+            if (sopt.equals("all")) { // 통합 검색, 관리자용
                 BooleanBuilder orBuilder = new BooleanBuilder();
                 orBuilder.or(book.bookNo.stringValue().contains(skey))
-                        .or(book.bookNm.containsIgnoreCase(skey));
+                        .or(book.bookNm.containsIgnoreCase(skey))
+                        .or(book.author.containsIgnoreCase(skey))
+                        .or(book.publisher.containsIgnoreCase(skey));
                 andBuilder.and(orBuilder);
-
-            } else if (sopt.equals("bookNm")) {
+            } else if (sopt.equals("frontAll")) { // 통합 검색, 홈페이지용
+                BooleanBuilder orBuilder = new BooleanBuilder();
+                orBuilder.or(book.bookNm.containsIgnoreCase(skey))
+                        .or(book.author.containsIgnoreCase(skey))
+                        .or(book.publisher.containsIgnoreCase(skey));
+                andBuilder.and(orBuilder);
+            } else if (sopt.equals("bookNm")) { // 도서명 검색
                 andBuilder.and(book.bookNm.containsIgnoreCase(skey));
-            } else if (sopt.equals("bookNo")) {
+            } else if (sopt.equals("bookNo")) { // 도서 번호 검색
                 andBuilder.and(book.bookNo.stringValue().contains(skey));
+            } else if (sopt.equals("author")) { // 저자명 검색
+                andBuilder.and(book.author.containsIgnoreCase(skey));
+            } else if (sopt.equals("publisher")) { // 출판사 검색
+                andBuilder.and(book.publisher.containsIgnoreCase(skey));
+            }
+        } else if (sopt != null && !sopt.isBlank()) { // 카테고리(sopt)만 이용
+            if(sopt.equals("domestic")){ // 국산도서 전체
+                // 국산도서의 분류코드는 D로 시작한다.
+                andBuilder.and(book.category.cateCd.containsIgnoreCase("D"));
+            } else if (sopt.equals("D001")) { // 소설
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D002")) { // 시/에세이
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D003")) { // 인문
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D004")) { // 경영/경제
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D005")) { // 자기계발
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D006")) { // 정치/사회
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D007")) { // 역사/문화
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            } else if (sopt.equals("D008")) { // 외국어
+                andBuilder.and(book.category.cateCd.containsIgnoreCase(sopt));
+            }
+
+            if(sopt.equals("foreign")) { // 해외도서 전체
+                // 해외도서의 분류코드는 D로 시작한다.
+                andBuilder.and(book.category.cateCd.containsIgnoreCase("F"));
             }
         }
         /** 조건 및 키워드 검색 E */
@@ -167,7 +205,7 @@ public class BookInfoService {
 
 
         /* Todo : 페이징 처리 로직 추가 */
-        int total = (int)bookRepository.count(andBuilder);
+        int total = (int) bookRepository.count(andBuilder);
         Pagination pagination = new Pagination(page, total, 10, limit, request);
         data.setPagination(pagination);
 
@@ -178,7 +216,7 @@ public class BookInfoService {
      * 첨부된 이미지 추가 처리
      * @param book
      */
-    public void addFileInfo(Book book) {
+    public void addFileInfo(Book book){
         String gid = book.getGid();
         List<FileInfo> mainImages = fileInfoService.getListDone(gid, "main");
         List<FileInfo> listImages = fileInfoService.getListDone(gid, "list");

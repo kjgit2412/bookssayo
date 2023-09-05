@@ -7,6 +7,7 @@ import org.koreait.commons.*;
 import org.koreait.commons.constants.PaymentType;
 import org.koreait.entities.Cart;
 import org.koreait.entities.OrderInfo;
+import org.koreait.models.books.BookSearch;
 import org.koreait.models.member.MemberInfo;
 import org.koreait.models.order.*;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     private final Utils utils;
 
     @GetMapping
-    public String index(@ModelAttribute OrderForm form, Model model) {
+    public String index(@ModelAttribute OrderForm form, Model model, @ModelAttribute BookSearch search) {
         try {
             commonProcess(model, "form", form);
 
@@ -43,14 +44,14 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     }
 
     @PostMapping
-    public String indexPs(@Valid OrderForm form, Errors errors, Model model) {
+    public String indexPs(@Valid OrderForm form, Errors errors, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "form", form);
 
         if (errors.hasErrors()) {
             return utils.view("order/index");
         }
 
-        saveService.save(form);
+        saveService.save(form, search);
 
       //  PaymentType paymentType = PaymentType.valueOf(form.getPaymentType());
      //   String script = "";
@@ -67,7 +68,7 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     }
 
     @GetMapping("/end")
-    public String orderEnd(Long id, Model model) {
+    public String orderEnd(Long id, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "end");
         OrderInfo data = infoService.get(id);
         model.addAttribute("data", data);
@@ -76,7 +77,7 @@ public class OrderController implements CommonProcess, ScriptExceptionProcess {
     }
 
     @GetMapping("/view/{id}")
-    public String view(@PathVariable Long id, Model model) {
+    public String view(@PathVariable Long id, Model model, @ModelAttribute BookSearch search) {
         commonProcess(model, "view");
 
         if (id == null) {

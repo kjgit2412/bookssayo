@@ -7,10 +7,12 @@ import org.koreait.commons.constants.OrderStatus;
 import org.koreait.commons.constants.PaymentType;
 import org.koreait.controllers.orders.OrderForm;
 import org.koreait.entities.*;
+import org.koreait.models.books.BookSearch;
 import org.koreait.repositories.order.OrderInfoRepository;
 import org.koreait.repositories.order.OrderItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class OrderSaveService {
     private final MemberUtil memberUtil;
     private final Utils utils;
 
-    public void save(OrderForm form) {
+    public void save(OrderForm form, @ModelAttribute BookSearch search) {
         List<Long> cartNos = form.getCartNo();
         List<Cart> cartItems = cartService.getList(cartNos);
         if (cartItems == null || cartItems.isEmpty()) {

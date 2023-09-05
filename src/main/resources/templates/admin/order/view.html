@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!--
+    /admin/order/view.html   주문목록에서 주문서 수정
+-->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layouts/main}">
@@ -105,6 +108,7 @@
                 <button type="button" th:data-delivery-company="*{deliveryCompany}" th:data-invoice="*{invoice}" class="trace_delivery">배송조회</button>
             </dd>
         </dl>
+ <!--
         <h2>결제 정보</h2>
         <dl>
             <dt>배송비</dt>
@@ -121,6 +125,26 @@
             <dt>결제방법</dt>
             <dd th:text="*{paymentType.title}"></dd>
         </dl>
+  -->
+        <h2>결제 정보</h2>
+        <table class="table-cols">
+            <tr>
+                <th>배송비</th>
+                <td>3,000원</td>
+            </tr>
+            <tr>
+                <th>결제금액</th>
+                <td>
+                    <th:block th:if="*{payPrice < 1000}" th:text="*{payPrice + '원'}"></th:block>
+                    <th:block th:if="*{payPrice >= 1000}" th:text="*{#numbers.formatInteger(payPrice, 3, 'COMMA') + '원'}"></th:block>
+                </td>
+            </tr>
+            <tr>
+                <th>결제방법</th>
+                <td th:text="*{paymentType.title}"></td>
+            </tr>
+        </table>
+
         <div class="submit_btn">
             <button type="submit" onclick="return confirm('정말 수정하시겠습니까?');">수정하기</button>
         </div>

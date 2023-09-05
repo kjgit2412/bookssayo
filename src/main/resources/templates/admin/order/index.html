@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+<!--
+    /admin/order/index.html   주문관리의 주문목록페이지
+-->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
-
     <form name="frmSearch" method="GET" th:object="${orderSearch}" autocomplete="off">
 
         <table class="table-cols">

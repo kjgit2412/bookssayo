@@ -70,12 +70,14 @@
                     </li>
                 </ul>
             </td>
+
             <td th:text="*{paymentType.title}"></td>
             <td>
                 <a th:href="@{/admin/order/{id}(id=*{id})}" class="sbtn">주문서 수정</a>
             </td>
         </tr>
         <tr th:unless="${items != null && !items.isEmpty()}">
+
             <td colspan="6" class="no_data">검색된 주문이 없습니다.</td>
         </tr>
         </tbody>

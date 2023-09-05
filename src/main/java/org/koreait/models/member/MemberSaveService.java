@@ -1,14 +1,11 @@
 package org.koreait.models.member;
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.constants.BookStatus;
 import org.koreait.commons.constants.Role;
-import org.koreait.controllers.admin.BookForm;
+import org.koreait.controllers.admin.MemberForm;
 import org.koreait.controllers.member.JoinForm;
 import org.koreait.controllers.member.JoinValidator;
-import org.koreait.entities.Book;
 import org.koreait.entities.Member;
-import org.koreait.models.books.BookNotFoundException;
 import org.koreait.repositories.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,5 +56,32 @@ public class MemberSaveService {
 
         repository.saveAndFlush(member);
         joinForm.setUserNo(member.getUserNo());
+    }
+
+    public void update(MemberForm form, Errors errors) {
+        if (errors.hasErrors()) {
+            return;
+        }
+
+        String userId = form.getUserId();
+        String userPw = form.getUserPw();
+        String userPwRe = form.getUserPwRe();
+        if (userId != null && !userId.isBlank()) {
+            Member member = repository.findByUserId(userId);
+            System.out.println(member);
+            if (member == null) return;
+            member.setUserNm(form.getUserId());
+            member.setEmail(form.getEmail());
+            member.setMobile(form.getMobile());
+
+            if (userPw != null && userPwRe != null && !userPw.isBlank() && !userPwRe.isBlank()) {
+                if (!userPw.equals(userPwRe)) {
+                    errors.rejectValue("userPwRe", "Mismatch");
+                }
+
+                member.setUserPw(encoder.encode(userPw));
+            }
+        }
+        repository.flush();
     }
 }

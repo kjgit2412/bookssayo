@@ -165,7 +165,7 @@ public class BookInfoService {
             }
 
             if(sopt.equals("foreign")) { // 해외도서 전체
-                // 해외도서의 분류코드는 D로 시작한다.
+                // 해외도서의 분류코드는 F로 시작한다.
                 andBuilder.and(book.category.cateCd.containsIgnoreCase("F"));
             }
         }

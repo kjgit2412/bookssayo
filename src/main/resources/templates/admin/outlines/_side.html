@@ -3,9 +3,15 @@
 <aside th:fragment="menu">
     <ul>
         <li>
+<!--
             <a th:href="@{/admin/config}" th:classappend="${menuCode} == 'config' ? 'on'">
                 <i class="xi-cog"></i>
                 사이트 설정
+            </a>
+-->
+            <a th:href="@{/front/main}" th:classappend="${menuCode} == 'config' ? 'on'">
+                <i class="xi-cog"></i>
+                상품페이지로
             </a>
         </li>
         <li>

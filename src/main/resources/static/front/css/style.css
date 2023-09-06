@@ -274,8 +274,8 @@ main > inner-section { margin-left: 100px; }
 h3 { color : #be0000; #font-size: 18px; font-weight: bold; margin: 25px 0 10px; line-height: 1; }
 
 .action_button { cursor: pointer; display: inline-block; border: 1px solid #596b99; color: #596b99; min-width: 200px; padding: 0 20px; height: 60px; line-height: 26px; font-size:20px; text-align: center; border-radius: 5px; background: #fff; margin-top: 10px;}
-/*.action_button.order {  color:#fff; background:#3f048c; }
-.action_button.delete { color:#fff; background:#000; }  */
+.action_button.order { color:#fff; background:#596b99; }
+.action_button.delete { color:#fff; background:#000; }
 .action_button.payment {  color:#fff; background:#596b99;  }
 .action_button.gohome { justify-content: center; align-items:center; color:#fff; background:#596b99;  }
 
